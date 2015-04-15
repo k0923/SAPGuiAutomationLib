@@ -216,6 +216,20 @@ namespace SAPGuiAutomationLib
             _sapGuiApiAssembly = Assembly.LoadFile(RawSAPLib);
         }
 
+        public void SetSAPApiAssembly()
+        {
+            var file = Path.Combine(Environment.CurrentDirectory, "Interop.SAPFEWSELib.dll");
+            Stream stm = Assembly.GetExecutingAssembly().GetManifestResourceStream("SAPGuiAutomationLib.Resources.Interop.SAPFEWSELib.dll");
+            byte[] bs = new byte[(int)stm.Length];
+            stm.Read(bs, 0, (int)stm.Length);
+            stm.Close();
+            _sapGuiApiAssembly = Assembly.Load(bs);
+            //FileStream fs = new FileStream(file, FileMode.Create);
+            //fs.Write(bs, 0, bs.Length);
+            //fs.Close();
+            //_sapGuiApiAssembly = Assembly.LoadFile(file);
+        }
+
 
         public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName, Func<Type, IEnumerable<T>> infoFunc) where T : class
         {

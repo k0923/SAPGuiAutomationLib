@@ -20,7 +20,6 @@ namespace SAPGuiAutomationLib
             GuiVComponent vComp = comp as GuiVComponent;
             if (vComp != null)
                 vComp.Visualize(true);
-            
         }
 
         public static T TryGetComponentById<T>(this GuiSession session,string id) where T:class
@@ -34,5 +33,7 @@ namespace SAPGuiAutomationLib
                 return null;
             }
         }
+
+        
     }
 }
