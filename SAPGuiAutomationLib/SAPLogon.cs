@@ -35,8 +35,7 @@ namespace SAPGuiAutomationLib
 
         public void OpenConnection(string server, int secondsOfTimeout = 10)
         {
-            SapROTWr.CSapROTWrapper sapROTWrapper = new SapROTWr.CSapROTWrapper();
-            getSAPGuiApplication(sapROTWrapper, secondsOfTimeout);
+            _sapGuiApplication = SAPTestHelper.GetSAPGuiApp(secondsOfTimeout);
             _sapGuiApplication.OpenConnectionByConnectionString(server);
             var index = _sapGuiApplication.Connections.Count - 1;
             this._sapGuiConnection = _sapGuiApplication.Children.ElementAt(index) as GuiConnection;
@@ -58,8 +57,7 @@ namespace SAPGuiAutomationLib
 
             var window = _sapGuiSession.GetComponentById<GuiFrameWindow>("wnd[0]");
             window.SendVKey(0);
-           
-
+            
             if (AfterLogin != null)
             {
                 AfterLogin(_sapGuiSession, new EventArgs());
@@ -74,32 +72,10 @@ namespace SAPGuiAutomationLib
                     window.SendVKey(0);
                 }
             }
-
-            
-            
         }
 
         
 
-        private void getSAPGuiApplication(CSapROTWrapper sapROTWrapper, int secondsOfTimeout)
-        {
-            object SapGuilRot = sapROTWrapper.GetROTEntry("SAPGUI");
-            if (SapGuilRot == null)
-            {
-                if (secondsOfTimeout < 0)
-                {
-                    throw new TimeoutException(string.Format("Can get sap script engine in {0} seconds", secondsOfTimeout));
-                }
-                Thread.Sleep(1000);
-                secondsOfTimeout -= 1;
-                getSAPGuiApplication(sapROTWrapper, secondsOfTimeout);
-            }
-            else
-            {
-                object engine = SapGuilRot.GetType().InvokeMember("GetSCriptingEngine", System.Reflection.BindingFlags.InvokeMethod,
-                null, SapGuilRot, null);
-                this._sapGuiApplication = engine as GuiApplication;
-            }
-        }
+        
     }
 }

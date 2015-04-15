@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ABD06D1D-77F8-43C3-AE67-BB3FD71807B4}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{3EE86427-725B-4F36-B855-560AF157910F}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SAPGuiAutomationLib</RootNamespace>
-    <AssemblyName>SAPGuiAutomationLib</AssemblyName>
+    <RootNamespace>SAPGuiAutomationLib.Console</RootNamespace>
+    <AssemblyName>SAPGuiAutomationLib.Console</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,26 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SapCompInfo.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordAction.cs" />
-    <Compile Include="RecordStep.cs" />
-    <Compile Include="SAPFEExtension.cs" />
-    <Compile Include="SAPLogon.cs" />
-    <Compile Include="SAPTestHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SAPGuiAutomationLib\SAPGuiAutomationLib.csproj">
+      <Project>{abd06d1d-77f8-43c3-ae67-bb3fd71807b4}</Project>
+      <Name>SAPGuiAutomationLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
       <Guid>{5EA428A0-F2B8-45E7-99FA-0E994E82B5BC}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="SapROTWr">
-      <Guid>{E2779C61-F87E-4038-98A0-1D9E71334706}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
