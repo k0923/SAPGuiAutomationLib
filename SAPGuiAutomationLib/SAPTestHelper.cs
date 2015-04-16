@@ -21,16 +21,18 @@ namespace SAPGuiAutomationLib
         private Assembly _sapGuiApiAssembly;
         private static string _prefix = "SAPFEWSELib.";
         private Action<RecordStep> _stepAction;
-        private Action<GuiComponent> _hitAction;
+        private Action<WrapComp> _hitAction;
 
         public GuiApplication SAPGuiApplication { get { return _sapGuiApplication; } }
         public GuiSession SAPGuiSession { get { return _sapGuiSession; } }
         public GuiConnection SAPGuiConnection { get { return _sapGuiConnection; } }
 
+        public Assembly SAPGuiApiAssembly { get { return _sapGuiApiAssembly; } }
+
         private static GuiApplication getSAPGuiApp(CSapROTWrapper sapROTWrapper, int secondsOfTimeout)
         {
             object SapGuilRot = sapROTWrapper.GetROTEntry("SAPGUI");
-            if(secondsOfTimeout < 0)
+            if (secondsOfTimeout < 0)
             {
                 throw new TimeoutException(string.Format("Can get sap script engine in {0} seconds", secondsOfTimeout));
             }
@@ -43,7 +45,7 @@ namespace SAPGuiAutomationLib
                 }
                 else
                 {
-                    object engine = SapGuilRot.GetType().InvokeMember("GetSCriptingEngine", System.Reflection.BindingFlags.InvokeMethod,null, SapGuilRot, null);
+                    object engine = SapGuilRot.GetType().InvokeMember("GetSCriptingEngine", System.Reflection.BindingFlags.InvokeMethod, null, SapGuilRot, null);
                     if (engine == null)
                         throw new NullReferenceException("No SAP GUI application found");
                     return engine as GuiApplication;
@@ -106,7 +108,7 @@ namespace SAPGuiAutomationLib
 
         void _sapGuiSession_Destroy(GuiSession Session)
         {
-            setTestMode(false);
+
         }
 
         public void SetSession()
@@ -224,10 +226,6 @@ namespace SAPGuiAutomationLib
             stm.Read(bs, 0, (int)stm.Length);
             stm.Close();
             _sapGuiApiAssembly = Assembly.Load(bs);
-            //FileStream fs = new FileStream(file, FileMode.Create);
-            //fs.Write(bs, 0, bs.Length);
-            //fs.Close();
-            //_sapGuiApiAssembly = Assembly.LoadFile(file);
         }
 
 
@@ -235,7 +233,7 @@ namespace SAPGuiAutomationLib
         {
             if (_sapGuiApiAssembly == null)
                 throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
-            
+
             Type t = _sapGuiApiAssembly.GetType(_prefix + typeName).GetInterfaces()[0];
             return infoFunc(t);
 
@@ -243,17 +241,17 @@ namespace SAPGuiAutomationLib
 
         public IEnumerable<T> GetSAPTypeInfoes<T>(GuiComponent Component, Func<Type, IEnumerable<T>> infoFunc) where T : class
         {
-            return GetSAPTypeInfoes<T>(Component.Type,infoFunc);
+            return GetSAPTypeInfoes<T>(Component.Type, infoFunc);
         }
 
 
-        public void LoopSAPComponents<T>(GuiComponent CurrentComponent,T item,Func<GuiComponent,T,T> Method) where T:class
+        public void LoopSAPComponents<T>(GuiComponent CurrentComponent, T item, Func<GuiComponent, T, T> Method) where T : class
         {
             T newItem = Method(CurrentComponent, item);
 
-            if(CurrentComponent is GuiVContainer && !(CurrentComponent is GuiTableControl))
+            if (CurrentComponent is GuiVContainer && !(CurrentComponent is GuiTableControl))
             {
-                for(int i = 0;i<((GuiVContainer)CurrentComponent).Children.Count;i++)
+                for (int i = 0; i < ((GuiVContainer)CurrentComponent).Children.Count; i++)
                 {
                     GuiComponent comp = ((GuiVContainer)CurrentComponent).Children.ElementAt(i);
                     LoopSAPComponents(comp, newItem, Method);
@@ -276,30 +274,29 @@ namespace SAPGuiAutomationLib
             _sapGuiSession.Record = true;
         }
 
-        public void Spy(Action<GuiComponent> HitAction)
+        public void Spy(Action<WrapComp> HitAction)
         {
             checkSapSession();
             _hitAction = HitAction;
-            setTestMode(true);
         }
 
-        private void setTestMode(bool on)
+        public void SetVisualMode(bool on)
         {
             for (int i = 0; i < _sapGuiSession.Children.Count; i++)
             {
                 var fWin = _sapGuiSession.Children.ElementAt(i) as GuiFrameWindow;
                 if (fWin != null)
                 {
-                    if (fWin.ElementVisualizationMode != on)
-                        fWin.ElementVisualizationMode = on;
+                    fWin.ElementVisualizationMode = on;
                 }
             }
         }
 
         void _sapGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
         {
-            _hitAction(Component);
-            setTestMode(false);
+            WrapComp comp = new WrapComp();
+            comp.Comp = Component;
+            _hitAction(comp);
         }
 
         public void StopRecording()
@@ -344,7 +341,7 @@ namespace SAPGuiAutomationLib
 
             if (count > 2)
             {
-                step.ActionParams = new object[count-2];
+                step.ActionParams = new object[count - 2];
                 for (int i = 2; i < count; i++)
                 {
                     step.ActionParams[i - 2] = objs[i];

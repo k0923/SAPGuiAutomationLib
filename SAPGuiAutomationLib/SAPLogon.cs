@@ -62,16 +62,15 @@ namespace SAPGuiAutomationLib
             {
                 AfterLogin(_sapGuiSession, new EventArgs());
             }
-            else
-            {
-                GuiRadioButton rb_Button = _sapGuiSession.TryGetComponentById<GuiRadioButton>("wnd[1]/usr/radMULTI_LOGON_OPT2");
 
-                if (rb_Button != null)
-                {
-                    rb_Button.Select();
-                    window.SendVKey(0);
-                }
+            GuiRadioButton rb_Button = _sapGuiSession.TryGetComponentById<GuiRadioButton>("wnd[1]/usr/radMULTI_LOGON_OPT2");
+
+            if (rb_Button != null)
+            {
+                rb_Button.Select();
+                window.SendVKey(0);
             }
+            
         }
 
         

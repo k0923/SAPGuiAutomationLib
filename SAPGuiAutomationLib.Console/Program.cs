@@ -13,16 +13,48 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
-            ShowMethod();
-            //GuiButton btn = new GuiButton();
+            SAPTestHelper.Current.SetSession();
+            SAPTestHelper.Current.SAPGuiSession.Hit += SAPGuiSession_Hit;
+            for (int i = 0; i < SAPTestHelper.Current.SAPGuiSession.Children.Count;i++ )
+            {
+                var fWin = SAPTestHelper.Current.SAPGuiSession.Children.ElementAt(i) as GuiFrameWindow;
+                if(fWin!=null)
+                {
+                    fWin.ElementVisualizationMode = true;
+                }
+            }
+                ShowInfo("GuiTree");
             
+            Console.WriteLine(SAPTestHelper.Current.SAPGuiConnection.Children.Count);
             Console.ReadLine();
         }
 
-        static void ShowMethod()
+        static void SAPGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
+        {
+            SAPTestHelper.Current.SAPGuiSession.Hit -= SAPGuiSession_Hit;
+            for (int i = 0; i < SAPTestHelper.Current.SAPGuiSession.Children.Count; i++)
+            {
+                var fWin = SAPTestHelper.Current.SAPGuiSession.Children.ElementAt(i) as GuiFrameWindow;
+                if (fWin != null)
+                {
+                    fWin.ElementVisualizationMode = false;
+                }
+            }
+            Console.WriteLine("abc");
+            for (int i = 0; i < SAPTestHelper.Current.SAPGuiSession.Children.Count; i++)
+            {
+                var fWin = SAPTestHelper.Current.SAPGuiSession.Children.ElementAt(i) as GuiFrameWindow;
+                if (fWin != null)
+                {
+                    Console.WriteLine(fWin.ElementVisualizationMode);
+                }
+            }
+        }
+
+        static void ShowInfo(string typeName)
         {
             SAPTestHelper.Current.SetSAPApiAssembly();
-            var ms = SAPTestHelper.Current.GetSAPTypeInfoes<MethodInfo>("GuiButton", t => t.GetMethods().Where(m=>m.IsSpecialName == false));
+            var ms = SAPTestHelper.Current.GetSAPTypeInfoes<MethodInfo>(typeName, t => t.GetMethods().Where(m => m.IsSpecialName == false));
             foreach(var m in ms)
             {
                 string method = string.Empty;
@@ -51,6 +83,16 @@ namespace SAPGuiAutomationLib.Con
 
 
                 Console.WriteLine(method);
+            }
+
+            var props = SAPTestHelper.Current.GetSAPTypeInfoes<PropertyInfo>(typeName, t => t.GetProperties().Where(p => p.IsSpecialName == false));
+            foreach (var p in props)
+            {
+                Console.WriteLine(p.Name);
+
+
+
+                
             }
         }
     }

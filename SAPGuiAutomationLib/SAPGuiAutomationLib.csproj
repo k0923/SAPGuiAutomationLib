@@ -46,6 +46,7 @@
     <Compile Include="SAPFEExtension.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
+    <Compile Include="WrapComp.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
