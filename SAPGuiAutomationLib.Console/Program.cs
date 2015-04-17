@@ -13,19 +13,16 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+            Console.WriteLine(5 / 3);
             SAPTestHelper.Current.SetSession();
-            SAPTestHelper.Current.SAPGuiSession.Hit += SAPGuiSession_Hit;
-            for (int i = 0; i < SAPTestHelper.Current.SAPGuiSession.Children.Count;i++ )
-            {
-                var fWin = SAPTestHelper.Current.SAPGuiSession.Children.ElementAt(i) as GuiFrameWindow;
-                if(fWin!=null)
-                {
-                    fWin.ElementVisualizationMode = true;
-                }
-            }
-                ShowInfo("GuiTree");
+            SAPTestHelper.Current.SetSAPApiAssembly();
+            GuiUserArea area = SAPTestHelper.Current.GetElementById<GuiUserArea>("wnd[0]/usr");
+            GuiScrollbar scroll = area.VerticalScrollbar;
+            GuiScrollbar hScroll = area.HorizontalScrollbar;
             
-            Console.WriteLine(SAPTestHelper.Current.SAPGuiConnection.Children.Count);
+            //ShowInfo("GuiTree");
+            ShowProp("GuiScrollbar", scroll);
+            ShowProp("GuiScrollbar", hScroll);
             Console.ReadLine();
         }
 
@@ -51,7 +48,25 @@ namespace SAPGuiAutomationLib.Con
             }
         }
 
-        static void ShowInfo(string typeName)
+
+        static void ShowProp(string typeName,object obj)
+        {
+            var props = SAPTestHelper.Current.GetSAPTypeInfoes<PropertyInfo>(typeName, t => t.GetProperties().Where(p => p.IsSpecialName == false));
+            foreach (var p in props)
+            {
+                try
+                {
+                    Console.WriteLine(p.Name +":"+p.GetValue(obj).ToString());
+                }
+                catch
+                {
+
+                }
+                
+            }
+        }
+
+        static void ShowMethod(string typeName)
         {
             SAPTestHelper.Current.SetSAPApiAssembly();
             var ms = SAPTestHelper.Current.GetSAPTypeInfoes<MethodInfo>(typeName, t => t.GetMethods().Where(m => m.IsSpecialName == false));
@@ -85,15 +100,7 @@ namespace SAPGuiAutomationLib.Con
                 Console.WriteLine(method);
             }
 
-            var props = SAPTestHelper.Current.GetSAPTypeInfoes<PropertyInfo>(typeName, t => t.GetProperties().Where(p => p.IsSpecialName == false));
-            foreach (var p in props)
-            {
-                Console.WriteLine(p.Name);
-
-
-
-                
-            }
+            
         }
     }
 }

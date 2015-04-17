@@ -88,6 +88,9 @@ namespace SAPGuiAutomationLib
 
         public void SetSession(GuiApplication application, GuiConnection connection, GuiSession session)
         {
+            if (_sapGuiSession != null)
+                SetVisualMode(false);
+
             this._sapGuiApplication = application;
             this._sapGuiConnection = connection;
             this._sapGuiSession = session;
@@ -113,6 +116,10 @@ namespace SAPGuiAutomationLib
 
         public void SetSession()
         {
+            
+            if(_sapGuiSession != null)
+                SetVisualMode(false);
+
             _sapGuiApplication = SAPTestHelper.GetSAPGuiApp();
             int index = _sapGuiApplication.Connections.Count - 1;
             if (index < 0)
@@ -127,6 +134,7 @@ namespace SAPGuiAutomationLib
                 throw new Exception("No SAP GUI Session Found");
             }
             _sapGuiSession = _sapGuiConnection.Children.ElementAt(index) as GuiSession;
+            
             hookSessionEvent();
         }
 
@@ -244,28 +252,79 @@ namespace SAPGuiAutomationLib
             return GetSAPTypeInfoes<T>(Component.Type, infoFunc);
         }
 
-
-        public void LoopSAPComponents<T>(GuiComponent CurrentComponent, T item, Func<GuiComponent, T, T> Method) where T : class
+        public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, int childrenIndex, int MaxChildrenCount, Func<WrapComp, T, int, T> Method) where T : class
         {
-            T newItem = Method(CurrentComponent, item);
-
-            if (CurrentComponent is GuiVContainer && !(CurrentComponent is GuiTableControl))
+            var count = 0;
+            if (CurrentComponent.Comp is GuiContainer)
             {
-                for (int i = 0; i < ((GuiVContainer)CurrentComponent).Children.Count; i++)
+                count = ((GuiContainer)CurrentComponent.Comp).Children.Count;
+            }
+            if (CurrentComponent.Comp is GuiVContainer)
+            {
+                count = ((GuiVContainer)CurrentComponent.Comp).Children.Count;
+            }
+            T newItem = Method(CurrentComponent, item, count);
+            if (CurrentComponent.Comp is GuiVContainer)
+            {
+                int startIndex = childrenIndex;
+                int endIndex = count;
+
+                if (count > MaxChildrenCount)
                 {
-                    GuiComponent comp = ((GuiVContainer)CurrentComponent).Children.ElementAt(i);
-                    LoopSAPComponents(comp, newItem, Method);
+                    endIndex = (childrenIndex + MaxChildrenCount > count) ? count : childrenIndex + MaxChildrenCount;
+                }
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
+                    WrapComp wrComp = new WrapComp() { Comp = comp };
+                    LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
                 }
             }
-            if (CurrentComponent is GuiContainer && !(CurrentComponent is GuiTableControl))
+            if (CurrentComponent.Comp is GuiContainer)
             {
-                for (int i = 0; i < ((GuiContainer)CurrentComponent).Children.Count; i++)
+                int startIndex = 0;
+                int endIndex = count;
+
+                if (count > MaxChildrenCount)
                 {
-                    GuiComponent comp = ((GuiContainer)CurrentComponent).Children.ElementAt(i);
-                    LoopSAPComponents(comp, newItem, Method);
+                    endIndex = (childrenIndex + MaxChildrenCount > count) ? count : childrenIndex + MaxChildrenCount;
+
+                }
+
+                for (int i = startIndex; i < endIndex; i++)
+                {
+                    GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
+                    WrapComp wrComp = new WrapComp() { Comp = comp };
+                    LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
                 }
             }
         }
+
+        public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, Func<WrapComp, T, T> Method) where T : class
+        {
+            T newItem = Method(CurrentComponent, item);
+
+            if (CurrentComponent.Comp is GuiVContainer && !(CurrentComponent.Comp is GuiTableControl))
+            {
+                for (int i = 0; i < ((GuiVContainer)CurrentComponent.Comp).Children.Count; i++)
+                {
+                    GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
+                    WrapComp wrComp = new WrapComp() { Comp = comp };
+                    LoopSAPComponents(wrComp, newItem, Method);
+                }
+            }
+            if (CurrentComponent.Comp is GuiContainer && !(CurrentComponent.Comp is GuiTableControl))
+            {
+                for (int i = 0; i < ((GuiContainer)CurrentComponent.Comp).Children.Count; i++)
+                {
+                    GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
+                    WrapComp wrComp = new WrapComp() { Comp = comp };
+                    LoopSAPComponents(wrComp, newItem, Method);
+                }
+            }
+        }
+
+        
 
         public void StartRecording(Action<RecordStep> StepAction)
         {
