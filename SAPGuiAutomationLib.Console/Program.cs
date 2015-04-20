@@ -13,6 +13,8 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+            
+            Console.WriteLine( ("4.704.677,05").IndexOf('4'));
             Console.WriteLine(5 / 3);
             SAPTestHelper.Current.SetSession();
             SAPTestHelper.Current.SetSAPApiAssembly();

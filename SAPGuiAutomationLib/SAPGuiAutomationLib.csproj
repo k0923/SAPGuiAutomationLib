@@ -41,7 +41,6 @@
   <ItemGroup>
     <Compile Include="SapCompInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RecordAction.cs" />
     <Compile Include="RecordStep.cs" />
     <Compile Include="SAPFEExtension.cs" />
     <Compile Include="SAPLogon.cs" />

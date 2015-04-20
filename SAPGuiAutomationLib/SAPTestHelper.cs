@@ -111,7 +111,7 @@ namespace SAPGuiAutomationLib
 
         void _sapGuiSession_Destroy(GuiSession Session)
         {
-
+            _sapGuiSession = null;
         }
 
         public void SetSession()
@@ -236,6 +236,15 @@ namespace SAPGuiAutomationLib
             _sapGuiApiAssembly = Assembly.Load(bs);
         }
 
+        
+        public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName,object obj, Func<Type,object,IEnumerable<T>> infoMethod) where T:class
+        {
+            if (_sapGuiApiAssembly == null)
+                throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
+
+            Type t = _sapGuiApiAssembly.GetType(_prefix + typeName).GetInterfaces()[0];
+            return infoMethod(t, obj);
+        }
 
         public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName, Func<Type, IEnumerable<T>> infoFunc) where T : class
         {
@@ -387,10 +396,10 @@ namespace SAPGuiAutomationLib
             switch (objs[0].ToString().ToLower())
             {
                 case "m":
-                    step.Action = RecordAction.CallFunction;
+                    step.Action = BindingFlags.InvokeMethod;
                     break;
                 case "sp":
-                    step.Action = RecordAction.SetProperty;
+                    step.Action = BindingFlags.SetProperty;
                     break;
             }
 
@@ -408,6 +417,37 @@ namespace SAPGuiAutomationLib
             }
 
             _stepAction(step);
+        }
+
+
+        public object RunAction(RecordStep step)
+        {
+            GuiComponent comp = _sapGuiSession.TryGetComponentById<GuiComponent>(step.CompInfo.Id);
+            if (comp == null)
+                throw new Exception(string.Format("Can't find component using id {0}",step.CompInfo.Id));
+            string typeName = _prefix + comp.Type;
+            Type t = _sapGuiApiAssembly.GetType(typeName);
+            if (t == null)
+                throw new Exception(string.Format("Can't find type {0}", typeName));
+            return t.InvokeMember(step.ActionName, step.Action, null, comp, step.ActionParams);
+        }
+
+        public object InvokeMember(string SAPGuiId, string MemberName, BindingFlags Flags, object[] parameters)
+        {
+            GuiComponent comp = SAPTestHelper.Current.TryGetElementById(SAPGuiId);
+            if (comp == null)
+                throw new Exception("Can't find component");
+            string typeName = _prefix + comp.Type;
+            Type t = _sapGuiApiAssembly.GetType(typeName);
+            if (t == null)
+                throw new Exception(string.Format("Can't find type {0}", typeName));
+            return t.InvokeMember(MemberName, Flags, null, comp, parameters);
+        }
+
+        public object InvokeMember(GuiComponent Obj, string MemberName, BindingFlags Flags, object[] parameters)
+        {
+            Type t = _sapGuiApiAssembly.GetType(_prefix + Obj.Type, true);
+            return t.InvokeMember(MemberName, Flags, null, Obj, parameters);
         }
     }
 }

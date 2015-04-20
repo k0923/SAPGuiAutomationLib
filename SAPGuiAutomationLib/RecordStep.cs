@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace SAPGuiAutomationLib
     {
         public int StepId { get; set; }
 
-        public RecordAction Action { get; set; }
+        public BindingFlags Action { get; set; }
 
         public SapCompInfo CompInfo { get; set; }
 
