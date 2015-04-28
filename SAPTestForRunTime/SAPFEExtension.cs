@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using SAPFEWSELib;
 
-namespace SAPGuiAutomationLib
+namespace SAPTestRunTime
 {
     public static class SAPFEExtension
     {
@@ -14,6 +13,8 @@ namespace SAPGuiAutomationLib
             T element = session.FindById(id) as T;
             return element;
         }
+
+        
 
         public static void HighLight(this GuiComponent comp)
         {

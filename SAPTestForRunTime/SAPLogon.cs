@@ -6,9 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
-namespace SAPGuiAutomationLib
+namespace SAPTestRunTime
 {
     public delegate void LoginHandler(GuiSession sender, EventArgs e);
     public class SAPLogon
