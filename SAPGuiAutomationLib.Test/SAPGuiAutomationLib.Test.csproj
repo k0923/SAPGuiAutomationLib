@@ -59,6 +59,10 @@
       <Project>{abd06d1d-77f8-43c3-ae67-bb3fd71807b4}</Project>
       <Name>SAPGuiAutomationLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SAPTestForRunTime\SAPTestRunTime.csproj">
+      <Project>{5631060e-3925-4e06-bdbc-a6b39ea54117}</Project>
+      <Name>SAPTestRunTime</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
