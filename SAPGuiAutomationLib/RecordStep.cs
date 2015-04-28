@@ -64,11 +64,20 @@ namespace SAPGuiAutomationLib
                                  new CodeTypeReference[] {
                                     new CodeTypeReference(CompInfo.Type),
                                        }), new CodePrimitiveExpression(CompInfo.Id));
-            CodeExpression[] paras = new CodeExpression[ActionParams.Count()];
-            for(int i =0;i<ActionParams.Count();i++)
+            CodeExpression[] paras;
+            if(ActionParams != null)
             {
-                paras[i] = new CodePrimitiveExpression(ActionParams[i]);
+                paras = new CodeExpression[ActionParams.Count()];
+                for (int i = 0; i < ActionParams.Count(); i++)
+                {
+                    paras[i] = new CodePrimitiveExpression(ActionParams[i]);
+                }
             }
+            else
+            {
+                paras = new CodeExpression[0];
+            }
+            
             CodeMethodInvokeExpression method = new CodeMethodInvokeExpression(genericMethod, ActionName,paras);
             statement.Expression = method;
             return statement;
