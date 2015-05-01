@@ -48,7 +48,7 @@ namespace SAPTestRunTime
             {
                 BeforeLogin(_sapGuiSession, new EventArgs());
             }
-
+            
             _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/txtRSYST-BNAME").Text = UserName;
             _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/pwdRSYST-BCODE").Text = Password;
             _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/txtRSYST-MANDT").Text = Client;

@@ -46,7 +46,6 @@
     <Compile Include="SapCompInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecordStep.cs" />
-    <Compile Include="SAPComponentExtension.cs" />
     <Compile Include="SAPTestHelper - Copy.cs" />
     <Compile Include="SAPAutomationHelper.cs" />
     <Compile Include="WrapComp.cs" />
