@@ -18,8 +18,23 @@ namespace SAPGuiAutomationLib.Con
             
             SAPTestHelper.Current.SetSession();
 
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr");
+            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr");
 
+
+
+
+
+
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
             var shell = SAPTestHelper.Current.GetElementById<GuiContainerShell>("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont");
             var test = shell.FindByName("shell", "GuiSplitShell");
             //var area = SAPTestHelper.Current.SAPGuiSession.FindById("wnd[0]").FindByName<GuiUserArea>("usr");

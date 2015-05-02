@@ -39,8 +39,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SAPFindAllByName.cs" />
+    <Compile Include="SAPFindAllByNameEx.cs" />
+    <Compile Include="SAPFindChildByCondition.cs" />
+    <Compile Include="SAPFindById.cs" />
+    <Compile Include="SAPFindByName.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SAPFEExtension.cs" />
+    <Compile Include="SAPFindByNameEx.cs" />
+    <Compile Include="SAPFindMethodTemplate.cs" />
+    <Compile Include="SAPHighlight.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
   </ItemGroup>

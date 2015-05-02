@@ -16,11 +16,10 @@ namespace SAPLibTools
     {
         static void Main(string[] args)
         {
-
             CodeGenerateHelper helper = new CodeGenerateHelper();
-            foreach(var method in helper.GetFindByNameMethod())
+            foreach (var item in helper.GetFindChildByConditionMethods())
             {
-                helper.TargetClass.Members.Add(method);
+                helper.TargetClass.Members.Add(item);
             }
             DisplayCode(helper.Unit);
 
