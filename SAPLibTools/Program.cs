@@ -74,6 +74,7 @@ namespace SAPLibTools
             FileStream fs = new FileStream("Sample.cs", FileMode.Create);
             using (StreamWriter sourceWriter = new StreamWriter(fs))
             {
+                
                 provider.GenerateCodeFromCompileUnit(
                     unit, sourceWriter, options);
             }

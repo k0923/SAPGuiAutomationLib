@@ -32,6 +32,7 @@ namespace SAPTestRunTime
 
         private static GuiApplication getSAPGuiApp(CSapROTWrapper sapROTWrapper, int secondsOfTimeout)
         {
+            
             object SapGuilRot = sapROTWrapper.GetROTEntry("SAPGUI");
             if (secondsOfTimeout < 0)
             {

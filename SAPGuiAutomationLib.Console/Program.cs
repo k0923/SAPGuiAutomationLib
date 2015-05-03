@@ -7,6 +7,9 @@ using SAPFEWSELib;
 using System.Reflection;
 using System.Reflection.Emit;
 using SAPTestRunTime;
+using System.CodeDom;
+using System.CodeDom.Compiler;
+using System.IO;
 
 namespace SAPGuiAutomationLib.Con
 {
@@ -14,10 +17,39 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+             SAPTestHelper.Current.SetSession();
 
+
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiOkCodeField>("okcd").Text = "SE16";
+
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiButton>("btn[0]").Press();
+
+
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "TCURR";
+
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiButton>("btn[0]").Press();
+
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("I1-LOW").Text = "M";
             
-            SAPTestHelper.Current.SetSession();
+            
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("I1-LOW")
+            
+            
+            
+            
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "abc";
 
+            GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
+
+
+
+            SapCompInfo ci = new SapCompInfo();
+            ci.Type = comp.Type;
+            ci.Name = comp.Name;
+            ci.Id = comp.Id;
+
+            DisplayCode(ci.GetFindCode());
+            Console.ReadLine();
             //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr");
 
 
@@ -25,7 +57,7 @@ namespace SAPGuiAutomationLib.Con
 
 
 
-            
+            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr")
            
             
             
@@ -44,7 +76,20 @@ namespace SAPGuiAutomationLib.Con
             
             
         }
-
+        static void DisplayCode(CodeExpression Expression)
+        {
+            CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");
+            CodeGeneratorOptions options = new CodeGeneratorOptions();
+            options.BracingStyle = "c";
+            StringBuilder sb = new StringBuilder();
+            
+            using (TextWriter sourceWriter = new StringWriter(sb))
+            {
+                provider.GenerateCodeFromExpression(Expression, sourceWriter, options);
+                
+            }
+            Console.WriteLine(sb.ToString());
+        }
         static void SAPGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
         {
             
