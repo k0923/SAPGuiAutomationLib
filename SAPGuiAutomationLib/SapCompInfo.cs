@@ -18,6 +18,22 @@ namespace SAPGuiAutomationLib
 
     public static class SapCompInfoExtension
     {
+        private static string getDetailType(GuiComponent comp)
+        {
+            if (comp.Type == "GuiSplitterShell")
+            {
+                return "GuiSplit";
+            }
+            else if (comp is GuiShell)
+            {
+                return "Gui" + (comp as GuiShell).SubType;
+            }
+            else
+            {
+                return comp.Type;
+            }
+        }
+
         public static CodeExpression GetFindCode(this SapCompInfo CompInfo)
         {
             Stack<SapCompInfo> comps = new Stack<SapCompInfo>();
@@ -27,7 +43,8 @@ namespace SAPGuiAutomationLib
                 SapCompInfo ci = new SapCompInfo();
                 ci.Id = comp.Id;
                 ci.Name = comp.Name;
-                ci.Type = comp.Type;
+
+                ci.Type = getDetailType(comp);
                 comps.Push(ci);
                 comp = comp.Parent;
             }

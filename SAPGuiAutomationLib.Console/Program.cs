@@ -17,24 +17,11 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
-            
-             SAPTestHelper.Current.SetSession();
 
-             SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").
-                 FindByName<GuiUserArea>("usr").FindChildByCondition<GuiTextField>(c => c.DefaultTooltip.Contains("Exchange Rate")).Text = "M";
+            SAPTestHelper.Current.SetSession();
 
 
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiOkCodeField>("okcd").Text = "SE16";
 
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiButton>("btn[0]").Press();
-
-
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "TCURR";
-
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiToolbar>("tbar[0]").FindByName<GuiButton>("btn[0]").Press();
-
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("I1-LOW").Text = "M";
-            
             
            
             
