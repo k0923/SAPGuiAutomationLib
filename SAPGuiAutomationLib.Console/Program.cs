@@ -21,8 +21,13 @@ namespace SAPGuiAutomationLib.Con
             SAPTestHelper.Current.SetSession();
 
 
+            GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
 
-            
+
+
+            SapCompInfo ci = new SapCompInfo();
+            ci.Id = comp.Id;
+            ci.RunGetMethod();
            
             
             
@@ -30,16 +35,11 @@ namespace SAPGuiAutomationLib.Con
             
             SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "abc";
 
-            GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
-
-
-
-            SapCompInfo ci = new SapCompInfo();
+           
             ci.Type = comp.Type;
             ci.Name = comp.Name;
-            ci.Id = comp.Id;
 
-            DisplayCode(ci.GetFindCode());
+            DisplayCode(ci.FindMethod);
             Console.ReadLine();
             //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr");
 

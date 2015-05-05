@@ -232,7 +232,6 @@ namespace SAPGuiAutomationLib
         void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray)
         {
             SapCompInfo cpInfo = new SapCompInfo();
-
             cpInfo.Id = Component.Id;
             cpInfo.Name = Component.Name;
             cpInfo.Type = Component.Type;
