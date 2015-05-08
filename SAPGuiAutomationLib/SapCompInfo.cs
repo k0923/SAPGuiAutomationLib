@@ -1,5 +1,4 @@
 ﻿using SAPFEWSELib;
-using SAPTestRunTime;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +20,8 @@ namespace SAPGuiAutomationLib
 
         private void generateMethod()
         {
-            GuiComponent comp = SAPTestHelper.Current.TryGetElementById(Id);
-            
+
+            GuiComponent comp = SAPAutomationHelper.Current.GetSAPComponentById<GuiComponent>(Id);
 
             if (comp == null)
             {

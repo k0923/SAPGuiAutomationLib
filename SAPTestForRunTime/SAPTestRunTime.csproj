@@ -48,7 +48,6 @@
     <Compile Include="SAPFEExtension.cs" />
     <Compile Include="SAPFindByNameEx.cs" />
     <Compile Include="SAPFindMethodTemplate.cs" />
-    <Compile Include="SAPHighlight.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
   </ItemGroup>

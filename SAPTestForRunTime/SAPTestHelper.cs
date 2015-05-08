@@ -80,9 +80,46 @@ namespace SAPTestRunTime
 
         public void SetSession(GuiApplication application, GuiConnection connection, GuiSession session)
         {
+            
             this._sapGuiApplication = application;
             this._sapGuiConnection = connection;
             this._sapGuiSession = session;
+        }
+
+        public void SetSession(string BoxName)
+        {
+            _sapGuiSession = null;
+            _sapGuiConnection = null;
+            _sapGuiApplication = SAPTestHelper.GetSAPGuiApp();
+            int index = _sapGuiApplication.Connections.Count - 1;
+            if (index < 0)
+            {
+                throw new Exception("No SAP GUI Connections found");
+            }
+            for(int i =0;i<_sapGuiApplication.Children.Count;i++)
+            {
+                GuiConnection con = _sapGuiApplication.Children.ElementAt(i) as GuiConnection;
+                index = con.Sessions.Count - 1;
+                if (index < 0)
+                {
+                    throw new Exception("No SAP GUI Session Found");
+                }
+                for(int j=0;j<con.Sessions.Count;j++)
+                {
+                    GuiSession session = con.Children.ElementAt(j) as GuiSession;
+                    if(session.Info.SystemName.ToLower() == BoxName.ToLower())
+                    {
+                        _sapGuiSession = session;
+                        break;
+                    }
+                }
+                if (_sapGuiSession != null)
+                {
+                    _sapGuiConnection = con;
+                    break;
+                }
+                    
+            }
         }
 
         public void SetSession()

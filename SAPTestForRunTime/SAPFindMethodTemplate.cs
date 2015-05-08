@@ -11,55 +11,92 @@ namespace SAPTestRunTime
         public static IEnumerable<T> findAllByNameTemplate<T>(string Name, Func<string, string, GuiComponentCollection> FindAllByName)
             where T : class
         {
-            var Components = FindAllByName(Name, typeof(T).Name);
-            if (Components != null)
+            try
             {
-                List<T> comps = new List<T>();
-                for (int i = 0; i < Components.Count; i++)
+                var Components = FindAllByName(Name, typeof(T).Name);
+                if (Components != null)
                 {
-                    T comp = Components.ElementAt(i) as T;
-                    comps.Add(comp);
+                    List<T> comps = new List<T>();
+                    for (int i = 0; i < Components.Count; i++)
+                    {
+                        T comp = Components.ElementAt(i) as T;
+                        comps.Add(comp);
+                    }
+                    return comps;
                 }
-                return comps;
-            }
 
-            return null;
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+            
 
         }
 
         public static IEnumerable<T> findAllByNameExTemplate<T>(string Name,int TypeId, Func<string, int, GuiComponentCollection> FindAllByNameEx) where T:class
         {
-            var Components = FindAllByNameEx(Name, TypeId);
-            if (Components != null)
+            try
             {
-                List<T> comps = new List<T>();
-                for (int i = 0; i < Components.Count; i++)
+                var Components = FindAllByNameEx(Name, TypeId);
+                if (Components != null)
                 {
-                    T comp = Components.ElementAt(i) as T;
-                    comps.Add(comp);
+                    List<T> comps = new List<T>();
+                    for (int i = 0; i < Components.Count; i++)
+                    {
+                        T comp = Components.ElementAt(i) as T;
+                        comps.Add(comp);
+                    }
+                    return comps;
                 }
-                return comps;
+                return null;
+            }
+            catch
+            {
+                return null;
             }
 
-            return null;
+            
         }
 
         private static T findByNameTemplate<T>(string Name, Func<string, string, GuiComponent> FindMethod) where T : class
         {
-            return FindMethod(Name, typeof(T).Name) as T;
+            try
+            {
+                return FindMethod(Name, typeof(T).Name) as T;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         private static T findByNameExTemplate<T>(string Name, int TypeId, Func<string, int, GuiComponent> FindMethod) where T : class
         {
-            return FindMethod(Name, TypeId) as T;
+            try
+            {
+                return FindMethod(Name, TypeId) as T;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
 
 
         private static T findByIdTemplate<T>(string Id, Func<string,object, GuiComponent> FindById) where T : class
         {
+            try
+            {
+                return FindById(Id, Type.Missing) as T;
+            }
+            catch
+            {
+                return null;
+            }
             
-            return FindById(Id,Type.Missing) as T;
         }
 
         private static T findChildByConditionTemplate<T>(GuiComponentCollection Components, Func<T, bool> Condition) where T : class

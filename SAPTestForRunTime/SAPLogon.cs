@@ -48,13 +48,13 @@ namespace SAPTestRunTime
             {
                 BeforeLogin(_sapGuiSession, new EventArgs());
             }
-            
-            _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/txtRSYST-BNAME").Text = UserName;
-            _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/pwdRSYST-BCODE").Text = Password;
-            _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/txtRSYST-MANDT").Text = Client;
-            _sapGuiSession.GetComponentById<GuiTextField>("wnd[0]/usr/txtRSYST-LANGU").Text = Language;
 
-            var window = _sapGuiSession.GetComponentById<GuiFrameWindow>("wnd[0]");
+            _sapGuiSession.FindById<GuiCTextField>("wnd[0]/usr/txtRSYST-BNAME").Text = UserName;
+            _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/pwdRSYST-BCODE").Text = Password;
+            _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-MANDT").Text = Client;
+            _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-LANGU").Text = Language;
+
+            var window = _sapGuiSession.FindById<GuiFrameWindow>("wnd[0]");
             window.SendVKey(0);
             
             if (AfterLogin != null)
@@ -62,7 +62,7 @@ namespace SAPTestRunTime
                 AfterLogin(_sapGuiSession, new EventArgs());
             }
 
-            GuiRadioButton rb_Button = _sapGuiSession.TryGetComponentById<GuiRadioButton>("wnd[1]/usr/radMULTI_LOGON_OPT2");
+            GuiRadioButton rb_Button = _sapGuiSession.FindById<GuiRadioButton>("wnd[1]/usr/radMULTI_LOGON_OPT2");
 
             if (rb_Button != null)
             {

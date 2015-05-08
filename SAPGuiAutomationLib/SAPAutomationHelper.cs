@@ -8,7 +8,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SAPTestRunTime;
+
 
 namespace SAPGuiAutomationLib
 {
@@ -44,6 +44,9 @@ namespace SAPGuiAutomationLib
                 return _instance;
             }
         }
+
+
+
 
         public void SetSession(GuiSession Session)
         {
@@ -183,8 +186,6 @@ namespace SAPGuiAutomationLib
             }
         }
 
-        
-
         public void StartRecording(Action<RecordStep> StepAction)
         {
             checkSapSession();
@@ -207,6 +208,18 @@ namespace SAPGuiAutomationLib
                 {
                     fWin.ElementVisualizationMode = on;
                 }
+            }
+        }
+
+        public T GetSAPComponentById<T>(string id) where T:class
+        {
+            try
+            {
+                return _sapGuiSession.FindById(id) as T;
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -271,7 +284,8 @@ namespace SAPGuiAutomationLib
 
         public object RunAction(RecordStep step)
         {
-            GuiComponent comp = _sapGuiSession.TryGetComponentById<GuiComponent>(step.CompInfo.Id);
+            GuiComponent comp = GetSAPComponentById<GuiComponent>(step.CompInfo.Id);
+           
             if (comp == null)
                 throw new Exception(string.Format("Can't find component using id {0}",step.CompInfo.Id));
             string typeName = _prefix + comp.Type;
@@ -283,7 +297,9 @@ namespace SAPGuiAutomationLib
 
         public object InvokeMember(string SAPGuiId, string MemberName, BindingFlags Flags, object[] parameters)
         {
-            GuiComponent comp = SAPTestHelper.Current.TryGetElementById(SAPGuiId);
+
+            GuiComponent comp = GetSAPComponentById<GuiComponent>(SAPGuiId);
+            
             if (comp == null)
                 throw new Exception("Can't find component");
             string typeName = _prefix + comp.Type;
