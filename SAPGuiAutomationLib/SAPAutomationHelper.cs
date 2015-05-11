@@ -45,7 +45,10 @@ namespace SAPGuiAutomationLib
             }
         }
 
-
+        public List<GuiSession> GetSessions()
+        {
+            return null;
+        }
 
 
         public void SetSession(GuiSession Session)
@@ -248,6 +251,7 @@ namespace SAPGuiAutomationLib
             cpInfo.Id = Component.Id;
             cpInfo.Name = Component.Name;
             cpInfo.Type = Component.Type;
+            cpInfo.FindMethod = Component.GetFindCode();
 
             RecordStep step = new RecordStep();
             step.CompInfo = cpInfo;
