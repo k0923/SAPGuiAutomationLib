@@ -11,4 +11,6 @@ namespace SAPGuiAutomationLib
     {
         public GuiComponent Comp { get; set; }
     }
+
+    
 }

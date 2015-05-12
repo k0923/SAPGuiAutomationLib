@@ -45,16 +45,44 @@ namespace SAPGuiAutomationLib
             }
         }
 
-        public List<GuiSession> GetSessions()
-        {
-            return null;
-        }
+       
 
 
         public void SetSession(GuiSession Session)
         {
             _sapGuiSession = Session;
             hookSessionEvent();
+        }
+
+        public static GuiApplication GetSAPGuiApp(int secondsOfTimeout = 10)
+        {
+            SapROTWr.CSapROTWrapper sapROTWrapper = new SapROTWr.CSapROTWrapper();
+            return getSAPGuiApp(sapROTWrapper, secondsOfTimeout);
+        }
+
+        private static GuiApplication getSAPGuiApp(CSapROTWrapper sapROTWrapper, int secondsOfTimeout)
+        {
+
+            object SapGuilRot = sapROTWrapper.GetROTEntry("SAPGUI");
+            if (secondsOfTimeout < 0)
+            {
+                throw new TimeoutException(string.Format("Can get sap script engine in {0} seconds", secondsOfTimeout));
+            }
+            else
+            {
+                if (SapGuilRot == null)
+                {
+                    Thread.Sleep(1000);
+                    return getSAPGuiApp(sapROTWrapper, secondsOfTimeout - 1);
+                }
+                else
+                {
+                    object engine = SapGuilRot.GetType().InvokeMember("GetSCriptingEngine", System.Reflection.BindingFlags.InvokeMethod, null, SapGuilRot, null);
+                    if (engine == null)
+                        throw new NullReferenceException("No SAP GUI application found");
+                    return engine as GuiApplication;
+                }
+            }
         }
 
         private void hookSessionEvent()

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SAPFEWSELib;
+using System.IO;
 
 namespace SAPTestRunTime
 {
@@ -39,8 +40,7 @@ namespace SAPTestRunTime
             }
         }
 
-        
-        
+       
 
 
         public static T Wrap<T>(this GuiComponent Component) where T:class
