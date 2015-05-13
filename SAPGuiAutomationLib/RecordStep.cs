@@ -8,9 +8,17 @@ using System.CodeDom;
 
 namespace SAPGuiAutomationLib
 {
-    public class RecordStep
+    public class RecordStep:WPFNotify
     {
-        public int StepId { get; set; }
+        private int _stepId;
+        public int StepId 
+        {
+            get { return _stepId; }
+            set
+            {
+                SetProperty<int>(ref _stepId, value);
+            }
+        }
 
         public BindingFlags Action { get; set; }
 

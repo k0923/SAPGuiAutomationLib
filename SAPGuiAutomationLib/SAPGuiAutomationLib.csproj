@@ -48,6 +48,7 @@
     <Compile Include="RecordStep.cs" />
     <Compile Include="SAPAutomationExtension.cs" />
     <Compile Include="SAPAutomationHelper.cs" />
+    <Compile Include="WPFNotify.cs" />
     <Compile Include="WrapComp.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -50,6 +50,8 @@ namespace SAPGuiAutomationLib
 
         public void SetSession(GuiSession Session)
         {
+            if (_sapGuiSession != null && _sapGuiSession.Record == true)
+                _sapGuiSession.Record = false;
             _sapGuiSession = Session;
             hookSessionEvent();
         }
