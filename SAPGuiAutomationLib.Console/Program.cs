@@ -10,6 +10,7 @@ using SAPTestRunTime;
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
+using System.Threading;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -18,6 +19,19 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+            
+
+            SAPLogon logon = new SAPLogon();
+            logon.StartProcess();
+            logon.OpenConnection("g1u3171c.austin.hp.com");
+            logon.Login("21688419", "2wsx#edc", "100", "EN");
+
+            SAPTestHelper.Current.SetSession(logon);
+
+            Thread.Sleep(15000);
+            //SAPTestHelper.Current.SAPGuiSession.ActiveWindow.CompBitmap
+            SAPTestHelper.Current.TakeScreenShot(@"C:\screenshot\1.jpg");
+            
             //IDBProvider prodiver = new ORACLEDB("User Id=ASIAPACIFIC_LILZHANG;Password=newpassword_2015;Data Source=gvu1266.atlanta.hp.com:1525/TKRKI;");
 
             //DataAccess da = new DataAccess(prodiver);
@@ -28,56 +42,23 @@ namespace SAPGuiAutomationLib.Con
             //System.Data.DataSet ds = da.GetData(sql, System.Data.CommandType.Text, null);
 
 
+           
+
+
+            //SAPTestHelper.Current.SetSession();
+            //GuiComponent c = SAPTestHelper.Current.SAPGuiSession.ActiveWindow.FindByName("us","GuiUserArea");
+
+            //GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
 
 
 
-            SAPTestHelper.Current.SetSession();
-            GuiComponent c = SAPTestHelper.Current.SAPGuiSession.ActiveWindow.FindByName("us","GuiUserArea");
-
-            GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
-
-
-
-            SapCompInfo ci = new SapCompInfo();
-            ci.Id = comp.Id;
+            //SapCompInfo ci = new SapCompInfo();
+            //ci.Id = comp.Id;
        
            
             
             
-            
-            
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr").FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "abc";
-
-           
-            ci.Type = comp.Type;
-            ci.Name = comp.Name;
-
-            DisplayCode(ci.FindMethod);
-            Console.ReadLine();
-            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr");
-
-
-
-
-
-
-            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiUserArea>("usr")
-           
-            
-            
-            
-            
-            
-            
-            
-            
-            var shell = SAPTestHelper.Current.GetElementById<GuiContainerShell>("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont");
-            var test = shell.FindByName("shell", "GuiSplitShell");
-            //var area = SAPTestHelper.Current.SAPGuiSession.FindById("wnd[0]").FindByName<GuiUserArea>("usr");
-           // Console.WriteLine(area.SubType);
-            GuiTree tree = SAPTestHelper.Current.GetElementById<GuiTree>("wnd[0]/usr/cntlIMAGE_CONTAINER/shellcont/shell/shellcont[0]/shell");
-            var area1 = SAPTestHelper.Current.GetElementById<GuiUserArea>("wnd[0]/usr").FindByName("shell", "GuiTree");
-            
+       
             
         }
         static void DisplayCode(CodeExpression Expression)

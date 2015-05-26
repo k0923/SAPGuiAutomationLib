@@ -49,7 +49,7 @@ namespace SAPTestRunTime
                 BeforeLogin(_sapGuiSession, new EventArgs());
             }
 
-            _sapGuiSession.FindById<GuiCTextField>("wnd[0]/usr/txtRSYST-BNAME").Text = UserName;
+            _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-BNAME").Text = UserName;
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/pwdRSYST-BCODE").Text = Password;
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-MANDT").Text = Client;
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-LANGU").Text = Language;
