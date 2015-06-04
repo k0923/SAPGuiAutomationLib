@@ -11,13 +11,20 @@ namespace SAPGuiAutomationLib
     public class RecordStep:WPFNotify
     {
         private int _stepId;
-        public int StepId 
+        public int StepId
         {
             get { return _stepId; }
             set
             {
                 SetProperty<int>(ref _stepId, value);
             }
+        }
+
+        private bool _isParameterize;
+        public bool IsParameterize
+        {
+            get { return _isParameterize; }
+            set { _isParameterize = value; }
         }
 
         public BindingFlags Action { get; set; }
@@ -30,6 +37,7 @@ namespace SAPGuiAutomationLib
 
         
 
+        
         
     }
 

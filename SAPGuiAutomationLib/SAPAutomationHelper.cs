@@ -16,6 +16,7 @@ namespace SAPGuiAutomationLib
     {
         private static object _lockObj = new object();
         private static SAPAutomationHelper _instance;
+        private bool _isFindById = true;
         
         private GuiSession _sapGuiSession;
         
@@ -122,6 +123,13 @@ namespace SAPGuiAutomationLib
             _sapGuiApiAssembly = Assembly.Load(bs);
         }
 
+        public T GetSAPTypeInfo<T>(string typeName,Func<Type,T> infoMethod) where T:class
+        {
+            if (_sapGuiApiAssembly == null)
+                throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
+            Type t = _sapGuiApiAssembly.GetType(_prefix + typeName).GetInterfaces()[0];
+            return infoMethod(t);
+        }
         
         public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName,object obj, Func<Type,object,IEnumerable<T>> infoMethod) where T:class
         {
@@ -219,10 +227,11 @@ namespace SAPGuiAutomationLib
             }
         }
 
-        public void StartRecording(Action<RecordStep> StepAction)
+        public void StartRecording(Action<RecordStep> StepAction,bool isFindById = true)
         {
             checkSapSession();
             _stepAction = StepAction;
+            _isFindById = isFindById;
             _sapGuiSession.Record = true;
         }
 
@@ -280,8 +289,26 @@ namespace SAPGuiAutomationLib
             SapCompInfo cpInfo = new SapCompInfo();
             cpInfo.Id = Component.Id;
             cpInfo.Name = Component.Name;
-            cpInfo.Type = Component.Type;
-            cpInfo.FindMethod = Component.GetFindCode();
+            cpInfo.Type = Component.GetDetailType();
+
+            if(Component is GuiVComponent)
+            {
+                var vc = Component as GuiVComponent;
+                try
+                {
+                    cpInfo.Tip = vc.DefaultTooltip == "" ? vc.Tooltip : vc.DefaultTooltip;
+                }
+                catch
+                {
+
+                }
+            }
+
+
+            if (_isFindById)
+                cpInfo.FindMethod = Component.FindByIdCode();
+            else
+                cpInfo.FindMethod = Component.FindByNameCode();
 
             RecordStep step = new RecordStep();
             step.CompInfo = cpInfo;

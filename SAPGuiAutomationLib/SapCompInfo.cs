@@ -13,6 +13,7 @@ namespace SAPGuiAutomationLib
         public string Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Tip { get; set; }
 
         public CodeExpression FindMethod { get; set; }
     }

@@ -10,18 +10,48 @@ namespace SAPGuiAutomationLib
 {
     public static class SAPAutomationExtension
     {
-       public static CodeExpression GetFindCode(this GuiComponent Component)
+       public static CodeExpression FindByIdCode(this GuiComponent Component)
        {
-           return getCodeExpression(Component);
+           return getFindByIdCode(Component);
        }
 
-       public static CodeExpression GetFindCode(this SapCompInfo CompInfo)
+       public static CodeExpression FindByIdCode(this SapCompInfo CompInfo)
        {
            GuiComponent comp = SAPAutomationHelper.Current.GetSAPComponentById<GuiComponent>(CompInfo.Id);
-           return getCodeExpression(comp);
+           return getFindByIdCode(comp);
+       }
+
+       public static CodeExpression FindByNameCode(this GuiComponent Component)
+       {
+           return getFindByNameCode(Component);
+       }
+
+       public static CodeExpression FindByNameCode(this SapCompInfo CompInfo)
+       {
+           GuiComponent comp = SAPAutomationHelper.Current.GetSAPComponentById<GuiComponent>(CompInfo.Id);
+           return getFindByNameCode(comp);
+       }
+
+       private static CodeExpression getFindByIdCode(GuiComponent Component)
+       {
+           if (Component == null)
+               return null;
+           CodeMethodInvokeExpression expression = new CodeMethodInvokeExpression(
+                  new CodeMethodReferenceExpression(
+                      new CodeVariableReferenceExpression("SAPTestHelper.Current.SAPGuiSession")
+                      , "FindById"
+                      , new CodeTypeReference(Component.GetDetailType()))
+                      , new CodePrimitiveExpression(formatId(Component.Id)));
+           return expression;
+       }
+
+       private static string formatId(string id)
+       {
+           int index = id.IndexOf('w');
+           return id.Substring(index, id.Length-index);
        }
        
-       private static CodeExpression getCodeExpression(GuiComponent Component)
+       private static CodeExpression getFindByNameCode(GuiComponent Component)
        {
            if (Component == null)
                return null;
@@ -33,7 +63,7 @@ namespace SAPGuiAutomationLib
                    SapCompInfo ci = new SapCompInfo();
                    ci.Id = Component.Id;
                    ci.Name = Component.Name;
-                   ci.Type = getDetailType(Component);
+                   ci.Type = Component.GetDetailType();
                    comps.Push(ci);
                    Component = Component.Parent;
                }
@@ -66,8 +96,10 @@ namespace SAPGuiAutomationLib
                return null;
            }
        }
+       
+       
 
-       private static string getDetailType(GuiComponent comp)
+       public static string GetDetailType(this GuiComponent comp)
         {
             if (comp.Type == "GuiSplitterShell")
             {
@@ -82,5 +114,22 @@ namespace SAPGuiAutomationLib
                 return comp.Type;
             }
         }
+
+       public static CodeTypeDeclaration GetDataClass(string className, IEnumerable<SAPDataParameter> paras)
+       {
+           CodeTypeDeclaration dataClass = new CodeTypeDeclaration(className);
+           foreach(var p in paras)
+           {
+               CodeSnippetTypeMember snippet = new CodeSnippetTypeMember();
+               if(p.Comment != null)
+               {
+                   snippet.Comments.Add(new CodeCommentStatement(p.Comment,true));
+               }
+               snippet.Text = string.Format("public {0} {1} {{get;set}}", p.Type.ToString(), p.Name);
+               dataClass.Members.Add(snippet);
+           }
+           return dataClass;
+       }
+       
     }
 }

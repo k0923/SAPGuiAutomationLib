@@ -11,6 +11,7 @@ using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Threading;
+using System.Reflection.Emit;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -19,16 +20,20 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
-            
+            DataClassTest();
 
-            SAPLogon logon = new SAPLogon();
-            logon.StartProcess();
-            logon.OpenConnection("g1u3171c.austin.hp.com");
-            logon.Login("21688419", "2wsx#edc", "100", "EN");
+            SAPTestHelper.Current.SetSession();
+            SAPTestHelper.Current.SAPGuiSession.ActiveWindow.Restore();
 
-            SAPTestHelper.Current.SetSession(logon);
 
-            Thread.Sleep(15000);
+            //SAPLogon logon = new SAPLogon();
+            //logon.StartProcess();
+            //logon.OpenConnection("g1u3171c.austin.hp.com");
+            //logon.Login("21688419", "2wsx#edc", "100", "EN");
+
+            //SAPTestHelper.Current.SetSession(logon);
+
+            //Thread.Sleep(15000);
             //SAPTestHelper.Current.SAPGuiSession.ActiveWindow.CompBitmap
             SAPTestHelper.Current.TakeScreenShot(@"C:\screenshot\1.jpg");
             
@@ -61,20 +66,40 @@ namespace SAPGuiAutomationLib.Con
        
             
         }
-        static void DisplayCode(CodeExpression Expression)
+        //static void DisplayCode(CodeExpression Expression)
+        //{
+        //    CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");
+        //    CodeGeneratorOptions options = new CodeGeneratorOptions();
+        //    options.BracingStyle = "c";
+        //    StringBuilder sb = new StringBuilder();
+            
+        //    using (TextWriter sourceWriter = new StringWriter(sb))
+        //    {
+        //        provider.GenerateCodeFromExpression(Expression, sourceWriter, options);
+                
+        //    }
+        //    Console.WriteLine(sb.ToString());
+        //}
+
+        
+
+        static string GetCode<T>(T item, Func<CodeDomProvider, Action<T, TextWriter, CodeGeneratorOptions>> action)
         {
             CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");
             CodeGeneratorOptions options = new CodeGeneratorOptions();
             options.BracingStyle = "c";
             StringBuilder sb = new StringBuilder();
-            
+
             using (TextWriter sourceWriter = new StringWriter(sb))
             {
-                provider.GenerateCodeFromExpression(Expression, sourceWriter, options);
-                
+                action(provider)(item, sourceWriter, options);
             }
-            Console.WriteLine(sb.ToString());
+            return sb.ToString();
         }
+
+       
+
+
         static void SAPGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
         {
             
@@ -84,6 +109,27 @@ namespace SAPGuiAutomationLib.Con
         static void ShowProp(string typeName,object obj)
         {
             
+            
+        }
+
+        static void DataClassTest()
+        {
+            List<SAPDataParameter> ps = new List<SAPDataParameter>();
+            ps.Add(new SAPDataParameter() { Name = "Type", Type = typeof(int), Comment = "Type of the currency." });
+            ps.Add(new SAPDataParameter() { Name = "CurrencyFrom", Type = typeof(string), Comment = "From Currency." });
+            ps.Add(new SAPDataParameter() { Name = "CurrencyTo", Type = typeof(string), Comment = "To Currency." });
+            ps.Add(new SAPDataParameter() { Name = "ValidDate", Type = typeof(string), Comment = "Valid Date." });
+            var tp = SAPAutomationExtension.GetDataClass("Screen_GetCurrency", ps);
+            string code = GetCode<CodeTypeMember>(tp, p => p.GenerateCodeFromMember);
+            
+
+        }
+
+        static void DynamicEmit()
+        {
+            ModuleBuilder builder = new ModuleBuilder();
+            TypeBuilder tb = builder.DefineType("Student", TypeAttributes.Class);
+            PropertyBuilder pb = tb.DefineProperty("Name", PropertyAttributes.None, typeof(string), null);
             
         }
     }
