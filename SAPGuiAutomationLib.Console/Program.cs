@@ -12,6 +12,7 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Threading;
 using System.Reflection.Emit;
+using System.Data;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -20,6 +21,18 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+
+            DataTable dt = new DataTable();
+            dt.Columns.Add("A");
+            dt.Columns.Add("B");
+            dt.Columns.Add("C");
+            dt.Columns.Add("D");
+
+            var colString = dt.Columns.OfType<DataColumn>().Count();
+
+            string testVar = "";
+            Console.WriteLine(CodeHelper.IsValidVariable(testVar));
+
             DataClassTest();
 
             SAPTestHelper.Current.SetSession();
@@ -127,10 +140,33 @@ namespace SAPGuiAutomationLib.Con
 
         static void DynamicEmit()
         {
-            ModuleBuilder builder = new ModuleBuilder();
-            TypeBuilder tb = builder.DefineType("Student", TypeAttributes.Class);
-            PropertyBuilder pb = tb.DefineProperty("Name", PropertyAttributes.None, typeof(string), null);
+            //ModuleBuilder builder = new ModuleBuilder();
+            //TypeBuilder tb = builder.DefineType("Student", TypeAttributes.Class);
+            //PropertyBuilder pb = tb.DefineProperty("Name", PropertyAttributes.None, typeof(string), null);
             
         }
+    }
+
+    class CodeHelper
+    {
+        private static CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");
+        public static StringBuilder GetCode<T>(T item, Func<CodeDomProvider, Action<T, TextWriter, CodeGeneratorOptions>> action)
+        {
+            CodeGeneratorOptions options = new CodeGeneratorOptions();
+            options.BracingStyle = "C";
+            StringBuilder sb = new StringBuilder();
+
+            using (TextWriter sourceWriter = new StringWriter(sb))
+            {
+                action(provider)(item, sourceWriter, options);
+            }
+            return sb;
+        }
+
+        public static bool IsValidVariable(string VariableName)
+        {
+            return provider.IsValidIdentifier(VariableName);
+        }
+
     }
 }

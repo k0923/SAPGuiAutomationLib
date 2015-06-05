@@ -326,17 +326,45 @@ namespace SAPGuiAutomationLib
                     break;
             }
 
-            step.ActionName = objs[1].ToString();
+            var action = objs[1].ToString();
+            upperFirstChar(ref action);
+
+            step.ActionName = action;
 
             var count = objs.Count();
 
             if (count > 2)
             {
-                step.ActionParams = new object[count - 2];
-                for (int i = 2; i < count; i++)
+                step.ActionParams = new List<SAPDataParameter>();
+
+                if (step.Action == BindingFlags.InvokeMethod)
                 {
-                    step.ActionParams[i - 2] = objs[i];
+                    MethodInfo method = SAPAutomationHelper.Current.GetSAPTypeInfo<MethodInfo>(step.CompInfo.Type, t => t.GetMethod(step.ActionName));
+                    int index = 2;
+                    foreach (var pInfo in method.GetParameters())
+                    {
+                        var para = new SAPDataParameter();
+                        para.Type = pInfo.ParameterType;
+                        para.Comment = pInfo.Name;
+                        para.Value = objs[index];
+                        para.Name = pInfo.Name;
+                        step.ActionParams.Add(para);
+                        index++;
+                    }
                 }
+                else
+                {
+                    for (int i = 2; i < count; i++)
+                    {
+                        var para = new SAPDataParameter();
+                        para.Type = objs[i].GetType();
+                        para.Value = objs[i];
+                        para.Comment = step.CompInfo.Tip;
+
+                        step.ActionParams.Add(para);
+                    }
+                }
+                
             }
 
             _stepAction(step);
@@ -353,7 +381,8 @@ namespace SAPGuiAutomationLib
             Type t = _sapGuiApiAssembly.GetType(typeName);
             if (t == null)
                 throw new Exception(string.Format("Can't find type {0}", typeName));
-            return t.InvokeMember(step.ActionName, step.Action, null, comp, step.ActionParams);
+            return t.InvokeMember(step.ActionName,step.Action,null,comp,step.ActionParams==null?null:step.ActionParams.Select(a=>a.Value).ToArray());
+            
         }
 
         public object InvokeMember(string SAPGuiId, string MemberName, BindingFlags Flags, object[] parameters)
@@ -374,6 +403,14 @@ namespace SAPGuiAutomationLib
         {
             Type t = _sapGuiApiAssembly.GetType(_prefix + Obj.Type, true);
             return t.InvokeMember(MemberName, Flags, null, Obj, parameters);
+        }
+
+        private void upperFirstChar(ref string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+            {
+                s = char.ToUpper(s[0]) + s.Substring(1);
+            }
         }
     }
 }

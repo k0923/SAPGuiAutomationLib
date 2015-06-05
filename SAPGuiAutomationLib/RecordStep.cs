@@ -24,7 +24,7 @@ namespace SAPGuiAutomationLib
         public bool IsParameterize
         {
             get { return _isParameterize; }
-            set { _isParameterize = value; }
+            set { SetProperty<bool>(ref _isParameterize, value); }
         }
 
         public BindingFlags Action { get; set; }
@@ -33,9 +33,9 @@ namespace SAPGuiAutomationLib
 
         public string ActionName { get; set; }
 
-        public object[] ActionParams { get; set; }
+        //public object[] ActionParams { get; set; }
 
-        
+        public List<SAPDataParameter> ActionParams { get; set; }
 
         
         
