@@ -10,12 +10,14 @@ using System.Threading;
 namespace SAPTestRunTime
 {
     public delegate void LoginHandler(GuiSession sender, EventArgs e);
+
     public class SAPLogon
     {
         private GuiSession _sapGuiSession;
         private GuiConnection _sapGuiConnection;
         private GuiApplication _sapGuiApplication;
 
+        public event LoginHandler FailLogin;
         public event LoginHandler BeforeLogin;
         public event LoginHandler AfterLogin;
 
@@ -53,10 +55,22 @@ namespace SAPTestRunTime
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/pwdRSYST-BCODE").Text = Password;
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-MANDT").Text = Client;
             _sapGuiSession.FindById<GuiTextField>("wnd[0]/usr/txtRSYST-LANGU").Text = Language;
+            
 
             var window = _sapGuiSession.FindById<GuiFrameWindow>("wnd[0]");
             window.SendVKey(0);
-            
+
+            GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
+            if(status!=null && status.MessageType.ToLower()=="e")
+            {
+                _sapGuiConnection.CloseSession(_sapGuiSession.Id);
+                if(FailLogin!=null)
+                {
+                    FailLogin(_sapGuiSession, new EventArgs());
+                }
+                return;
+            }
+
             if (AfterLogin != null)
             {
                 AfterLogin(_sapGuiSession, new EventArgs());
@@ -72,6 +86,7 @@ namespace SAPTestRunTime
             
         }
 
+        
         
 
         
