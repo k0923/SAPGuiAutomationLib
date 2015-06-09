@@ -33,8 +33,6 @@ namespace SAPGuiAutomationLib
 
         public string ActionName { get; set; }
 
-        //public object[] ActionParams { get; set; }
-
         public List<SAPDataParameter> ActionParams { get; set; }
 
         

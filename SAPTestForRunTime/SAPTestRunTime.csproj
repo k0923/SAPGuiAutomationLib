@@ -50,6 +50,7 @@
     <Compile Include="SAPFindByNameEx.cs" />
     <Compile Include="SAPFindMethodTemplate.cs" />
     <Compile Include="SAPLogon.cs" />
+    <Compile Include="SAPModuleAttribute.cs" />
     <Compile Include="SAPTestHelper.cs" />
   </ItemGroup>
   <ItemGroup>

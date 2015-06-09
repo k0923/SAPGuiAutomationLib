@@ -24,6 +24,7 @@ namespace SAPGuiAutomationLib
         private static string _prefix = "SAPFEWSELib.";
         private Action<RecordStep> _stepAction;
         private Action<WrapComp> _hitAction;
+        private Action<string> _failRequestAction;
 
         
         public GuiSession SAPGuiSession { get { return _sapGuiSession; } }
@@ -93,10 +94,22 @@ namespace SAPGuiAutomationLib
             _sapGuiSession.Hit -= _sapGuiSession_Hit;
             _sapGuiSession.Change -= _sapGuiSession_Change;
             _sapGuiSession.Destroy -= _sapGuiSession_Destroy;
+            _sapGuiSession.EndRequest -= _sapGuiSession_EndRequest;
 
+            _sapGuiSession.EndRequest += _sapGuiSession_EndRequest;
             _sapGuiSession.Hit += _sapGuiSession_Hit;
             _sapGuiSession.Change += _sapGuiSession_Change;
             _sapGuiSession.Destroy += _sapGuiSession_Destroy;
+        }
+
+        void _sapGuiSession_EndRequest(GuiSession Session)
+        {
+            var status = this.GetSAPComponentById<GuiStatusbar>("wnd0]/sbar");
+            if(status != null && status.MessageType == "E" && _failRequestAction!=null)
+            {
+                _failRequestAction(status.Text);
+            }
+            
         }
 
         void _sapGuiSession_Destroy(GuiSession Session)
@@ -225,6 +238,11 @@ namespace SAPGuiAutomationLib
                     LoopSAPComponents(wrComp, newItem, Method);
                 }
             }
+        }
+
+        public void GetFailRequest(Action<string> FailRequest)
+        {
+            this._failRequestAction = FailRequest;
         }
 
         public void StartRecording(Action<RecordStep> StepAction,bool isFindById = true)
