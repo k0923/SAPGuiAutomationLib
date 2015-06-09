@@ -238,7 +238,7 @@ namespace SAPTestRunTime
                 f.Directory.Create();
             GuiFrameWindow win = _sapGuiSession.ActiveWindow;
             win.Restore();
-             
+            
             byte[] screenData = (byte[])win.HardCopyToMemory();
             System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
             ImageCodecInfo jpgEncoder = getEncoder(ImageFormat.Jpeg);
