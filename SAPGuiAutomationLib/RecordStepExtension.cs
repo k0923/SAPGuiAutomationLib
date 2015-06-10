@@ -10,83 +10,36 @@ namespace SAPGuiAutomationLib
 {
     public static class RecordStepExtension
     {
-        public static CodeStatement GetCodeStatement(this RecordStep step,string dataClassParameter = null)
+        public static List<CodeStatement> GetCodeStatement(this RecordStep step,string dataClassParameter = null)
         {
+            List<CodeStatement> codes = new List<CodeStatement>();
+            CodeStatement actionCode = null;
             switch (step.Action)
             {
                 case BindingFlags.SetProperty:
-                    return getAssignDetailStatement(step, dataClassParameter);
+                    actionCode = getAssignDetailStatement(step, dataClassParameter);
+                    break;
                 case BindingFlags.InvokeMethod:
-                    return getInvokeDetailStatement(step, dataClassParameter);
+                    actionCode = getInvokeDetailStatement(step, dataClassParameter);
+                    break;
                 default:
-                    return null;
+                    break;
             }
+            if (actionCode != null)
+                codes.Add(actionCode);
+            
+            if(step.TakeScreenShot)
+            {
+                CodeExpressionStatement screenShotCode = new CodeExpressionStatement();
+                screenShotCode.Expression = new CodeMethodInvokeExpression(
+                    new CodeVariableReferenceExpression("SAPTestHelper.Current"), 
+                    "TakeScreenShot", 
+                    new CodePrimitiveExpression(step.StepId.ToString() + ".jpg"));
+                codes.Add(screenShotCode);
+            }
+            return codes;
         }
 
-        //public static CodeStatement GetCodeDetailStatement(this RecordStep step)
-        //{
-            
-        //    switch (step.Action)
-        //    {
-        //        case BindingFlags.SetProperty:
-        //            return getAssignDetailStatement(step);
-        //        case BindingFlags.InvokeMethod:
-        //            return getInvokeDetailStatement(step);
-        //        default:
-        //            return null;
-        //    }
-        //}
-
-        //private static CodeAssignStatement getAssignStatement(RecordStep step)
-        //{
-        //    CodeAssignStatement asStatement = new CodeAssignStatement();
-
-        //    CodeMethodInvokeExpression genericMethod = new CodeMethodInvokeExpression(
-        //              new CodeMethodReferenceExpression(
-        //                 new CodeVariableReferenceExpression("SAPTestHelper.Current"),
-        //                     "GetElementById",
-        //                         new CodeTypeReference[] {
-        //                            new CodeTypeReference(step.CompInfo.Type),
-        //                               }), new CodePrimitiveExpression(step.CompInfo.Id));
-
-            
-
-
-        //    asStatement.Left = new CodePropertyReferenceExpression(genericMethod, step.ActionName);
-
-        //    asStatement.Right = new CodePrimitiveExpression(step.ActionParams[0].Value);
-        //    return asStatement;
-        //}
-
-        //private static CodeExpressionStatement getInvokeStatement(RecordStep step)
-        //{
-
-        //    CodeExpressionStatement statement = new CodeExpressionStatement();
-        //    CodeMethodInvokeExpression genericMethod = new CodeMethodInvokeExpression(
-        //              new CodeMethodReferenceExpression(
-        //                 new CodeVariableReferenceExpression("SAPTestHelper.Current"),
-        //                     "GetElementById",
-        //                         new CodeTypeReference[] {
-        //                            new CodeTypeReference(step.CompInfo.Type),
-        //                               }), new CodePrimitiveExpression(step.CompInfo.Id));
-        //    CodeExpression[] paras;
-        //    if (step.ActionParams != null)
-        //    {
-        //        paras = new CodeExpression[step.ActionParams.Count];
-        //        for (int i = 0; i < step.ActionParams.Count; i++)
-        //        {
-        //            paras[i] = new CodePrimitiveExpression(step.ActionParams[i].Value);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        paras = new CodeExpression[0];
-        //    }
-
-        //    CodeMethodInvokeExpression method = new CodeMethodInvokeExpression(genericMethod, step.ActionName, paras);
-        //    statement.Expression = method;
-        //    return statement;
-        //}
 
         private static CodeAssignStatement getAssignDetailStatement(RecordStep step, string dataClass)
         {
@@ -108,6 +61,7 @@ namespace SAPGuiAutomationLib
             if (step.ActionParams != null)
             {
                 paras = new CodeExpression[step.ActionParams.Count];
+                ///判断是否参数化函数代码
                 if(dataClass == null)
                 {
                     for (int i = 0; i < step.ActionParams.Count; i++)

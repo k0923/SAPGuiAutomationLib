@@ -10,6 +10,10 @@ namespace SAPGuiAutomationLib
 {
     public class RecordStep:WPFNotify
     {
+        public RecordStep() {
+           
+        }
+
         private int _stepId;
         public int StepId
         {
@@ -35,7 +39,7 @@ namespace SAPGuiAutomationLib
 
         public List<SAPDataParameter> ActionParams { get; set; }
 
-        
+        public bool TakeScreenShot { get; set; }
         
     }
 

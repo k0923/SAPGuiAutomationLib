@@ -20,83 +20,14 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
-            bool isSet = false;
-            RefTest refT = new RefTest(ref isSet);
-            refT.Set();
-            Console.WriteLine(isSet);
-
-            DataClassTest();
-            DataTable dt = new DataTable();
-            dt.Columns.Add("A");
-            dt.Columns.Add("B");
-            dt.Columns.Add("C");
-            dt.Columns.Add("D");
-
-            var colString = dt.Columns.OfType<DataColumn>().Count();
-
-            string testVar = "";
-            Console.WriteLine(CodeHelper.IsValidVariable(testVar));
-
-            DataClassTest();
-
-            SAPTestHelper.Current.SetSession();
-            SAPTestHelper.Current.SAPGuiSession.ActiveWindow.Restore();
-
-
-            //SAPLogon logon = new SAPLogon();
-            //logon.StartProcess();
-            //logon.OpenConnection("g1u3171c.austin.hp.com");
-            //logon.Login("21688419", "2wsx#edc", "100", "EN");
-
-            //SAPTestHelper.Current.SetSession(logon);
-
-            //Thread.Sleep(15000);
-            //SAPTestHelper.Current.SAPGuiSession.ActiveWindow.CompBitmap
-            SAPTestHelper.Current.TakeScreenShot(@"C:\screenshot\1.jpg");
-            
-            //IDBProvider prodiver = new ORACLEDB("User Id=ASIAPACIFIC_LILZHANG;Password=newpassword_2015;Data Source=gvu1266.atlanta.hp.com:1525/TKRKI;");
-
-            //DataAccess da = new DataAccess(prodiver);
-
-
-            //string sql = "select procd.invoice_id, procd.invoice_date, procd.buyer_entity_code,procd.seller_entity_code, procd.order_number, procs.status, procs.status_date,procs.note from PROC_LBOPC_A_DETAIL procd, PROC_LBOPC_A_DETAIL_STATUS procs where procd.PROC_DETAIL_ID = procs.FK_PROC_A_DETAIL_ID and procd.invoice_id in ('H4H2157512')";
-
-            //System.Data.DataSet ds = da.GetData(sql, System.Data.CommandType.Text, null);
-
-
-           
-
-
-            //SAPTestHelper.Current.SetSession();
-            //GuiComponent c = SAPTestHelper.Current.SAPGuiSession.ActiveWindow.FindByName("us","GuiUserArea");
-
-            //GuiComponent comp = SAPTestHelper.Current.GetElementById("/app/con[0]/ses[0]/wnd[0]/usr");
-
-
-
-            //SapCompInfo ci = new SapCompInfo();
-            //ci.Id = comp.Id;
-       
-           
+            SAPGuiAutomationLib.Console.TestClass test = new Console.TestClass();
+            System.Console.ReadLine();
             
             
        
             
         }
-        //static void DisplayCode(CodeExpression Expression)
-        //{
-        //    CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");
-        //    CodeGeneratorOptions options = new CodeGeneratorOptions();
-        //    options.BracingStyle = "c";
-        //    StringBuilder sb = new StringBuilder();
-            
-        //    using (TextWriter sourceWriter = new StringWriter(sb))
-        //    {
-        //        provider.GenerateCodeFromExpression(Expression, sourceWriter, options);
-                
-        //    }
-        //    Console.WriteLine(sb.ToString());
-        //}
+        
 
         
 
@@ -149,7 +80,7 @@ namespace SAPGuiAutomationLib.Con
             var tp = SAPAutomationExtension.GetDataClass("Screen_GetCurrency", ps,attribute);
             string code = CodeHelper.GetCode<CodeTypeMember>(tp, p => p.GenerateCodeFromMember).ToString();
            
-            
+          
 
         }
 

@@ -17,18 +17,19 @@ namespace SAPGuiAutomationLib
         private static object _lockObj = new object();
         private static SAPAutomationHelper _instance;
         private bool _isFindById = true;
-        
+
         private GuiSession _sapGuiSession;
-        
+
         private Assembly _sapGuiApiAssembly;
         private static string _prefix = "SAPFEWSELib.";
         private Action<RecordStep> _stepAction;
-        private Action<WrapComp> _hitAction;
+        private Action<dynamic> _hitAction;
         private Action<string> _failRequestAction;
+        private Action<dynamic> _sessionDestroy;
 
-        
+
         public GuiSession SAPGuiSession { get { return _sapGuiSession; } }
-        
+
         public Assembly SAPGuiApiAssembly { get { return _sapGuiApiAssembly; } }
 
         public static SAPAutomationHelper Current
@@ -47,15 +48,16 @@ namespace SAPGuiAutomationLib
             }
         }
 
-       
 
 
-        public void SetSession(GuiSession Session)
+
+        public void SetSession(GuiSession Session, Action<dynamic> SessionDestroy = null)
         {
             if (_sapGuiSession != null && _sapGuiSession.Record == true)
                 _sapGuiSession.Record = false;
             _sapGuiSession = Session;
             hookSessionEvent();
+            _sessionDestroy = SessionDestroy;
         }
 
         public static GuiApplication GetSAPGuiApp(int secondsOfTimeout = 10)
@@ -105,15 +107,17 @@ namespace SAPGuiAutomationLib
         void _sapGuiSession_EndRequest(GuiSession Session)
         {
             var status = this.GetSAPComponentById<GuiStatusbar>("wnd0]/sbar");
-            if(status != null && status.MessageType == "E" && _failRequestAction!=null)
+            if (status != null && status.MessageType == "E" && _failRequestAction != null)
             {
                 _failRequestAction(status.Text);
             }
-            
+
         }
 
         void _sapGuiSession_Destroy(GuiSession Session)
         {
+            if (_sessionDestroy != null)
+                _sessionDestroy(Session);
             _sapGuiSession = null;
         }
 
@@ -136,15 +140,15 @@ namespace SAPGuiAutomationLib
             _sapGuiApiAssembly = Assembly.Load(bs);
         }
 
-        public T GetSAPTypeInfo<T>(string typeName,Func<Type,T> infoMethod) where T:class
+        public T GetSAPTypeInfo<T>(string typeName, Func<Type, T> infoMethod) where T : class
         {
             if (_sapGuiApiAssembly == null)
                 throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
             Type t = _sapGuiApiAssembly.GetType(_prefix + typeName).GetInterfaces()[0];
             return infoMethod(t);
         }
-        
-        public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName,object obj, Func<Type,object,IEnumerable<T>> infoMethod) where T:class
+
+        public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName, object obj, Func<Type, object, IEnumerable<T>> infoMethod) where T : class
         {
             if (_sapGuiApiAssembly == null)
                 throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
@@ -168,19 +172,28 @@ namespace SAPGuiAutomationLib
             return GetSAPTypeInfoes<T>(Component.Type, infoFunc);
         }
 
-        public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, int childrenIndex, int MaxChildrenCount, Func<WrapComp, T, int, T> Method) where T : class
+        /// <summary>
+        /// CurrentComponent is type of GuiComponent
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="CurrentComponent"></param>
+        /// <param name="item"></param>
+        /// <param name="childrenIndex"></param>
+        /// <param name="MaxChildrenCount"></param>
+        /// <param name="Method"></param>
+        public void LoopSAPComponents<T>(dynamic CurrentComponent, T item, int childrenIndex, int MaxChildrenCount, Func<dynamic, T, int, T> Method) where T : class
         {
             var count = 0;
-            if (CurrentComponent.Comp is GuiContainer)
+            if (CurrentComponent is GuiContainer)
             {
-                count = ((GuiContainer)CurrentComponent.Comp).Children.Count;
+                count = ((GuiContainer)CurrentComponent).Children.Count;
             }
-            if (CurrentComponent.Comp is GuiVContainer)
+            if (CurrentComponent is GuiVContainer)
             {
-                count = ((GuiVContainer)CurrentComponent.Comp).Children.Count;
+                count = ((GuiVContainer)CurrentComponent).Children.Count;
             }
             T newItem = Method(CurrentComponent, item, count);
-            if (CurrentComponent.Comp is GuiVContainer)
+            if (CurrentComponent is GuiVContainer)
             {
                 int startIndex = childrenIndex;
                 int endIndex = count;
@@ -191,12 +204,12 @@ namespace SAPGuiAutomationLib
                 }
                 for (int i = startIndex; i < endIndex; i++)
                 {
-                    GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
-                    WrapComp wrComp = new WrapComp() { Comp = comp };
-                    LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
+                    GuiComponent comp = ((GuiVContainer)CurrentComponent).Children.ElementAt(i);
+
+                    LoopSAPComponents(comp, newItem, 0, MaxChildrenCount, Method);
                 }
             }
-            if (CurrentComponent.Comp is GuiContainer)
+            if (CurrentComponent is GuiContainer)
             {
                 int startIndex = 0;
                 int endIndex = count;
@@ -209,43 +222,50 @@ namespace SAPGuiAutomationLib
 
                 for (int i = startIndex; i < endIndex; i++)
                 {
-                    GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
-                    WrapComp wrComp = new WrapComp() { Comp = comp };
-                    LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
+                    GuiComponent comp = ((GuiContainer)CurrentComponent).Children.ElementAt(i);
+
+                    LoopSAPComponents(comp, newItem, 0, MaxChildrenCount, Method);
                 }
             }
         }
 
-        public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, Func<WrapComp, T, T> Method) where T : class
+        /// <summary>
+        /// CurrentComponent is type of GuiComponent
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="CurrentComponent"></param>
+        /// <param name="item"></param>
+        /// <param name="Method"></param>
+        public void LoopSAPComponents<T>(dynamic CurrentComponent, T item, Func<dynamic, T, T> Method) where T : class
         {
             T newItem = Method(CurrentComponent, item);
 
-            if (CurrentComponent.Comp is GuiVContainer && !(CurrentComponent.Comp is GuiTableControl))
+            if (CurrentComponent is GuiVContainer && !(CurrentComponent is GuiTableControl))
             {
-                for (int i = 0; i < ((GuiVContainer)CurrentComponent.Comp).Children.Count; i++)
+                for (int i = 0; i < ((GuiVContainer)CurrentComponent).Children.Count; i++)
                 {
-                    GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
-                    WrapComp wrComp = new WrapComp() { Comp = comp };
-                    LoopSAPComponents(wrComp, newItem, Method);
+                    GuiComponent comp = ((GuiVContainer)CurrentComponent).Children.ElementAt(i);
+                    LoopSAPComponents(comp, newItem, Method);
                 }
             }
-            if (CurrentComponent.Comp is GuiContainer && !(CurrentComponent.Comp is GuiTableControl))
+            if (CurrentComponent is GuiContainer && !(CurrentComponent is GuiTableControl))
             {
-                for (int i = 0; i < ((GuiContainer)CurrentComponent.Comp).Children.Count; i++)
+                for (int i = 0; i < ((GuiContainer)CurrentComponent).Children.Count; i++)
                 {
-                    GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
-                    WrapComp wrComp = new WrapComp() { Comp = comp };
-                    LoopSAPComponents(wrComp, newItem, Method);
+                    GuiComponent comp = ((GuiContainer)CurrentComponent).Children.ElementAt(i);
+                    LoopSAPComponents(comp, newItem, Method);
                 }
             }
         }
+
+
 
         public void GetFailRequest(Action<string> FailRequest)
         {
             this._failRequestAction = FailRequest;
         }
 
-        public void StartRecording(Action<RecordStep> StepAction,bool isFindById = true)
+        public void StartRecording(Action<RecordStep> StepAction, bool isFindById = true)
         {
             checkSapSession();
             _stepAction = StepAction;
@@ -253,7 +273,7 @@ namespace SAPGuiAutomationLib
             _sapGuiSession.Record = true;
         }
 
-        public void Spy(Action<WrapComp> HitAction)
+        public void Spy(Action<dynamic> HitAction)
         {
             checkSapSession();
             _hitAction = HitAction;
@@ -271,7 +291,7 @@ namespace SAPGuiAutomationLib
             }
         }
 
-        public T GetSAPComponentById<T>(string id) where T:class
+        public T GetSAPComponentById<T>(string id) where T : class
         {
             try
             {
@@ -285,9 +305,7 @@ namespace SAPGuiAutomationLib
 
         void _sapGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
         {
-            WrapComp comp = new WrapComp();
-            comp.Comp = Component;
-            _hitAction(comp);
+            _hitAction(Component);
         }
 
         public void StopRecording()
@@ -304,12 +322,14 @@ namespace SAPGuiAutomationLib
 
         void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray)
         {
+            if (_stepAction == null)
+                return;
             SapCompInfo cpInfo = new SapCompInfo();
             cpInfo.Id = Component.Id;
             cpInfo.Name = Component.Name;
             cpInfo.Type = Component.GetDetailType();
 
-            if(Component is GuiVComponent)
+            if (Component is GuiVComponent)
             {
                 var vc = Component as GuiVComponent;
                 try
@@ -382,7 +402,7 @@ namespace SAPGuiAutomationLib
                         step.ActionParams.Add(para);
                     }
                 }
-                
+
             }
 
             _stepAction(step);
@@ -392,22 +412,22 @@ namespace SAPGuiAutomationLib
         public object RunAction(RecordStep step)
         {
             GuiComponent comp = GetSAPComponentById<GuiComponent>(step.CompInfo.Id);
-           
+
             if (comp == null)
-                throw new Exception(string.Format("Can't find component using id {0}",step.CompInfo.Id));
+                throw new Exception(string.Format("Can't find component using id {0}", step.CompInfo.Id));
             string typeName = _prefix + comp.Type;
             Type t = _sapGuiApiAssembly.GetType(typeName);
             if (t == null)
                 throw new Exception(string.Format("Can't find type {0}", typeName));
-            return t.InvokeMember(step.ActionName,step.Action,null,comp,step.ActionParams==null?null:step.ActionParams.Select(a=>a.Value).ToArray());
-            
+            return t.InvokeMember(step.ActionName, step.Action, null, comp, step.ActionParams == null ? null : step.ActionParams.Select(a => a.Value).ToArray());
+
         }
 
         public object InvokeMember(string SAPGuiId, string MemberName, BindingFlags Flags, object[] parameters)
         {
 
             GuiComponent comp = GetSAPComponentById<GuiComponent>(SAPGuiId);
-            
+
             if (comp == null)
                 throw new Exception("Can't find component");
             string typeName = _prefix + comp.Type;
@@ -430,5 +450,79 @@ namespace SAPGuiAutomationLib
                 s = char.ToUpper(s[0]) + s.Substring(1);
             }
         }
+
+        #region Remove
+        //public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, int childrenIndex, int MaxChildrenCount, Func<WrapComp, T, int, T> Method) where T : class
+        //{
+        //    var count = 0;
+        //    if (CurrentComponent.Comp is GuiContainer)
+        //    {
+        //        count = ((GuiContainer)CurrentComponent.Comp).Children.Count;
+        //    }
+        //    if (CurrentComponent.Comp is GuiVContainer)
+        //    {
+        //        count = ((GuiVContainer)CurrentComponent.Comp).Children.Count;
+        //    }
+        //    T newItem = Method(CurrentComponent, item, count);
+        //    if (CurrentComponent.Comp is GuiVContainer)
+        //    {
+        //        int startIndex = childrenIndex;
+        //        int endIndex = count;
+
+        //        if (count > MaxChildrenCount)
+        //        {
+        //            endIndex = (childrenIndex + MaxChildrenCount > count) ? count : childrenIndex + MaxChildrenCount;
+        //        }
+        //        for (int i = startIndex; i < endIndex; i++)
+        //        {
+        //            GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
+        //            WrapComp wrComp = new WrapComp() { Comp = comp };
+        //            LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
+        //        }
+        //    }
+        //    if (CurrentComponent.Comp is GuiContainer)
+        //    {
+        //        int startIndex = 0;
+        //        int endIndex = count;
+
+        //        if (count > MaxChildrenCount)
+        //        {
+        //            endIndex = (childrenIndex + MaxChildrenCount > count) ? count : childrenIndex + MaxChildrenCount;
+
+        //        }
+
+        //        for (int i = startIndex; i < endIndex; i++)
+        //        {
+        //            GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
+        //            WrapComp wrComp = new WrapComp() { Comp = comp };
+        //            LoopSAPComponents(wrComp, newItem, 0, MaxChildrenCount, Method);
+        //        }
+        //    }
+        //}
+
+        //public void LoopSAPComponents<T>(WrapComp CurrentComponent, T item, Func<WrapComp, T, T> Method) where T : class
+        //{
+        //    T newItem = Method(CurrentComponent, item);
+
+        //    if (CurrentComponent.Comp is GuiVContainer && !(CurrentComponent.Comp is GuiTableControl))
+        //    {
+        //        for (int i = 0; i < ((GuiVContainer)CurrentComponent.Comp).Children.Count; i++)
+        //        {
+        //            GuiComponent comp = ((GuiVContainer)CurrentComponent.Comp).Children.ElementAt(i);
+        //            WrapComp wrComp = new WrapComp() { Comp = comp };
+        //            LoopSAPComponents(wrComp, newItem, Method);
+        //        }
+        //    }
+        //    if (CurrentComponent.Comp is GuiContainer && !(CurrentComponent.Comp is GuiTableControl))
+        //    {
+        //        for (int i = 0; i < ((GuiContainer)CurrentComponent.Comp).Children.Count; i++)
+        //        {
+        //            GuiComponent comp = ((GuiContainer)CurrentComponent.Comp).Children.ElementAt(i);
+        //            WrapComp wrComp = new WrapComp() { Comp = comp };
+        //            LoopSAPComponents(wrComp, newItem, Method);
+        //        }
+        //    }
+        //}
+        #endregion
     }
 }

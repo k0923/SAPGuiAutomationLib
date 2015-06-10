@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace SAPGuiAutomationLib
 {
-    public class WrapComp
-    {
-        public GuiComponent Comp { get; set; }
-    }
+    //public class WrapComp
+    //{
+    //    public GuiComponent Comp { get; set; }
+    //}
 
     
 }
