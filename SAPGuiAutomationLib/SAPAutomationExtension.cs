@@ -1,5 +1,5 @@
-﻿using SAPFEWSELib;
-using SAPTestRunTime;
+﻿using SAPAutomation.Framework;
+using SAPFEWSELib;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -114,6 +114,42 @@ namespace SAPGuiAutomationLib
             {
                 return comp.Type;
             }
+        }
+
+        
+
+        public static CodeTypeDeclaration CreateModule(this IEnumerable<RecordStep> steps,string className)
+        {
+            if(steps == null || steps.Count()==0)
+                return null;
+            CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className);
+            targetClass.IsClass = true;
+            targetClass.BaseTypes.Add(new CodeTypeReference(typeof(SAPModule)));
+            CodeMemberMethod method = new CodeMemberMethod() { 
+                Name = "RunAction",
+                Attributes = MemberAttributes.Public | MemberAttributes.Static
+            };
+            string parameterName = null;
+            foreach(var step in steps)
+            {
+                if(step.IsParameterize)
+                {
+                    parameterName = "Data";
+                    method.Statements.AddRange(step.GetCodeStatement(parameterName).ToArray());
+                    foreach(var p in step.ActionParams)
+                    {
+                        targetClass.Members.Add(p.CreatePropertyCode());
+                    }
+                }
+                else
+                {
+                    method.Statements.AddRange(step.GetCodeStatement().ToArray());
+                }
+            }
+            if (parameterName != null)
+                method.Parameters.Add(new CodeParameterDeclarationExpression() { Type = new CodeTypeReference(className),Name=parameterName });
+            targetClass.Members.Add(method);
+            return targetClass;
         }
 
         public static CodeTypeDeclaration GetDataClass(string className, IEnumerable<SAPDataParameter> paras,SAPModuleAttribute attribute)

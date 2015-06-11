@@ -22,9 +22,10 @@ namespace SAPGuiAutomationLib.Con
         {
             SAPGuiAutomationLib.Console.TestClass test = new Console.TestClass();
             System.Console.ReadLine();
+
+
+            Test.Exchange ex = new Test.Exchange();
             
-            
-       
             
         }
         

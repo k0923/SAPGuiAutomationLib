@@ -22,7 +22,7 @@ namespace SAPGuiAutomationLib.Console
         }
     }
 
-    [AttributeUsage(AttributeTargets.Class,AllowMultiple=true)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Module,AllowMultiple=true)]
     public class MyAttribute:Attribute
     {
         public string Name { get; set; }

@@ -5,16 +5,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using SAPTestRunTime.Framework;
 
 namespace Test
 {
 
+    
 
     public class Exchange
     {
+        /// Exchange Rate Type
+        public System.String Rate_Type { get; set; }
+        /// From currency
+        public System.String CurFrom { get; set; }
+        /// To-currency
+        public System.String CurTo { get; set; }
 
-        private void RunAction(Exchange_Data Data)
+        public static void Main1()
+        {
+            Exchange data = new Exchange();
+            data.Rate_Type = "M";
+            data.CurFrom = "USD";
+            data.CurTo = "CNY";
+
+            Exchange.RunAction(data);
+        }
+
+        public static void RunAction(Exchange Data)
         {
             SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").ResizeWorkingPane(216, 24, false);
             SAPTestHelper.Current.SAPGuiSession.FindById<GuiOkCodeField>("wnd[0]/tbar[0]/okcd").Text = "/n";
@@ -32,15 +49,10 @@ namespace Test
         }
     }
 
-    [SAPModule(ModuleName = "Exchange", ModuleVersion = null, Author = null, Email = null, ScreenNumber = null, TCode = null)]
-    public class Exchange_Data
-    {
+   
 
-        /// Exchange Rate Type
-        public System.String Rate_Type { get; set; }
-        /// From currency
-        public System.String CurFrom { get; set; }
-        /// To-currency
-        public System.String CurTo { get; set; }
-    }
+   
+
+
+
 }
