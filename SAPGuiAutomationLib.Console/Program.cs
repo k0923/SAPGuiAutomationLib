@@ -69,17 +69,17 @@ namespace SAPGuiAutomationLib.Con
             ps.Add(new SAPDataParameter() { Name = "CurrencyTo", Type = typeof(string), Comment = "To Currency." });
             ps.Add(new SAPDataParameter() { Name = "ValidDate", Type = typeof(string), Comment = "Valid Date." });
 
-            SAPModuleAttribute attribute = new SAPModuleAttribute();
-            attribute.ModuleName = "Get Currency";
-            attribute.ModuleVersion = "1.0.0.0";
-            attribute.ScreenNumber = "1000";
-            attribute.TCode = "SE16";
-            attribute.Author = "Zhou Yang";
-            attribute.Email = "yang.zhou4@hp.com";
+            //SAPModuleAttribute attribute = new SAPModuleAttribute();
+            //attribute.ModuleName = "Get Currency";
+            //attribute.ModuleVersion = "1.0.0.0";
+            //attribute.ScreenNumber = "1000";
+            //attribute.TCode = "SE16";
+            //attribute.Author = "Zhou Yang";
+            //attribute.Email = "yang.zhou4@hp.com";
            
 
-            var tp = SAPAutomationExtension.GetDataClass("Screen_GetCurrency", ps,attribute);
-            string code = CodeHelper.GetCode<CodeTypeMember>(tp, p => p.GenerateCodeFromMember).ToString();
+            //var tp = SAPAutomationExtension.GetDataClass("Screen_GetCurrency", ps,attribute);
+            //string code = CodeHelper.GetCode<CodeTypeMember>(tp, p => p.GenerateCodeFromMember).ToString();
            
           
 
