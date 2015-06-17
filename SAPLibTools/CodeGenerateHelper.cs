@@ -53,7 +53,44 @@ namespace SAPLibTools
             
         }
 
-        public CodeMemberMethod[] GetFindChildByConditionMethods()
+        public CodeMemberMethod[] GetFindChildrenByPropertyMethods()
+        {
+            string methodName = "FindChildrenByProperty";
+
+            SAPAutomationHelper.Current.SetSAPApiAssembly();
+            Assembly asm = SAPAutomationHelper.Current.SAPGuiApiAssembly;
+
+            var interfaces = asm.GetTypes().Where(t => t.IsInterface && t.Name.StartsWith("Gui") && t.GetInterfaces()[0].GetProperty("Children") != null).ToArray();
+
+            CodeMemberMethod[] methods = new CodeMemberMethod[interfaces.Count()];
+
+            for (int i = 0; i < interfaces.Count(); i++)
+            {
+
+                methods[i] = new CodeMemberMethod();
+                methods[i].Name = methodName;
+                methods[i].Attributes = MemberAttributes.Public | MemberAttributes.Static;
+                CodeParameterDeclarationExpression para1 = new CodeParameterDeclarationExpression(new CodeTypeReference("this " + interfaces[i].Name), interfaces[i].Name.Substring(3));
+                methods[i].Parameters.Add(para1);
+                CodeParameterDeclarationExpression para2 = new CodeParameterDeclarationExpression(new CodeTypeReference("Func<T,bool>"), "Property");
+                methods[i].Parameters.Add(para2);
+
+                methods[i].ReturnType = new CodeTypeReference("IEnumerable<T>");
+                CodeTypeParameter param = new CodeTypeParameter("T");
+                param.Constraints.Add(" class");
+                methods[i].TypeParameters.Add(param);
+
+                methods[i].Statements.Add(new CodeMethodReturnStatement(
+                        new CodeMethodInvokeExpression(
+                            new CodeMethodReferenceExpression(null, "findChildrenByPropertyTemplate", new CodeTypeReference("T")),
+                            new CodeVariableReferenceExpression(interfaces[i].Name.Substring(3) + ".Children"),
+                            new CodeVariableReferenceExpression("Property")
+                    )));
+            }
+            return methods;
+        }
+
+        public CodeMemberMethod[] GetFindChildByPropertyMethods()
         {
             string methodName = "FindChildByCondition";
 

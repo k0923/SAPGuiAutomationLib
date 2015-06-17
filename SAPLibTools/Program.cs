@@ -17,7 +17,7 @@ namespace SAPLibTools
         static void Main(string[] args)
         {
             CodeGenerateHelper helper = new CodeGenerateHelper();
-            foreach (var item in helper.GetFindChildByConditionMethods())
+            foreach (var item in helper.GetFindChildrenByPropertyMethods())
             {
                 helper.TargetClass.Members.Add(item);
             }

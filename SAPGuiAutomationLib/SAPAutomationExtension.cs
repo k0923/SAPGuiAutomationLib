@@ -125,7 +125,7 @@ namespace SAPGuiAutomationLib
                 return null;
             CodeTypeDeclaration targetClass = new CodeTypeDeclaration(className);
             targetClass.IsClass = true;
-            targetClass.BaseTypes.Add(new CodeTypeReference(typeof(SAPModule)));
+            //targetClass.BaseTypes.Add(new CodeTypeReference(typeof(SAPModule)));
             CodeMemberMethod method = new CodeMemberMethod() { 
                 Name = "RunAction",
                 Attributes = MemberAttributes.Public | MemberAttributes.Static

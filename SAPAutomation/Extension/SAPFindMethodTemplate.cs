@@ -99,17 +99,29 @@ namespace SAPAutomation.Extension
             
         }
 
-        private static T findChildByConditionTemplate<T>(GuiComponentCollection Components, Func<T, bool> Condition) where T : class
+        private static T findChildByPropertyTemplate<T>(GuiComponentCollection Components, Func<T, bool> Property) where T : class
         {
             for (int i = 0; i < Components.Count; i++)
             {
                 var component = Components.ElementAt(i) as T;
-                if (component != null && Condition(component))
+                if (component != null && Property(component))
                 {
                     return component;
                 }
             }
             return null;
+        }
+
+        private static IEnumerable<T> findChildrenByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T:class
+        {
+            for(int i=0;i<Components.Count;i++)
+            {
+                var component = Components.ElementAt(i) as T;
+                if(component != null && Property(component))
+                {
+                    yield return component;
+                }
+            }
         }
 
     }

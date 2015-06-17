@@ -20,6 +20,14 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+            CompareObj oA = new CompareObj() { DataA = "Abc", DataB = 12 };
+            CompareObj oB = new CompareObj() { DataA = "Abc", DataB = 12 };
+            bool result = EqualityComparer<CompareObj>.Default.Equals(oA, oB);
+
+            GuiScrollContainer cont = new GuiScrollContainer();
+            GuiScrollbar sb = cont.VerticalScrollbar;
+            sb.Position = 4;
+
             SAPGuiAutomationLib.Console.TestClass test = new Console.TestClass();
             System.Console.ReadLine();
 
@@ -91,6 +99,21 @@ namespace SAPGuiAutomationLib.Con
             //TypeBuilder tb = builder.DefineType("Student", TypeAttributes.Class);
             //PropertyBuilder pb = tb.DefineProperty("Name", PropertyAttributes.None, typeof(string), null);
             
+        }
+    }
+
+
+    public class CompareObj:IEquatable<CompareObj>
+    {
+        public string DataA { get; set; }
+
+        public int DataB { get; set; }
+
+        public bool Equals(CompareObj other)
+        {
+            if (DataA == other.DataA && DataB == other.DataB)
+                return true;
+            return false;
         }
     }
 

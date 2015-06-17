@@ -43,17 +43,19 @@
     <Compile Include="Extension\SAPFEExtension.cs" />
     <Compile Include="Extension\SAPFindAllByName.cs" />
     <Compile Include="Extension\SAPFindAllByNameEx.cs" />
-    <Compile Include="Extension\SAPFindById.CS" />
+    <Compile Include="Extension\SAPFindById.cs" />
     <Compile Include="Extension\SAPFindByName.cs" />
     <Compile Include="Extension\SAPFindByNameEx.cs" />
-    <Compile Include="Extension\SAPFindChildByCondition.cs" />
+    <Compile Include="Extension\SAPFindChildByProperty.cs" />
+    <Compile Include="Extension\SAPFindChildrenByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Framework\Attributes\SAPBizDataAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
-    <Compile Include="Framework\SAPModule.cs" />
+    <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
+    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
