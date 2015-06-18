@@ -144,7 +144,9 @@ namespace SAPAutomation.Data
             return _dataList.GetEnumerator();
         }
 
-        public IEnumerator GetEnumerator()
+        
+
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return _dataList.GetEnumerator();
         }
