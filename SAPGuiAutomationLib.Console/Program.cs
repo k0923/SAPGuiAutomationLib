@@ -6,34 +6,83 @@ using System.Threading.Tasks;
 using SAPFEWSELib;
 using System.Reflection;
 using System.Reflection.Emit;
-using SAPTestRunTime;
+
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
 using System.Threading;
 using System.Data;
+using SAPAutomation.Extension;
+using SAPAutomation;
+using SAPAutomation.Framework.Attributes;
+using SAPAutomation.Data;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
 {
+    public class TestNest
+    {
+        [SAPBizData]
+        public string Name { get; set; }
+
+        [SAPBizData]
+        public TestInside TestInside { get; set; }
+
+        [SAPBizData]
+        public int Age { get; set; }
+    }
+
+    public class TestInside
+    {
+        [SAPBizData]
+        public string Name { get; set; }
+
+        [SAPBizData]
+        public TestInsideB InsideB { get; set; }
+    }
+
+    public class TestInsideB
+    {
+        [SAPBizData]
+        public int Age {get;set;}
+    }
+
     class Program
     {
         static void Main(string[] args)
         {
+
+            DataTable<TestNest> data = new DataTable<TestNest>();
+            TestNest testData = new TestNest();
+            testData.Name = "abv";
+            testData.TestInside = new TestInside() { Name = "insideage" };
+            data.Add(testData);
+
+            TestNest testData1 = new TestNest();
+            testData1.Name = "abvC";
+            testData1.Age = 18;
+            testData1.TestInside = new TestInside() { Name = "insideage21" };
+            data.Add(testData1);
+
+            testData.Age = 22;
+            data.Update(testData);
+
+            DataTable<TestNest> dt1 = new DataTable<TestNest>(data.GetCopy());
+
+
+            data.Remove(testData);
+
+
+            
+
+
+
             CompareObj oA = new CompareObj() { DataA = "Abc", DataB = 12 };
             CompareObj oB = new CompareObj() { DataA = "Abc", DataB = 12 };
             bool result = EqualityComparer<CompareObj>.Default.Equals(oA, oB);
 
-            GuiScrollContainer cont = new GuiScrollContainer();
-            GuiScrollbar sb = cont.VerticalScrollbar;
-            sb.Position = 4;
+          
 
-            SAPGuiAutomationLib.Console.TestClass test = new Console.TestClass();
-            System.Console.ReadLine();
-
-
-            Test.Exchange ex = new Test.Exchange();
-            
             
         }
         
@@ -71,11 +120,11 @@ namespace SAPGuiAutomationLib.Con
 
         static void DataClassTest()
         {
-            List<SAPDataParameter> ps = new List<SAPDataParameter>();
-            ps.Add(new SAPDataParameter() { Name = "Type", Type = typeof(int), Comment = "Type of the currency." });
-            ps.Add(new SAPDataParameter() { Name = "CurrencyFrom", Type = typeof(string), Comment = "From Currency." });
-            ps.Add(new SAPDataParameter() { Name = "CurrencyTo", Type = typeof(string), Comment = "To Currency." });
-            ps.Add(new SAPDataParameter() { Name = "ValidDate", Type = typeof(string), Comment = "Valid Date." });
+            //List<SAPDataParameter> ps = new List<SAPDataParameter>();
+            //ps.Add(new SAPDataParameter() { Name = "Type", Type = typeof(int), Comment = "Type of the currency." });
+            //ps.Add(new SAPDataParameter() { Name = "CurrencyFrom", Type = typeof(string), Comment = "From Currency." });
+            //ps.Add(new SAPDataParameter() { Name = "CurrencyTo", Type = typeof(string), Comment = "To Currency." });
+            //ps.Add(new SAPDataParameter() { Name = "ValidDate", Type = typeof(string), Comment = "Valid Date." });
 
             //SAPModuleAttribute attribute = new SAPModuleAttribute();
             //attribute.ModuleName = "Get Currency";
