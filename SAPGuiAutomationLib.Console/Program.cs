@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using SAPFEWSELib;
 using System.Reflection;
 using System.Reflection.Emit;
-
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.IO;
@@ -58,7 +57,7 @@ namespace SAPGuiAutomationLib.Con
             CreateSpreadsheetWorkbook("TEST.XLSX");
 
 
-            var v = GetCellValue("Test.xlsx", "mySheet", "H12");
+            //var v = GetCellValue("Test.xlsx", "mySheet", "H12");
 
 
 
@@ -78,11 +77,8 @@ namespace SAPGuiAutomationLib.Con
             testData.Age = 22;
             data.Update(testData);
 
-            DataTable<TestNest> dt1 = new DataTable<TestNest>(data.GetCopy());
 
-
-            data.Remove(testData);
-
+            data.GetCopy().ExportToExcel("Test.xlsx", "myTest");
 
             
 
@@ -95,6 +91,76 @@ namespace SAPGuiAutomationLib.Con
           
 
             
+        }
+
+
+        private static void createExcelFile(string filePath, DataTable dt, string tableName = "")
+        {
+            SpreadsheetDocument doc = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook);
+            WorkbookPart wbPart = doc.AddWorkbookPart();
+            wbPart.Workbook = new Workbook();
+
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>();
+            wsPart.Worksheet = new Worksheet(new SheetData());
+
+            Sheets sheets = doc.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+
+            Sheet sheet = new Sheet()
+            {
+                Id = doc.WorkbookPart.GetIdOfPart(wsPart),
+                SheetId = 1,
+                Name = tableName == "" ? dt.TableName : tableName
+            };
+
+            sheets.Append(sheet);
+
+
+            SheetData sheetData = wsPart.Worksheet.GetFirstChild<SheetData>();
+
+            Row headRow = new Row();
+            headRow.RowIndex = 1;
+
+            foreach (DataColumn dc in dt.Columns)
+            {
+                Cell c = new Cell();
+                c.DataType = new EnumValue<CellValues>(CellValues.SharedString);
+                c.CellValue = new CellValue(dc.ColumnName);
+                headRow.Append(c);
+            }
+            sheetData.Append(headRow);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Row r = new Row();
+                r.RowIndex = uint.Parse(i.ToString()) + 2;
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Cell c = new Cell();
+                    c.DataType = new EnumValue<CellValues>(getCellType(dt.Columns[j].DataType));
+                    c.CellValue = new CellValue(dt.Rows[i][j].ToString());
+                    r.Append(c);
+                }
+                sheetData.Append(r);
+            }
+
+            wbPart.Workbook.Save();
+            doc.Close();
+        }
+
+        private static CellValues getCellType(Type dataType)
+        {
+            if (dataType == typeof(string))
+            {
+                return CellValues.SharedString;
+            }
+            else if (dataType == typeof(DateTime))
+            {
+                return CellValues.Date;
+            }
+            else
+            {
+                return CellValues.Number;
+            }
         }
 
         public static string GetCellValue(string fileName,string sheetName,string addressName)

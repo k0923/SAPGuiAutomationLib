@@ -12,9 +12,9 @@ namespace SAPAutomation.Data
 {
     public static class DataTableExtension
     {
-        public static void ExportToExcel(this DataTable dataTable,string File)
+        public static void ExportToExcel(this DataTable dataTable,string File,string sheetName)
         {
-            
+            createExcelFile(File, dataTable, sheetName);
         }
 
         public static void ExportToTxt(this DataTable dataTable,string File,char splitChar = '\t')
@@ -30,6 +30,95 @@ namespace SAPAutomation.Data
         public static DataTable ReadFromTxt(this DataTable dataTable,string File,char splitChar = '\t')
         {
             return null;
+        }
+
+        private static void createExcelFile(string filePath, DataTable dt, string tableName = "")
+        {
+            SpreadsheetDocument doc = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook);
+            WorkbookPart wbPart = doc.AddWorkbookPart();
+            wbPart.Workbook = new Workbook();
+
+            WorksheetPart wsPart = wbPart.AddNewPart<WorksheetPart>();
+            wsPart.Worksheet = new Worksheet(new SheetData());
+
+            Sheets sheets = doc.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+
+            Sheet sheet = new Sheet()
+            {
+                Id = doc.WorkbookPart.GetIdOfPart(wsPart),
+                SheetId = 1,
+                Name = tableName == "" ? dt.TableName : tableName
+            };
+
+            sheets.Append(sheet);
+
+
+            SheetData sheetData = wsPart.Worksheet.GetFirstChild<SheetData>();
+
+            Row headRow = new Row();
+            headRow.RowIndex = 1;
+
+
+            for(int i=0;i<dt.Columns.Count;i++)
+            {
+                Cell c = new Cell();
+                c.DataType = new EnumValue<CellValues>(CellValues.String);
+                c.CellReference = getColumnName(i + 1) + "1";
+                c.CellValue = new CellValue(dt.Columns[i].ColumnName);
+                headRow.AppendChild(c);
+            }
+            sheetData.AppendChild(headRow);
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                Row r = new Row();
+                r.RowIndex = (UInt32)i + 2;
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    Cell c = new Cell();
+                    c.DataType = new EnumValue<CellValues>(getCellType(dt.Columns[j].DataType));
+                    c.CellReference = getColumnName(j + 1) + r.RowIndex.ToString();
+                    c.CellValue = new CellValue(dt.Rows[i][j].ToString());
+                    r.Append(c);
+                }
+                sheetData.Append(r);
+            }
+
+            wbPart.Workbook.Save();
+            doc.Close();
+        }
+
+
+        private static string getColumnName(int columnIndex)
+        {
+            int dividend = columnIndex;
+            string columnName = String.Empty;
+            int modifier;
+
+            while (dividend > 0)
+            {
+                modifier = (dividend - 1) % 26;
+                columnName =Convert.ToChar(65 + modifier).ToString() + columnName;
+                dividend = (int)((dividend - modifier) / 26);
+            }
+
+            return columnName;
+        }
+
+        private static CellValues getCellType(Type dataType)
+        {
+            if (dataType == typeof(string))
+            {
+                return CellValues.String;
+            }
+            else if(dataType == typeof(DateTime))
+            {
+                return CellValues.Date;
+            }
+            else
+            {
+                return CellValues.Number;
+            }
         }
 
         public static void CreateSpreadsheetWorkbook(string filepath)
