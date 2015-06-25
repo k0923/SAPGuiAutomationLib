@@ -87,7 +87,8 @@ namespace SAPAutomation.Data
                 T item = new T();
                 entityAction(item, (s, p, o) =>
                 {
-                    p.SetValue(o, dr[s],null);
+                    p.SetValue(o, Convert.ChangeType(dr[s], p.PropertyType), null);
+                   
                 });
                 _dataList.Add(item);
             }
@@ -110,8 +111,11 @@ namespace SAPAutomation.Data
                 string name = p.Name;
                 if (parentName != "")
                     name = parentName + "." + name;
-                if (p.GetCustomAttributes(typeof(SAPBizDataAttribute), true).Count() > 0)
+                if (p.GetCustomAttributes(typeof(TestDataAttribute), true).Count() > 0)
                 {
+                    TestDataAttribute bizData = p.GetCustomAttributes(typeof(TestDataAttribute), true).First() as TestDataAttribute;
+                    if (bizData.FriendlyName != null && bizData.FriendlyName != "")
+                        name = bizData.FriendlyName;
                     if (p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
                         dataAction(name, p, data);
                     else if (p.PropertyType.IsClass)
@@ -138,13 +142,10 @@ namespace SAPAutomation.Data
             get { return _dataList.Count; }
         }
 
-
         public IEnumerator<T> GetEnumerator()
         {
             return _dataList.GetEnumerator();
         }
-
-        
 
         IEnumerator IEnumerable.GetEnumerator()
         {

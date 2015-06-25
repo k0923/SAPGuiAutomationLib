@@ -117,7 +117,7 @@ namespace Test
                 string name = p.Name;
                 if (parentName != "")
                     name = parentName + "." + name;
-                if (p.GetCustomAttributes(typeof(SAPBizDataAttribute), true).Count() > 0)
+                if (p.GetCustomAttributes(typeof(TestDataAttribute), true).Count() > 0)
                 {
                     if (p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
                         dataAction(name, p, data);

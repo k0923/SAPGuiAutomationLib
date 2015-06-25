@@ -13,7 +13,7 @@ namespace SAPAutomation
     
     public class Test
     {
-        [SAPBizData]
+        [TestData]
         public string TCode { get; set; }
 
         public void TestFunc()
@@ -21,7 +21,7 @@ namespace SAPAutomation
             
         }
 
-        [SAPBizData]
+        [TestData]
         public ClassB CB { get; set; }
     }
 

@@ -6,7 +6,7 @@ using System.Text;
 namespace SAPAutomation.Framework.Attributes
 {
     [AttributeUsage(AttributeTargets.Property,AllowMultiple=false)]
-    public class SAPBizDataAttribute:Attribute
+    public class TestDataAttribute:Attribute
     {
         public string FriendlyName { get; set; }
     }

@@ -12,26 +12,30 @@ namespace SAPAutomation.Data
 {
     public static class DataTableExtension
     {
-        public static void ExportToExcel(this DataTable dataTable,string File,string sheetName)
+        public static void ExportToExcel(this DataTable dataTable, string File, string sheetName)
         {
             createExcelFile(File, dataTable, sheetName);
         }
 
-        public static void ExportToTxt(this DataTable dataTable,string File,char splitChar = '\t')
+        public static void ExportToTxt(this DataTable dataTable, string File, char splitChar = '\t')
         {
 
         }
 
-        public static DataTable ReadFromExcel(this DataTable dataTable,string File,string sheetName)
+        public static void ReadFromExcel(this DataTable dataTable, string File, string sheetName)
         {
-            return null;
+            dataTable.Clear();
+            dataTable.Columns.Clear();
+            dataTable.TableName = sheetName;
+            getDataFromExcel(dataTable, File, sheetName);
         }
 
-        public static DataTable ReadFromTxt(this DataTable dataTable,string File,char splitChar = '\t')
+        public static void ReadFromTxt(this DataTable dataTable, string File, char splitChar = '\t')
         {
-            return null;
+
         }
 
+        #region EXPORT EXCEL
         private static void createExcelFile(string filePath, DataTable dt, string tableName = "")
         {
             SpreadsheetDocument doc = SpreadsheetDocument.Create(filePath, SpreadsheetDocumentType.Workbook);
@@ -59,7 +63,7 @@ namespace SAPAutomation.Data
             headRow.RowIndex = 1;
 
 
-            for(int i=0;i<dt.Columns.Count;i++)
+            for (int i = 0; i < dt.Columns.Count; i++)
             {
                 Cell c = new Cell();
                 c.DataType = new EnumValue<CellValues>(CellValues.String);
@@ -78,7 +82,16 @@ namespace SAPAutomation.Data
                     Cell c = new Cell();
                     c.DataType = new EnumValue<CellValues>(getCellType(dt.Columns[j].DataType));
                     c.CellReference = getColumnName(j + 1) + r.RowIndex.ToString();
-                    c.CellValue = new CellValue(dt.Rows[i][j].ToString());
+                    if(c.DataType.Value==CellValues.Boolean)
+                    {
+                        string value = bool.Parse(dt.Rows[i][j].ToString()) ? "1" : "0";
+                        c.CellValue = new CellValue(value);
+                    }
+                    else
+                    {
+                        c.CellValue = new CellValue(dt.Rows[i][j].ToString());
+                    }
+                    
                     r.Append(c);
                 }
                 sheetData.Append(r);
@@ -87,6 +100,7 @@ namespace SAPAutomation.Data
             wbPart.Workbook.Save();
             doc.Close();
         }
+
 
 
         private static string getColumnName(int columnIndex)
@@ -98,7 +112,7 @@ namespace SAPAutomation.Data
             while (dividend > 0)
             {
                 modifier = (dividend - 1) % 26;
-                columnName =Convert.ToChar(65 + modifier).ToString() + columnName;
+                columnName = Convert.ToChar(65 + modifier).ToString() + columnName;
                 dividend = (int)((dividend - modifier) / 26);
             }
 
@@ -111,9 +125,13 @@ namespace SAPAutomation.Data
             {
                 return CellValues.String;
             }
-            else if(dataType == typeof(DateTime))
+            else if (dataType == typeof(DateTime))
             {
                 return CellValues.Date;
+            }
+            else if (dataType == typeof(Boolean))
+            {
+                return CellValues.Boolean;
             }
             else
             {
@@ -121,39 +139,95 @@ namespace SAPAutomation.Data
             }
         }
 
-        public static void CreateSpreadsheetWorkbook(string filepath)
+        #endregion
+
+        #region Read Excel
+        private static DataTable getDataFromExcel(DataTable dt, string filePath, string sheetName)
         {
-            // Create a spreadsheet document by supplying the filepath.
-            // By default, AutoSave = true, Editable = true, and Type = xlsx.
-            SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.
-                Create(filepath, SpreadsheetDocumentType.Workbook);
-
-            // Add a WorkbookPart to the document.
-            WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
-            workbookpart.Workbook = new Workbook();
-
-            // Add a WorksheetPart to the WorkbookPart.
-            WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
-            worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-            // Add Sheets to the Workbook.
-            Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.
-                AppendChild<Sheets>(new Sheets());
-
-            // Append a new worksheet and associate it with the workbook.
-            Sheet sheet = new Sheet()
+            var dataList = getDatas(filePath, sheetName);
+            int count = dataList.First().Count;
+            foreach (var list in dataList)
             {
-                Id = spreadsheetDocument.WorkbookPart.
-                    GetIdOfPart(worksheetPart),
-                SheetId = 1,
-                Name = "mySheet"
-            };
-            sheets.Append(sheet);
-
-            workbookpart.Workbook.Save();
-
-            // Close the document.
-            spreadsheetDocument.Close();
+                if (list.Count != count)
+                    throw new Exception("Can't create table using the exist datas,please check the data in excel");
+            }
+            return createTable(dt, dataList, sheetName);
         }
+
+        private static DataTable createTable(DataTable dt, List<List<string>> datas, string tableName)
+        {
+
+            var header = datas.First();
+            foreach (var str in header)
+            {
+                DataColumn dc = new DataColumn(str);
+                dt.Columns.Add(dc);
+            }
+            for (int i = 1; i < datas.Count; i++)
+            {
+                DataRow dr = dt.NewRow();
+                for (int j = 0; j < dt.Columns.Count; j++)
+                {
+                    dr[j] = datas[i][j];
+                }
+                dt.Rows.Add(dr);
+            }
+            return dt;
+        }
+
+        private static List<List<string>> getDatas(string filePath, string sheetName)
+        {
+            List<List<string>> dataList = new List<List<string>>();
+            using (SpreadsheetDocument doc = SpreadsheetDocument.Open(filePath, false))
+            {
+                WorkbookPart wbPart = doc.WorkbookPart;
+                Sheet sheet = wbPart.Workbook.Descendants<Sheet>().Where(s => s.Name == sheetName).FirstOrDefault();
+                if (sheet == null)
+                {
+                    throw new ArgumentException("sheetName");
+                }
+                WorksheetPart wsPart = wbPart.GetPartById(sheet.Id) as WorksheetPart;
+                foreach (var row in wsPart.Worksheet.Descendants<Row>())
+                {
+                    List<string> datas = new List<string>();
+                    foreach (var cell in row.Descendants<Cell>())
+                    {
+                        string value = getCellValue(cell, wbPart);
+                        datas.Add(value);
+                    }
+                    dataList.Add(datas);
+                }
+            }
+            return dataList;
+        }
+
+        private static string getCellValue(Cell cell, WorkbookPart wb)
+        {
+            string value = cell.InnerText;
+            if (cell.DataType != null)
+                switch (cell.DataType.Value)
+                {
+                    case CellValues.SharedString:
+                        var stringTable = wb.GetPartsOfType<SharedStringTablePart>().FirstOrDefault();
+                        if (stringTable != null)
+                        {
+                            value = stringTable.SharedStringTable.ElementAt(int.Parse(value)).InnerText;
+                        }
+                        break;
+                    case CellValues.Boolean:
+                        switch (value)
+                        {
+                            case "0":
+                                value = "FALSE";
+                                break;
+                            default:
+                                value = "TRUE";
+                                break;
+                        }
+                        break;
+                }
+            return value;
+        }
+        #endregion
     }
 }

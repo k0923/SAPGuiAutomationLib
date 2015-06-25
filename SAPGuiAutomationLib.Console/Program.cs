@@ -24,28 +24,33 @@ namespace SAPGuiAutomationLib.Con
 {
     public class TestNest
     {
-        [SAPBizData]
+        [TestData(FriendlyName="TestName")]
         public string Name { get; set; }
 
-        [SAPBizData]
+        [TestData]
         public TestInside TestInside { get; set; }
 
-        [SAPBizData]
+        [TestData]
         public int Age { get; set; }
+
+        [TestData]
+        public bool IsMale { get; set; }
     }
 
     public class TestInside
     {
-        [SAPBizData]
+        [TestData(FriendlyName="InsideName")]
         public string Name { get; set; }
 
-        [SAPBizData]
+        [TestData]
         public TestInsideB InsideB { get; set; }
     }
 
     public class TestInsideB
     {
-        [SAPBizData]
+        [TestData]
+        public string Name { get; set; }
+        [TestData]
         public int Age {get;set;}
     }
 
@@ -53,8 +58,15 @@ namespace SAPGuiAutomationLib.Con
     {
         static void Main(string[] args)
         {
+            DataTable dt = new DataTable();
+            dt.ReadFromExcel("Test.xlsx", "myTest");
+            DataTable<TestNest> myTestData = new DataTable<TestNest>(dt);
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add(new DataColumn("abc"));
+            //dt.ReadFromExcel(@"C:\test\test.xlsx", "LevelBSellerBooking");
 
-            CreateSpreadsheetWorkbook("TEST.XLSX");
+
+            //CreateSpreadsheetWorkbook("TEST.XLSX");
 
 
             //var v = GetCellValue("Test.xlsx", "mySheet", "H12");
@@ -64,8 +76,12 @@ namespace SAPGuiAutomationLib.Con
 
             DataTable<TestNest> data = new DataTable<TestNest>();
             TestNest testData = new TestNest();
+            testData.IsMale = true;
             testData.Name = "abv";
             testData.TestInside = new TestInside() { Name = "insideage" };
+            testData.TestInside.InsideB = new TestInsideB();
+            testData.TestInside.InsideB.Name = "1111";
+            testData.TestInside.InsideB.Age = 77;
             data.Add(testData);
 
             TestNest testData1 = new TestNest();
