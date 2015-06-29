@@ -23,11 +23,15 @@ namespace SAPGuiAutomationLib
         public static CodeTypeMember CreatePropertyCode(this SAPDataParameter p)
         {
             CodeSnippetTypeMember snippet = new CodeSnippetTypeMember();
-            if(p.Comment != null )
+            
+            
+            if (p.Comment != null)
             {
                 snippet.Comments.Add(new CodeCommentStatement(p.Comment, true));
             }
-            snippet.Text = string.Format("public {0} {1} {{get;set;}}", p.Type.ToString(), p.Name);
+
+            snippet.Text = string.Format("[TestData]\npublic {0} {1} {{get;set;}}", p.Type.ToString(), p.Name);
+            
             return snippet;
         }
 

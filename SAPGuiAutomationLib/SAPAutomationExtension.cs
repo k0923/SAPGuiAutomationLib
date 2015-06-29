@@ -130,6 +130,7 @@ namespace SAPGuiAutomationLib
                 Name = "RunAction",
                 Attributes = MemberAttributes.Public | MemberAttributes.Static
             };
+            
             string parameterName = null;
             foreach(var step in steps)
             {

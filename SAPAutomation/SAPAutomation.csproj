@@ -59,6 +59,7 @@
     <Compile Include="Framework\Attributes\TestDataAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
+    <Compile Include="Interfaces\IRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
