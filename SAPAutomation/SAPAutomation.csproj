@@ -56,6 +56,7 @@
     <Compile Include="Extension\SAPFindChildByProperty.cs" />
     <Compile Include="Extension\SAPFindChildrenByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
+    <Compile Include="Extension\TypeExtension.cs" />
     <Compile Include="Framework\Attributes\TestDataAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />

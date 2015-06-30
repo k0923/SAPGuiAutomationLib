@@ -18,6 +18,8 @@ using SAPAutomation.Data;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
+using SAPGuiAutomationLib.Console;
+using System.Data.SqlClient;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -56,8 +58,30 @@ namespace SAPGuiAutomationLib.Con
 
     class Program
     {
+        public static bool test(out int a)
+        {
+            a = 10;
+            try
+            {
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+            finally
+            {
+                a = 11;
+            }
+        }
+
         static void Main(string[] args)
         {
+            
+
+            
+
+
             DataTable dt = new DataTable();
             dt.ReadFromExcel("Test.xlsx", "myTest");
             DataTable<TestNest> myTestData = new DataTable<TestNest>(dt);
