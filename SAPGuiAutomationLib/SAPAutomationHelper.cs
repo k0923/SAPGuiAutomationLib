@@ -2,6 +2,8 @@
 using SapROTWr;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -48,8 +50,44 @@ namespace SAPGuiAutomationLib
             }
         }
 
+        public void TakeScreenShot(string filePath)
+        {
+            FileInfo f = new FileInfo(filePath);
+            if (!f.Directory.Exists)
+                f.Directory.Create();
+            GuiFrameWindow win = _sapGuiSession.ActiveWindow;
+            win.Restore();
+
+            byte[] screenData = (byte[])win.HardCopyToMemory();
+            System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
+            ImageCodecInfo jpgEncoder = getEncoder(ImageFormat.Jpeg);
+
+            using (var ms = new MemoryStream(screenData))
+            {
+                Bitmap bmp = new Bitmap(ms);
+                EncoderParameters paras = new EncoderParameters(1);
+
+                EncoderParameter para1 = new EncoderParameter(myEncoder, 50L);
+                paras.Param[0] = para1;
+                bmp.Save(filePath, jpgEncoder, paras);
+            }
 
 
+        }
+
+        private ImageCodecInfo getEncoder(ImageFormat format)
+        {
+            ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
+
+            foreach (ImageCodecInfo codec in codecs)
+            {
+                if (codec.FormatID == format.Guid)
+                {
+                    return codec;
+                }
+            }
+            return null;
+        }
 
         public void SetSession(GuiSession Session, Action<dynamic> SessionDestroy = null)
         {

@@ -30,7 +30,7 @@ namespace SAPGuiAutomationLib
                 snippet.Comments.Add(new CodeCommentStatement(p.Comment, true));
             }
 
-            snippet.Text = string.Format("[TestData]\npublic {0} {1} {{get;set;}}", p.Type.ToString(), p.Name);
+            snippet.Text = string.Format("public {0} {1} {{get;set;}}", p.Type.ToString(), p.Name);
             
             return snippet;
         }

@@ -77,8 +77,9 @@ namespace SAPGuiAutomationLib.Con
 
         static void Main(string[] args)
         {
-            
 
+            SAPTestHelper.Current.SetSession();
+            SAPTestHelper.Current.TakeScreenShot("1.jpg");
             
 
 
