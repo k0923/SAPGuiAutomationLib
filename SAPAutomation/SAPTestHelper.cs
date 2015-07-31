@@ -9,15 +9,24 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-
+using SAPAutomation.Extension;
 
 namespace SAPAutomation
 {
+    public delegate void OnRequestErrorHanlder(GuiSession Session);
+    
     public sealed class SAPTestHelper
     {
+        public event OnRequestErrorHanlder OnRequestError;
+        public event OnRequestErrorHanlder OnRequestBlock;
+
         private static object _lockObj = new object();
 
         private static SAPTestHelper _instance;
+
+        public Queue<ScreenData> ScreenDatas { get; private set; }
+
+        private ScreenData _currentScreen;
 
         private GuiApplication _sapGuiApplication;
         private GuiSession _sapGuiSession;
@@ -58,7 +67,18 @@ namespace SAPAutomation
             }
         }
 
-        private SAPTestHelper() { }
+        private SAPTestHelper() 
+        {
+            this.ScreenDatas = new Queue<ScreenData>();
+        }
+
+        public void TurnScreenLog(bool on)
+        {
+            if(_sapGuiSession != null)
+            {
+                _sapGuiSession.Record = on;
+            }
+        }
 
         public static SAPTestHelper Current
         {
@@ -76,6 +96,7 @@ namespace SAPAutomation
             }
         }
 
+        #region SetSession
         public void SetSession(SAPLogon logon)
         {
             SetSession(logon.SapGuiApplication, logon.SapGuiConnection, logon.SapGuiSession);
@@ -83,68 +104,89 @@ namespace SAPAutomation
 
         public void SetSession(GuiApplication application, GuiConnection connection, GuiSession session)
         {
-            
             this._sapGuiApplication = application;
             this._sapGuiConnection = connection;
             this._sapGuiSession = session;
+            _currentScreen = new ScreenData(session.Info.SystemName, session.Info.Transaction,session.Info.Program, session.Info.ScreenNumber);
+            hookSessionEvent();
         }
 
         public void SetSession(string BoxName)
         {
-            _sapGuiSession = null;
-            _sapGuiConnection = null;
-            _sapGuiApplication = SAPTestHelper.GetSAPGuiApp();
-            int index = _sapGuiApplication.Connections.Count - 1;
+            var application = SAPTestHelper.GetSAPGuiApp();
+            GuiConnection connection = null;
+            GuiSession session = null;
+            int index = application.Connections.Count - 1;
             if (index < 0)
             {
                 throw new Exception("No SAP GUI Connections found");
             }
-            for(int i =0;i<_sapGuiApplication.Children.Count;i++)
+            for (int i = 0; i < application.Children.Count; i++)
             {
-                GuiConnection con = _sapGuiApplication.Children.ElementAt(i) as GuiConnection;
+                var con = application.Children.ElementAt(i) as GuiConnection;
                 index = con.Sessions.Count - 1;
                 if (index < 0)
                 {
                     throw new Exception("No SAP GUI Session Found");
                 }
-                for(int j=0;j<con.Sessions.Count;j++)
+                for (int j = 0; j < connection.Sessions.Count; j++)
                 {
-                    GuiSession session = con.Children.ElementAt(j) as GuiSession;
-                    if(session.Info.SystemName.ToLower() == BoxName.ToLower())
+                    var ses = con.Children.ElementAt(j) as GuiSession;
+                    if (ses.Info.SystemName.ToLower() == BoxName.ToLower())
                     {
-                        _sapGuiSession = session;
+                        session = ses;
                         break;
                     }
+                   
                 }
-                if (_sapGuiSession != null)
+                if (session != null)
                 {
-                    _sapGuiConnection = con;
+                    connection = con;
                     break;
                 }
-                    
+            }
+            if(session!=null)
+            {
+                SetSession(application, connection, session);
+            }
+            else
+            {
+                throw new Exception("No SAP GUI Session Found");
             }
         }
 
         public void SetSession()
         {
-            _sapGuiApplication = SAPTestHelper.GetSAPGuiApp();
-            int index = _sapGuiApplication.Connections.Count - 1;
+            var application = SAPTestHelper.GetSAPGuiApp();
+            int index = application.Connections.Count - 1;
             if (index < 0)
             {
                 throw new Exception("No SAP GUI Connections found");
             }
 
-            _sapGuiConnection = _sapGuiApplication.Children.ElementAt(index) as GuiConnection;
-            index = _sapGuiConnection.Sessions.Count - 1;
+            var connection = application.Children.ElementAt(index) as GuiConnection;
+            index = connection.Sessions.Count - 1;
             if (index < 0)
             {
                 throw new Exception("No SAP GUI Session Found");
             }
-            _sapGuiSession = _sapGuiConnection.Children.ElementAt(index) as GuiSession;
+            var session = connection.Children.ElementAt(index) as GuiSession;
 
-            hookSessionEvent();
+            SetSession(application, connection, session);
         }
 
+        private void hookSessionEvent()
+        {
+            _sapGuiSession.Destroy -= _sapGuiSession_Destroy;
+            _sapGuiSession.Destroy += _sapGuiSession_Destroy;
+            _sapGuiSession.EndRequest -= _sapGuiSession_EndRequest;
+            _sapGuiSession.EndRequest += _sapGuiSession_EndRequest;
+            _sapGuiSession.Change -= _sapGuiSession_Change;
+            _sapGuiSession.Change += _sapGuiSession_Change;
+        }
+        #endregion
+
+        #region Get SAP GUI Component
         public T GetElementById<T>(string id) where T : class
         {
             var component = GetElementById(id);
@@ -181,6 +223,7 @@ namespace SAPAutomation
                 return null;
             }
         }
+        
 
         /// <summary>
         /// This Method will find the element until the timeout, if secondsOfTimeout set to less than 0, this method will continue to find element without timeout
@@ -216,7 +259,9 @@ namespace SAPAutomation
             return comp;
 
         }
+        #endregion
 
+        #region ScreenShot
         private ImageCodecInfo getEncoder(ImageFormat format)
         {
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
@@ -255,6 +300,7 @@ namespace SAPAutomation
 
             
         }
+        #endregion
 
         public void CloseConnection()
         {
@@ -267,10 +313,78 @@ namespace SAPAutomation
             _sapGuiSession = null;
         }
 
-        private void hookSessionEvent()
+        
+
+        void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray)
         {
-            _sapGuiSession.Destroy -= _sapGuiSession_Destroy;
-            _sapGuiSession.Destroy += _sapGuiSession_Destroy;
+            if(_currentScreen!=null)
+            {
+                SAPGuiElement comp = new SAPGuiElement()
+                { 
+                    Id = Component.Id,
+                    Type = Component.Type,
+                    Name = Component.Name
+                };
+
+                object[] objs = CommandArray as object[];
+                objs = objs[0] as object[];
+                switch(objs[0].ToString().ToLower())
+                {
+                    case "m":
+                        comp.Action = BindingFlags.InvokeMethod;
+                        break;
+                    case "sp":
+                        comp.Action = BindingFlags.SetProperty;
+                        break;
+                }
+                var action = objs[1].ToString();
+                upperFirstChar(ref action);
+                comp.ActionName = action;
+
+                var count = objs.Count();
+
+                if(count>2)
+                {
+                    comp.ActionValues = new object[count - 2];
+                    for(int i=2;i<count;i++)
+                    {
+                        comp.ActionValues[i - 2] = objs[i];
+                    }
+                }
+                _currentScreen.SAPGuiElements.Add(comp);
+            }
+        }
+
+        private void upperFirstChar(ref string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+            {
+                s = char.ToUpper(s[0]) + s.Substring(1);
+            }
+        }
+
+        void _sapGuiSession_EndRequest(GuiSession Session)
+        {
+            if (_currentScreen != null)
+                ScreenDatas.Enqueue(_currentScreen);
+            _currentScreen = new ScreenData(Session.Info.SystemName, Session.Info.Transaction,Session.Info.Program, Session.Info.ScreenNumber);
+            GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
+            if(status !=null)
+            {
+                switch(status.MessageType)
+                {
+                    case "E":
+                        if(OnRequestError!=null)
+                            OnRequestError(Session);
+                        break;
+                    case "S":
+                        if(OnRequestBlock!=null)
+                            OnRequestBlock(Session);
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
