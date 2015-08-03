@@ -9,7 +9,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
-using SAPAutomation.Extension;
 
 namespace SAPAutomation
 {
@@ -107,7 +106,7 @@ namespace SAPAutomation
             this._sapGuiApplication = application;
             this._sapGuiConnection = connection;
             this._sapGuiSession = session;
-            _currentScreen = new ScreenData(session.Info.SystemName, session.Info.Transaction,session.Info.Program, session.Info.ScreenNumber);
+            _currentScreen = new ScreenData(session.Info.SystemName, session.Info.Transaction,session.Info.Program, session.Info.ScreenNumber,session.ActiveWindow.Text);
             hookSessionEvent();
         }
 
@@ -367,7 +366,7 @@ namespace SAPAutomation
         {
             if (_currentScreen != null)
                 ScreenDatas.Enqueue(_currentScreen);
-            _currentScreen = new ScreenData(Session.Info.SystemName, Session.Info.Transaction,Session.Info.Program, Session.Info.ScreenNumber);
+            _currentScreen = new ScreenData(Session.Info.SystemName, Session.Info.Transaction,Session.Info.Program, Session.Info.ScreenNumber,Session.ActiveWindow.Text);
             GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
             if(status !=null)
             {

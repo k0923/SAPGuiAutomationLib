@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using SAPFEWSELib;
 using System.IO;
+using SAPAutomation.Framework.SAPException;
 
-namespace SAPAutomation.Extension
+namespace SAPAutomation
 {
     public static partial class SAPFEExtension
     {
@@ -16,13 +17,33 @@ namespace SAPAutomation.Extension
                 vComp.Visualize(true);
         }
 
+        public static GuiComponent ThrowNotFoundError(this GuiComponent comp,string message)
+        {
+            if (comp == null)
+                throw new GuiNotFoundExpection(message);
+            return comp;
+        }
 
-        public static T Wrap<T>(this GuiComponent Component) where T:class
+        public static T OfType<T>(this GuiComponent Component) where T:class
         {
             return Component as T;
         }
         
-
+        public static string GetCellValue(this GuiGridView GridView,int col,int row)
+        {
+            int index = 0;
+            string column = "";
+            GridView.SelectAll();
+            foreach(var colName in GridView.SelectedColumns)
+            {
+                if (index == col)
+                    column = colName;
+                index++;
+            }
+            
+            return GridView.GetCellValue(row, column);
+                
+        }
 
     }
 }

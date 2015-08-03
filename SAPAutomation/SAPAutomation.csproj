@@ -63,6 +63,7 @@
     <Compile Include="Framework\Attributes\CommentAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
+    <Compile Include="Framework\SAPException\GuiNotFoundExpection.cs" />
     <Compile Include="Framework\IRequestErrror.cs" />
     <Compile Include="Framework\ISubmit.cs" />
     <Compile Include="Framework\SAPGuiScreen.cs" />
