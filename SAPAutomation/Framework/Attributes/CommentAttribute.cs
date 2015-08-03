@@ -5,17 +5,14 @@ using System.Text;
 
 namespace SAPAutomation.Framework.Attributes
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    [AttributeUsage(AttributeTargets.All, AllowMultiple = false)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method | AttributeTargets.Property, AllowMultiple = false)]
     public class CommentAttribute:Attribute
     {
         public string Summary { get; set; }
 
         public CommentAttribute() { }
         
-        public CommentAttribute(string Description,int a)
+        public CommentAttribute(string Description)
         {
             this.Summary = Description;
         }

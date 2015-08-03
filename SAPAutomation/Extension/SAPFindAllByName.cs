@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SAPAutomation.Extension
+namespace SAPAutomation
 {
     public static partial class SAPFEExtension
     {

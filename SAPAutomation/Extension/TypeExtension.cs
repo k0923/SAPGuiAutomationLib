@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace SAPAutomation.Extension
+namespace SAPAutomation
 {
     public static class TypeExtension
     {

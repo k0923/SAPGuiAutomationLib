@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SAPAutomation.Extension
+namespace SAPAutomation
 {
     public static partial class SAPFEExtension
     {
-        public static IEnumerable<T> findAllByNameTemplate<T>(string Name, Func<string, string, GuiComponentCollection> FindAllByName)
+        private static IEnumerable<T> findAllByNameTemplate<T>(string Name, Func<string, string, GuiComponentCollection> FindAllByName)
             where T : class
         {
             try
@@ -35,7 +35,7 @@ namespace SAPAutomation.Extension
 
         }
 
-        public static IEnumerable<T> findAllByNameExTemplate<T>(string Name,int TypeId, Func<string, int, GuiComponentCollection> FindAllByNameEx) where T:class
+        private static IEnumerable<T> findAllByNameExTemplate<T>(string Name,int TypeId, Func<string, int, GuiComponentCollection> FindAllByNameEx) where T:class
         {
             try
             {
@@ -84,8 +84,6 @@ namespace SAPAutomation.Extension
             }
         }
 
-
-
         private static T findByIdTemplate<T>(string Id, Func<string,object, GuiComponent> FindById) where T : class
         {
             try
@@ -122,6 +120,7 @@ namespace SAPAutomation.Extension
                     yield return component;
                 }
             }
+             
         }
 
     }
