@@ -17,8 +17,10 @@ using System.Data;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
-using SAPGuiAutomationLib.Console;
 using System.Data.SqlClient;
+using SAPFEWSELib;
+using SAPAutomation;
+using SAPGUIComboBoxLib;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -45,7 +47,37 @@ namespace SAPGuiAutomationLib.Con
 
         static void Main(string[] args)
         {
+            StringBuilder sb = new StringBuilder();
+            SAPTestHelper.Current.SetSession();
+            var comb = SAPTestHelper.Current.SAPGuiSession.FindById<GuiComboBox>(@"wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4400/ssubHEADER_FRAME:SAPMV45A:4440/cmbVBAK-FAKSK");
+            //dynamic cb = comb;
+            //dynamic entries = cb.Entries;
+            //foreach(GuiComboBoxEntry entry in entries)
+            //{
+            //    Console.WriteLine(entry.Key);
+            //}
+            foreach(GuiComboBoxEntry entry in comb.GetEntries())
+            {
+                Console.WriteLine(entry.Value);
+            }
+            //Console.WriteLine(entries.Count);
+            
+            //Console.WriteLine(props.Type);
 
+            SAPAutomation.Framework.SAPGuiScreen screen = new SAPAutomation.Framework.SAPGuiScreen();
+            screen.SendKeys(SAPAutomation.Framework.SAPKeys.Shift_F9);
+            
+            var ses = SAPTestHelper.Current.SAPGuiSession;
+            for(int i=-200;i<20000;i++)
+            {
+                var des = ses.GetVKeyDescription(i).Replace("+","_");
+                if (des != "")
+                    sb.AppendLine(des + "=" + i.ToString()+",");
+               
+            }
+            string s = sb.ToString();
+            Console.ReadLine();
+            
             //SAPTestHelper.Current.SetSession();
             //SAPTestHelper.Current.TakeScreenShot("1.jpg");
             

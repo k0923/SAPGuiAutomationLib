@@ -40,8 +40,23 @@ namespace SAPAutomation
                 index++;
             }
             
-            return GridView.GetCellValue(row, column);
-                
+            return GridView.GetCellValue(row, column);  
+        }
+
+        public static T GetCell<T>(this GuiTableControl Table,int row,int col) where T:class
+        {
+            return Table.GetCell(row, col) as T;
+        }
+
+        /// <summary>
+        /// If use property of Entries in GuiComboBox , it will throw an error
+        /// </summary>
+        /// <param name="Cb"></param>
+        /// <returns>return a list of GuiComboBoxEntry</returns>
+        public static dynamic GetEntries(this GuiComboBox Cb)
+        {
+            dynamic comb = Cb;
+            return comb.Entries;
         }
 
     }

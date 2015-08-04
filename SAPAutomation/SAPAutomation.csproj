@@ -61,6 +61,7 @@
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
     <Compile Include="Framework\IRequestErrror.cs" />
     <Compile Include="Framework\ISubmit.cs" />
+    <Compile Include="Framework\SAPKeys.cs" />
     <Compile Include="Framework\SAPGuiScreen.cs" />
     <Compile Include="Interfaces\IRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,6 +73,15 @@
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
       <Guid>{5EA428A0-F2B8-45E7-99FA-0E994E82B5BC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="SAPGUIComboBoxLib">
+      <Guid>{7170A1D5-3F08-11D1-B062-0000E81EEFA0}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>
