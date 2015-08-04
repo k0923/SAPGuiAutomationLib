@@ -1,14 +1,14 @@
-﻿using SAPAutomation;
+﻿
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SAPAutomation.Extension;
-using SAPFEWSELib;
+
+
 using System.Data;
-using SAPAutomation.Framework.Attributes;
+
 using System.Reflection;
 
 namespace Test
@@ -117,21 +117,21 @@ namespace Test
                 string name = p.Name;
                 if (parentName != "")
                     name = parentName + "." + name;
-                if (p.GetCustomAttributes(typeof(TestDataAttribute), true).Count() > 0)
-                {
-                    if (p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
-                        dataAction(name, p, data);
-                    else if (p.PropertyType.IsClass)
-                    {
-                        var obj = p.GetValue(data);
-                        if (obj == null)
-                        {
-                            obj = Activator.CreateInstance(p.PropertyType);
-                            p.SetValue(data, obj);
-                        }
-                        entityAction(obj, dataAction, name);
-                    }
-                }
+                //if (p.GetCustomAttributes(typeof(TestDataAttribute), true).Count() > 0)
+                //{
+                //    if (p.PropertyType.IsPrimitive || p.PropertyType == typeof(string))
+                //        dataAction(name, p, data);
+                //    else if (p.PropertyType.IsClass)
+                //    {
+                //        var obj = p.GetValue(data);
+                //        if (obj == null)
+                //        {
+                //            obj = Activator.CreateInstance(p.PropertyType);
+                //            p.SetValue(data, obj);
+                //        }
+                //        entityAction(obj, dataAction, name);
+                //    }
+                //}
             }
         }
 

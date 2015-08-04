@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using SAPFEWSELib;
 using System.IO;
-using SAPAutomation.Framework.SAPException;
 
 namespace SAPAutomation
 {
@@ -19,8 +18,8 @@ namespace SAPAutomation
 
         public static GuiComponent ThrowNotFoundError(this GuiComponent comp,string message)
         {
-            if (comp == null)
-                throw new GuiNotFoundExpection(message);
+            //if (comp == null)
+                //throw new GuiNotFoundExpection(message);
             return comp;
         }
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SAPFEWSELib;
+
 using System.Reflection;
 using System.Reflection.Emit;
 using System.CodeDom;
@@ -11,10 +11,9 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Threading;
 using System.Data;
-using SAPAutomation.Extension;
-using SAPAutomation;
-using SAPAutomation.Framework.Attributes;
-using SAPAutomation.Data;
+
+
+
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Spreadsheet;
@@ -24,38 +23,7 @@ using System.Data.SqlClient;
 
 namespace SAPGuiAutomationLib.Con
 {
-    public class TestNest
-    {
-        [TestData(FriendlyName="TestName")]
-        public string Name { get; set; }
-
-        [TestData]
-        public TestInside TestInside { get; set; }
-
-        [TestData]
-        public int Age { get; set; }
-
-        [TestData]
-        public bool IsMale { get; set; }
-    }
-
-    public class TestInside
-    {
-        [TestData(FriendlyName="InsideName")]
-        public string Name { get; set; }
-
-        [TestData]
-        public TestInsideB InsideB { get; set; }
-    }
-
-    public class TestInsideB
-    {
-        [TestData]
-        public string Name { get; set; }
-        [TestData]
-        public int Age {get;set;}
-    }
-
+    
     class Program
     {
         public static bool test(out int a)
@@ -78,56 +46,56 @@ namespace SAPGuiAutomationLib.Con
         static void Main(string[] args)
         {
 
-            SAPTestHelper.Current.SetSession();
-            SAPTestHelper.Current.TakeScreenShot("1.jpg");
+            //SAPTestHelper.Current.SetSession();
+            //SAPTestHelper.Current.TakeScreenShot("1.jpg");
             
 
 
-            DataTable dt = new DataTable();
-            dt.ReadFromExcel("Test.xlsx", "myTest");
-            DataTable<TestNest> myTestData = new DataTable<TestNest>(dt);
             //DataTable dt = new DataTable();
-            //dt.Columns.Add(new DataColumn("abc"));
-            //dt.ReadFromExcel(@"C:\test\test.xlsx", "LevelBSellerBooking");
+            //dt.ReadFromExcel("Test.xlsx", "myTest");
+            //DataTable<TestNest> myTestData = new DataTable<TestNest>(dt);
+            ////DataTable dt = new DataTable();
+            ////dt.Columns.Add(new DataColumn("abc"));
+            ////dt.ReadFromExcel(@"C:\test\test.xlsx", "LevelBSellerBooking");
 
 
-            //CreateSpreadsheetWorkbook("TEST.XLSX");
+            ////CreateSpreadsheetWorkbook("TEST.XLSX");
 
 
-            //var v = GetCellValue("Test.xlsx", "mySheet", "H12");
+            ////var v = GetCellValue("Test.xlsx", "mySheet", "H12");
 
 
 
 
-            DataTable<TestNest> data = new DataTable<TestNest>();
-            TestNest testData = new TestNest();
-            testData.IsMale = true;
-            testData.Name = "abv";
-            testData.TestInside = new TestInside() { Name = "insideage" };
-            testData.TestInside.InsideB = new TestInsideB();
-            testData.TestInside.InsideB.Name = "1111";
-            testData.TestInside.InsideB.Age = 77;
-            data.Add(testData);
+            //DataTable<TestNest> data = new DataTable<TestNest>();
+            //TestNest testData = new TestNest();
+            //testData.IsMale = true;
+            //testData.Name = "abv";
+            //testData.TestInside = new TestInside() { Name = "insideage" };
+            //testData.TestInside.InsideB = new TestInsideB();
+            //testData.TestInside.InsideB.Name = "1111";
+            //testData.TestInside.InsideB.Age = 77;
+            //data.Add(testData);
 
-            TestNest testData1 = new TestNest();
-            testData1.Name = "abvC";
-            testData1.Age = 18;
-            testData1.TestInside = new TestInside() { Name = "insideage21" };
-            data.Add(testData1);
+            //TestNest testData1 = new TestNest();
+            //testData1.Name = "abvC";
+            //testData1.Age = 18;
+            //testData1.TestInside = new TestInside() { Name = "insideage21" };
+            //data.Add(testData1);
 
-            testData.Age = 22;
-            data.Update(testData);
+            //testData.Age = 22;
+            //data.Update(testData);
 
 
-            data.GetCopy().ExportToExcel("Test.xlsx", "myTest");
+            //data.GetCopy().ExportToExcel("Test.xlsx", "myTest");
 
             
 
 
 
-            CompareObj oA = new CompareObj() { DataA = "Abc", DataB = 12 };
-            CompareObj oB = new CompareObj() { DataA = "Abc", DataB = 12 };
-            bool result = EqualityComparer<CompareObj>.Default.Equals(oA, oB);
+            //CompareObj oA = new CompareObj() { DataA = "Abc", DataB = 12 };
+            //CompareObj oB = new CompareObj() { DataA = "Abc", DataB = 12 };
+            //bool result = EqualityComparer<CompareObj>.Default.Equals(oA, oB);
 
           
 
@@ -366,10 +334,7 @@ namespace SAPGuiAutomationLib.Con
        
 
 
-        static void SAPGuiSession_Hit(GuiSession Session, GuiComponent Component, string InnerObject)
-        {
-            
-        }
+       
 
 
         static void ShowProp(string typeName,object obj)

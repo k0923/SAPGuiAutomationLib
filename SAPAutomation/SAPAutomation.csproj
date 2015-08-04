@@ -35,10 +35,6 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -63,7 +59,6 @@
     <Compile Include="Framework\Attributes\CommentAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
-    <Compile Include="Framework\SAPException\GuiNotFoundExpection.cs" />
     <Compile Include="Framework\IRequestErrror.cs" />
     <Compile Include="Framework\ISubmit.cs" />
     <Compile Include="Framework\SAPGuiScreen.cs" />
@@ -73,9 +68,6 @@
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
     <Compile Include="ScreenData.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
@@ -105,6 +97,9 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Framework\SAPException\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
