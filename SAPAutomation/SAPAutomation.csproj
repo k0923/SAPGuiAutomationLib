@@ -56,9 +56,14 @@
     <Compile Include="Extension\SAPFindChildrenByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Extension\TypeExtension.cs" />
+    <Compile Include="Framework\Attributes\ColumnBindingAttribute.cs" />
     <Compile Include="Framework\Attributes\CommentAttribute.cs" />
+    <Compile Include="Framework\Attributes\MultiColumnBindingAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
+    <Compile Include="Framework\Attributes\TableBindingAttribute.cs" />
+    <Compile Include="Framework\DataInitial.cs" />
+    <Compile Include="Framework\Gloabl.cs" />
     <Compile Include="Framework\IRequestErrror.cs" />
     <Compile Include="Framework\ISubmit.cs" />
     <Compile Include="Framework\SAPKeys.cs" />
@@ -73,15 +78,6 @@
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
       <Guid>{5EA428A0-F2B8-45E7-99FA-0E994E82B5BC}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-    <COMReference Include="SAPGUIComboBoxLib">
-      <Guid>{7170A1D5-3F08-11D1-B062-0000E81EEFA0}</Guid>
       <VersionMajor>1</VersionMajor>
       <VersionMinor>0</VersionMinor>
       <Lcid>0</Lcid>

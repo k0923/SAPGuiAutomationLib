@@ -21,6 +21,7 @@ using System.Data.SqlClient;
 using SAPFEWSELib;
 using SAPAutomation;
 using SAPGUIComboBoxLib;
+using SAPAutomation.Framework;
 //using Young.DAL;
 
 namespace SAPGuiAutomationLib.Con
@@ -48,13 +49,14 @@ namespace SAPGuiAutomationLib.Con
         static void Main(string[] args)
         {
             StringBuilder sb = new StringBuilder();
-            SAPTestHelper.Current.SetSession();
-            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiMenu>("Define Job").Select();
+            //SAPTestHelper.Current.SetSession();
+            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiMenu>("Define Job").Select();
             
             //Console.WriteLine(props.Type);
-            
-            SAPAutomation.Framework.SAPGuiScreen screen = new SAPAutomation.Framework.SAPGuiScreen();
-            screen.SendKeys(SAPAutomation.Framework.SAPKeys.Shift_F9);
+
+            Screen_101 sc101 = new Screen_101();
+            //SAPAutomation.Framework.SAPGuiScreen screen = new SAPAutomation.Framework.SAPGuiScreen();
+            sc101.SendKeys(SAPAutomation.Framework.SAPKeys.Shift_F9);
             
             var ses = SAPTestHelper.Current.SAPGuiSession;
             for(int i=-200;i<20000;i++)
@@ -426,6 +428,10 @@ namespace SAPGuiAutomationLib.Con
         }
     }
 
+    public class Screen_101:SAPGuiScreen
+    {
+
+    }
     class CodeHelper
     {
         private static CodeDomProvider provider = CodeDomProvider.CreateProvider("c#");

@@ -44,12 +44,21 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Young.Data">
+      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="DataInitial.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TableBindingAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SAPAutomation\SAPAutomation.csproj">
+      <Project>{932a714b-d806-4986-8b3b-ae2432f92992}</Project>
+      <Name>SAPAutomation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SAPTestForRunTime\SAPTestRunTime.csproj">
       <Project>{5631060e-3925-4e06-bdbc-a6b39ea54117}</Project>
       <Name>SAPTestRunTime</Name>
