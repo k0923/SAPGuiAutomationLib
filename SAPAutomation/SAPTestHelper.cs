@@ -71,6 +71,22 @@ namespace SAPAutomation
             this.ScreenDatas = new Queue<ScreenData>();
         }
 
+        public GuiMainWindow MainWindow
+        {
+            get { return this.GetElementById<GuiMainWindow>("wnd[0]"); }
+        }
+
+        public GuiFrameWindow PopupWindow
+        {
+            get
+            {
+                if (!(this.SAPGuiSession.ActiveWindow is GuiMainWindow))
+                    return this.SAPGuiSession.ActiveWindow;
+                else
+                    return null;
+            }
+        }
+
         public void TurnScreenLog(bool on)
         {
             if(_sapGuiSession != null)

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SAPFEWSELib;
 using System.IO;
+using SAPAutomation.Framework;
 
 namespace SAPAutomation
 {
@@ -57,6 +58,21 @@ namespace SAPAutomation
         {
             dynamic comb = Cb;
             return comb.Entries;
+        }
+
+        public static void SendKey(this GuiFrameWindow Window,SAPKeys key)
+        {
+            Window.SendVKey((int)key);
+        }
+
+        public static void SendKey(this GuiMainWindow Window,SAPKeys key)
+        {
+            Window.SendVKey((int)key);
+        }
+
+        public static void SendKey(this GuiModalWindow Window,SAPKeys key)
+        {
+            Window.SendVKey((int)key);
         }
 
     }

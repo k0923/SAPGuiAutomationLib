@@ -49,21 +49,10 @@ namespace SAPGuiAutomationLib.Con
         {
             StringBuilder sb = new StringBuilder();
             SAPTestHelper.Current.SetSession();
-            var comb = SAPTestHelper.Current.SAPGuiSession.FindById<GuiComboBox>(@"wnd[0]/usr/tabsTAXI_TABSTRIP_OVERVIEW/tabpT\01/ssubSUBSCREEN_BODY:SAPMV45A:4400/ssubHEADER_FRAME:SAPMV45A:4440/cmbVBAK-FAKSK");
-            //dynamic cb = comb;
-            //dynamic entries = cb.Entries;
-            //foreach(GuiComboBoxEntry entry in entries)
-            //{
-            //    Console.WriteLine(entry.Key);
-            //}
-            foreach(GuiComboBoxEntry entry in comb.GetEntries())
-            {
-                Console.WriteLine(entry.Value);
-            }
-            //Console.WriteLine(entries.Count);
+            SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiMenu>("Define Job").Select();
             
             //Console.WriteLine(props.Type);
-
+            
             SAPAutomation.Framework.SAPGuiScreen screen = new SAPAutomation.Framework.SAPGuiScreen();
             screen.SendKeys(SAPAutomation.Framework.SAPKeys.Shift_F9);
             
