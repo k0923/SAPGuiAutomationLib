@@ -9,10 +9,7 @@ namespace SAPAutomation.Framework
     public class SAPGuiScreen:DataInitial
     {
         public SAPGuiScreen() { }
-        public SAPGuiScreen(bool isInitial):base(isInitial)
-        {
-
-        }
+        
         protected GuiMainWindow MainWindow
         {
             get

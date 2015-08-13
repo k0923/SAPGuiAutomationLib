@@ -328,8 +328,6 @@ namespace SAPAutomation
             _sapGuiSession = null;
         }
 
-        
-
         void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray)
         {
             if(_currentScreen!=null)

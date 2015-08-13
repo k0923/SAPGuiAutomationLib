@@ -10,7 +10,7 @@ namespace SAPAutomation.Framework.Attributes
 
 
     [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-    public class MultiColumnBindingAttribute : Attribute
+    public class MultiColumnBindingAttribute : OrderAttribute
     {
         public string MethodName { get; set; }
 
@@ -20,7 +20,10 @@ namespace SAPAutomation.Framework.Attributes
         {
             this.ColNames = Cols;
             this.MethodName = MethodName;
+            this.Directory = DataDirectory.Input;
         }
+
+        public DataDirectory Directory { get; set; }
 
     }
 }
