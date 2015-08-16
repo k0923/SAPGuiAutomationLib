@@ -11,5 +11,7 @@ namespace SAPAutomation.Framework
         public static DataSet DataSet { get; set; }
 
         public static int CurrentId { get; set; }
+
+        public static Dictionary<Type, int> TypeCounts = new Dictionary<Type, int>();
     }
 }

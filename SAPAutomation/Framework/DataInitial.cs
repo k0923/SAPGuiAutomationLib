@@ -28,6 +28,16 @@ namespace SAPAutomation.Framework
                     if (Global.DataSet.Tables.Contains(tableName))
                     {
                         DataTable dt = Global.DataSet.Tables[tableName];
+
+                        if(Global.TypeCounts.ContainsKey(me))
+                        {
+                            Global.TypeCounts[me] += 1;
+                        }
+                        else
+                        {
+                            Global.TypeCounts.Add(me, 0);
+                        }
+
                         Dictionary<PropertyInfo, OrderAttribute> orderDic = new Dictionary<PropertyInfo, OrderAttribute>();
 
                         foreach (var property in me.GetProperties())
@@ -45,7 +55,12 @@ namespace SAPAutomation.Framework
                                 ColumnBindingAttribute colAt = keyValue.Value as ColumnBindingAttribute;
                                 if(dt.Columns.Contains(colAt.ColName))
                                 {
-                                    DataRow dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId).FirstOrDefault();
+                                    DataRow dr = null;
+                                    if (colAt.Cycle == CycleType.Default)
+                                        dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId).FirstOrDefault();
+                                    else
+                                        dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId)[Global.TypeCounts[me]];
+
                                     if (dr != null)
                                     {
                                         if(colAt.Directory == DataDirectory.Input)

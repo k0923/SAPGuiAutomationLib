@@ -63,6 +63,7 @@
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
     <Compile Include="Framework\Attributes\TableBindingAttribute.cs" />
+    <Compile Include="Framework\CycleType.cs" />
     <Compile Include="Framework\DataDirectory.cs" />
     <Compile Include="Framework\DataInitial.cs" />
     <Compile Include="Framework\Gloabl.cs" />
