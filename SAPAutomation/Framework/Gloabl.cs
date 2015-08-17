@@ -8,10 +8,16 @@ namespace SAPAutomation.Framework
 {
     public static class Global
     {
+        static Global()
+        {
+            Cycle = CycleType.Default;
+        }
         public static DataSet DataSet { get; set; }
 
         public static int CurrentId { get; set; }
 
         public static Dictionary<Type, int> TypeCounts = new Dictionary<Type, int>();
+
+        public static CycleType Cycle { get; set; }
     }
 }

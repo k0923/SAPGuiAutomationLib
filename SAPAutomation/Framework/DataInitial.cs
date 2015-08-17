@@ -12,11 +12,9 @@ namespace SAPAutomation.Framework
     
     public class DataInitial
     {
-        public DataInitial()
-        {
-        }
+        
 
-        public void DataBindingV2()
+        public void DataBinding()
         {
             if (Global.DataSet != null && Global.DataSet.Tables.Count > 0)
             {
@@ -50,13 +48,23 @@ namespace SAPAutomation.Framework
                         }
                         foreach (var keyValue in orderDic.OrderBy(v=>v.Value.Order))
                         {
-                            if(keyValue.Value is ColumnBindingAttribute)
+
+                            if (keyValue.Key.PropertyType.IsClass && keyValue.Key.PropertyType != typeof(string) && keyValue.Key.PropertyType.IsSubclassOf(typeof(DataInitial)))
+                            {
+                                if(keyValue.Key.PropertyType.GetConstructor(Type.EmptyTypes)!=null)
+                                {
+                                    dynamic newInstance  = Activator.CreateInstance(keyValue.Key.PropertyType);
+                                    keyValue.Key.SetValue(this, newInstance, null);
+                                    newInstance.DataBinding();
+                                }
+                            }
+                            else if(keyValue.Value is ColumnBindingAttribute)
                             {
                                 ColumnBindingAttribute colAt = keyValue.Value as ColumnBindingAttribute;
                                 if(dt.Columns.Contains(colAt.ColName))
                                 {
                                     DataRow dr = null;
-                                    if (colAt.Cycle == CycleType.Default)
+                                    if (Global.Cycle == CycleType.Default)
                                         dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId).FirstOrDefault();
                                     else
                                         dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId)[Global.TypeCounts[me]];
@@ -65,7 +73,8 @@ namespace SAPAutomation.Framework
                                     {
                                         if(colAt.Directory == DataDirectory.Input)
                                         {
-                                            keyValue.Key.SetValue(this, dr[colAt.ColName], null);
+                                            var value = Convert.ChangeType(dr[colAt.ColName], keyValue.Key.PropertyType);
+                                            keyValue.Key.SetValue(this, value, null);
                                         }
                                         if(colAt.Directory == DataDirectory.Output)
                                         {
@@ -104,61 +113,61 @@ namespace SAPAutomation.Framework
             }
         }
 
-        public void DataBinding()
-        {
-            if (Global.DataSet != null && Global.DataSet.Tables.Count > 0)
-            {
-                Type me = this.GetType();
-                var tableAt = me.GetCustomAttributes(typeof(TableBindingAttribute), true).FirstOrDefault() as TableBindingAttribute;
-                if (tableAt != null)
-                {
-                    string tableName = tableAt.TableName;
-                    if (Global.DataSet.Tables.Contains(tableName))
-                    {
-                        DataTable dt = Global.DataSet.Tables[tableName];
-                        foreach (var property in me.GetProperties())
-                        {
-                            var columnAt = property.GetCustomAttributes(typeof(ColumnBindingAttribute), true).FirstOrDefault() as ColumnBindingAttribute;
-                            if (columnAt != null && dt.Columns.Contains(columnAt.ColName))
-                            {
-                                DataRow dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId).FirstOrDefault();
-                                if (dr != null)
-                                {
-                                    property.SetValue(this, dr[columnAt.ColName], null);
-                                }
-                            }
-                            else
-                            {
-                                var multiColumnAt = property.GetCustomAttributes(typeof(MultiColumnBindingAttribute), true).FirstOrDefault() as MultiColumnBindingAttribute;
-                                if (multiColumnAt != null)
-                                {
-                                    bool isAllColContains = true;
-                                    foreach (var col in multiColumnAt.ColNames)
-                                    {
-                                        if (!dt.Columns.Contains(col))
-                                        {
-                                            isAllColContains = false;
-                                            break;
-                                        }
-                                    }
-                                    if (isAllColContains)
-                                    {
-                                        var method = Delegate.CreateDelegate(typeof(ConvertMethod), this, multiColumnAt.MethodName) as ConvertMethod;
+        //public void DataBinding()
+        //{
+        //    if (Global.DataSet != null && Global.DataSet.Tables.Count > 0)
+        //    {
+        //        Type me = this.GetType();
+        //        var tableAt = me.GetCustomAttributes(typeof(TableBindingAttribute), true).FirstOrDefault() as TableBindingAttribute;
+        //        if (tableAt != null)
+        //        {
+        //            string tableName = tableAt.TableName;
+        //            if (Global.DataSet.Tables.Contains(tableName))
+        //            {
+        //                DataTable dt = Global.DataSet.Tables[tableName];
+        //                foreach (var property in me.GetProperties())
+        //                {
+        //                    var columnAt = property.GetCustomAttributes(typeof(ColumnBindingAttribute), true).FirstOrDefault() as ColumnBindingAttribute;
+        //                    if (columnAt != null && dt.Columns.Contains(columnAt.ColName))
+        //                    {
+        //                        DataRow dr = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId).FirstOrDefault();
+        //                        if (dr != null)
+        //                        {
+        //                            property.SetValue(this, dr[columnAt.ColName], null);
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        var multiColumnAt = property.GetCustomAttributes(typeof(MultiColumnBindingAttribute), true).FirstOrDefault() as MultiColumnBindingAttribute;
+        //                        if (multiColumnAt != null)
+        //                        {
+        //                            bool isAllColContains = true;
+        //                            foreach (var col in multiColumnAt.ColNames)
+        //                            {
+        //                                if (!dt.Columns.Contains(col))
+        //                                {
+        //                                    isAllColContains = false;
+        //                                    break;
+        //                                }
+        //                            }
+        //                            if (isAllColContains)
+        //                            {
+        //                                var method = Delegate.CreateDelegate(typeof(ConvertMethod), this, multiColumnAt.MethodName) as ConvertMethod;
 
-                                        DataRow[] drs = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId);
-                                        if (drs != null)
-                                        {
-                                            property.SetValue(this, method(drs), null);
-                                        }
-                                    }
+        //                                DataRow[] drs = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId);
+        //                                if (drs != null)
+        //                                {
+        //                                    property.SetValue(this, method(drs), null);
+        //                                }
+        //                            }
 
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         
     }
 

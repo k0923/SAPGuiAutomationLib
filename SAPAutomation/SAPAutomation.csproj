@@ -34,6 +34,12 @@
     <Prefer32Bit>false</Prefer32Bit>
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Young.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -77,6 +83,8 @@
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
     <Compile Include="ScreenData.cs" />
+    <Compile Include="ScreenLogLevel.cs" />
+    <Compile Include="ScreenStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="SAPFEWSELib">
@@ -109,6 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Framework\SAPException\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Young.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

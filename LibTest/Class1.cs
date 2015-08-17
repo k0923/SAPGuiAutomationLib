@@ -58,7 +58,7 @@ namespace LibTest
     [TableBinding("Accounts","Id")]
     public class Screen_101:DataInitial
     {
-        public Screen_101():base(true)
+        public Screen_101()
         {
 
         }

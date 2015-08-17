@@ -19,6 +19,7 @@ namespace SAPAutomation
             this.ScreenNumber = ScreenNumber;
             this.Program = Program;
             this.ActiveWindow = ActiveWindow;
+            Status = ScreenStatus.Pass;
         }
         public string SystemName { get; set; }
 
@@ -29,6 +30,10 @@ namespace SAPAutomation
         public string Program { get; set; }
 
         public string ActiveWindow { get; set; }
+
+        public string ScreenShot { get; set; }
+
+        public ScreenStatus Status { get; set; }
 
         public List<SAPGuiElement> SAPGuiElements { get; private set; }
     }

@@ -23,6 +23,17 @@ namespace SAPGuiAutomationLib
             return getFindByIdCode(comp);
         }
 
+        public static CodeExpression FindByNameDetailCode(this GuiComponent Component)
+        {
+            return getFindByNameDetailCode(Component);
+        }
+
+        public static CodeExpression FindByNameDetailCode(this SapCompInfo CompInfo)
+        {
+            GuiComponent comp = SAPAutomationHelper.Current.GetSAPComponentById<GuiComponent>(CompInfo.Id);
+            return getFindByNameDetailCode(comp);
+        }
+
         public static CodeExpression FindByNameCode(this GuiComponent Component)
         {
             return getFindByNameCode(Component);
@@ -53,7 +64,7 @@ namespace SAPGuiAutomationLib
             return id.Substring(index, id.Length - index);
         }
 
-        private static CodeExpression getFindByNameCode(GuiComponent Component)
+        private static CodeExpression getFindByNameDetailCode(GuiComponent Component)
         {
             if (Component == null)
                 return null;
@@ -91,6 +102,44 @@ namespace SAPGuiAutomationLib
                           , new CodePrimitiveExpression(temp.Name));
 
                 }
+                return expression;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+
+        private static CodeExpression getFindByNameCode(GuiComponent Component)
+        {
+            if (Component == null)
+                return null;
+            try
+            {
+                string name = Component.Name;
+                string type = Component.Type;
+
+                while(!(Component.Parent is GuiSession))
+                {
+                    Component = Component.Parent;
+                }
+
+                string basicMethod = "SAPTestHelper.Current.";
+                if (Component is GuiModalWindow)
+                    basicMethod += "PopupWindow";
+                else
+                    basicMethod += "MainWindow";
+
+
+                CodeMethodInvokeExpression expression = new CodeMethodInvokeExpression(
+                    new CodeMethodReferenceExpression(
+                        new CodeVariableReferenceExpression(basicMethod)
+                        , "FindByName"
+                        , new CodeTypeReference(type))
+                        , new CodePrimitiveExpression(name));
+
+
                 return expression;
             }
             catch

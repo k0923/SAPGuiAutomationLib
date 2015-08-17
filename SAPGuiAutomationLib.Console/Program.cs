@@ -48,81 +48,45 @@ namespace SAPGuiAutomationLib.Con
 
         static void Main(string[] args)
         {
-            StringBuilder sb = new StringBuilder();
-            //SAPTestHelper.Current.SetSession();
-            //SAPTestHelper.Current.SAPGuiSession.FindById<GuiMainWindow>("wnd[0]").FindByName<GuiMenu>("Define Job").Select();
+            SAPTestHelper.Current.SetSession();
+            SAPTestHelper.Current.OnRequestBlock += Current_OnRequestBlock;
+            SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
+            SAPTestHelper.Current.SAPGuiSession.StartTransaction("se16");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "TCURR";
+            SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text = "M";
             
-            //Console.WriteLine(props.Type);
+            Run("USD", "USD");
+            
 
-            Screen_101 sc101 = new Screen_101();
-            //SAPAutomation.Framework.SAPGuiScreen screen = new SAPAutomation.Framework.SAPGuiScreen();
-            sc101.SendKeys(SAPAutomation.Framework.SAPKeys.Shift_F9);
-            
-            var ses = SAPTestHelper.Current.SAPGuiSession;
-            for(int i=-200;i<20000;i++)
+            int count = SAPTestHelper.count;
+            int sc = SAPTestHelper.sCount;
+
+            SAPTestHelper.Current.End();
+            System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(List<ScreenData>));
+            using (FileStream fs = new FileStream("1.xml",FileMode.Create))
             {
-                var des = ses.GetVKeyDescription(i).Replace("+","_");
-                if (des != "")
-                    sb.AppendLine(des + "=" + i.ToString()+",");
-               
+                xs.Serialize(fs, SAPTestHelper.Current.ScreenDatas);
             }
-            string s = sb.ToString();
-            Console.ReadLine();
-            
-            //SAPTestHelper.Current.SetSession();
-            //SAPTestHelper.Current.TakeScreenShot("1.jpg");
-            
 
 
-            //DataTable dt = new DataTable();
-            //dt.ReadFromExcel("Test.xlsx", "myTest");
-            //DataTable<TestNest> myTestData = new DataTable<TestNest>(dt);
-            ////DataTable dt = new DataTable();
-            ////dt.Columns.Add(new DataColumn("abc"));
-            ////dt.ReadFromExcel(@"C:\test\test.xlsx", "LevelBSellerBooking");
+        }
 
+        static void Current_OnRequestBlock()
+        {
+            Run("USD", "CNY");
+        }
 
-            ////CreateSpreadsheetWorkbook("TEST.XLSX");
+        static void Run(string curFrom,string curTo)
+        {
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I2-LOW").Text = curFrom;
+            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I3-LOW").Text = curTo;
+            SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.F8);
+        }
 
-
-            ////var v = GetCellValue("Test.xlsx", "mySheet", "H12");
-
-
-
-
-            //DataTable<TestNest> data = new DataTable<TestNest>();
-            //TestNest testData = new TestNest();
-            //testData.IsMale = true;
-            //testData.Name = "abv";
-            //testData.TestInside = new TestInside() { Name = "insideage" };
-            //testData.TestInside.InsideB = new TestInsideB();
-            //testData.TestInside.InsideB.Name = "1111";
-            //testData.TestInside.InsideB.Age = 77;
-            //data.Add(testData);
-
-            //TestNest testData1 = new TestNest();
-            //testData1.Name = "abvC";
-            //testData1.Age = 18;
-            //testData1.TestInside = new TestInside() { Name = "insideage21" };
-            //data.Add(testData1);
-
-            //testData.Age = 22;
-            //data.Update(testData);
-
-
-            //data.GetCopy().ExportToExcel("Test.xlsx", "myTest");
-
-            
-
-
-
-            //CompareObj oA = new CompareObj() { DataA = "Abc", DataB = 12 };
-            //CompareObj oB = new CompareObj() { DataA = "Abc", DataB = 12 };
-            //bool result = EqualityComparer<CompareObj>.Default.Equals(oA, oB);
-
-          
-
-            
+        static void Run1()
+        {
+            SAPTestHelper.Current.SAPGuiSession.EndTransaction();
         }
 
 

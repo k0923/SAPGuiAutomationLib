@@ -14,7 +14,6 @@ namespace SAPAutomation.Framework.Attributes
         {
             this.ColName = ColName;
             this.Directory = DataDirectory.Input;
-            this.Cycle = CycleType.Default;
         }
 
         public DataDirectory Directory { get; set; }
