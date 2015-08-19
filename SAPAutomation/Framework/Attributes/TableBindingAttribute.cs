@@ -16,6 +16,10 @@ namespace SAPAutomation.Framework.Attributes
             this.IdColumnName = IdColumnName;
         }
 
+        public TableBindingAttribute() { this.IdColumnName = "Id"; }
+
+        public TableBindingAttribute(string IdColumnName) { this.IdColumnName = IdColumnName; }
+
         public string IdColumnName { get; set; }
     }
 }

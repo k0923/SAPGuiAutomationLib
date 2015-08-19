@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace SAPAutomation
 {
-    public delegate void OnRequestErrorHanlder();
+    public delegate void OnRequestErrorHanlder(object sender,SAPRequestInfoArgs e);
 
     public sealed class SAPTestHelper
     {
@@ -155,7 +155,7 @@ namespace SAPAutomation
                 {
                     throw new Exception("No SAP GUI Session Found");
                 }
-                for (int j = 0; j < connection.Sessions.Count; j++)
+                for (int j = 0; j < con.Sessions.Count; j++)
                 {
                     var ses = con.Children.ElementAt(j) as GuiSession;
                     if (ses.Info.SystemName.ToLower() == BoxName.ToLower())
@@ -406,6 +406,7 @@ namespace SAPAutomation
 
         void _sapGuiSession_StartRequest(GuiSession Session)
         {
+
             autoScreenShot();
         }
 
@@ -435,7 +436,7 @@ namespace SAPAutomation
         {
             ScreenDatas.Add(_currentScreen);
             Tuple<string, string, string, int, string> sessionInfo = new Tuple<string, string, string, int, string>(Session.Info.SystemName, Session.Info.Transaction, Session.Info.Program, Session.Info.ScreenNumber, Session.ActiveWindow.Text);
-            newScreen(sessionInfo);
+
 
             GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
             if (status != null)
@@ -444,34 +445,28 @@ namespace SAPAutomation
                 {
                     case "E":
                         _currentScreen.Status = ScreenStatus.Fail;
-                        ///Sleep to wait for showing full status message
-                        Thread.Sleep(500);
+
                         if (OnRequestError != null)
-                            OnRequestError();
+                            OnRequestError(this,new SAPRequestInfoArgs(status.Text));
                         break;
                     case "S":
                         _currentScreen.Status = ScreenStatus.Warning;
-                        ///Sleep to wait for showing full status message
-                        Thread.Sleep(500);
-                        
                         if (OnRequestBlock != null)
-                        {
-                            OnRequestBlock.Invoke();
-                        }
+                            OnRequestBlock(this, new SAPRequestInfoArgs(status.Text));
                         break;
                     default:
                         _currentScreen.Status = ScreenStatus.Pass;
                         break;
                 }
             }
-            
-            
+
+            newScreen(sessionInfo);
         }
 
         public void End()
         {
-            ScreenDatas.Add(_currentScreen);
             autoScreenShot();
+            ScreenDatas.Add(_currentScreen);
         }
 
         void newScreen(Tuple<string, string, string, int, string> sessionInfo)
@@ -480,6 +475,18 @@ namespace SAPAutomation
             _currentScreen = new ScreenData(sessionInfo.Item1, sessionInfo.Item2, sessionInfo.Item3, sessionInfo.Item4, sessionInfo.Item5);
         }
 
-        
+
+    }
+
+    public class SAPRequestInfoArgs:EventArgs
+    {
+        public string Message { get; set; }
+
+        public SAPRequestInfoArgs() { }
+
+        public SAPRequestInfoArgs(string Msg)
+        {
+            this.Message = Msg;
+        }
     }
 }

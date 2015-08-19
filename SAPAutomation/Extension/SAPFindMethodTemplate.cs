@@ -123,5 +123,36 @@ namespace SAPAutomation
              
         }
 
+        
+
+        private static IEnumerable<T> findDescendantsByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T:class
+        {
+            List<T> itemList = new List<T>();
+            findDescendants<T>(Components, itemList, Property);
+            return itemList;
+            
+        }
+
+        private static void findDescendants<T>(GuiComponentCollection Components,List<T> ItemList, Func<T,bool> Property) where T:class
+        {
+            for (int i = 0; i < Components.Count; i++)
+            {
+                var component = Components.ElementAt(i);
+                var tCompoent = component as T;
+                if (tCompoent != null && Property(tCompoent))
+                {
+                    ItemList.Add(tCompoent);
+                }
+                else if (component is GuiContainer)
+                {
+                    findDescendants<T>(((GuiContainer)component).Children, ItemList, Property);
+                }
+                else if (component is GuiVContainer)
+                {
+                    findDescendants<T>(((GuiVContainer)component).Children, ItemList, Property);
+                }
+            }
+        }
+
     }
 }

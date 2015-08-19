@@ -35,7 +35,7 @@
     <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>Young.pfx</AssemblyOriginatorKeyFile>
@@ -60,10 +60,12 @@
     <Compile Include="Extension\SAPFindByNameEx.cs" />
     <Compile Include="Extension\SAPFindChildByProperty.cs" />
     <Compile Include="Extension\SAPFindChildrenByProperty.cs" />
+    <Compile Include="Extension\SAPFindDescendantsByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Extension\TypeExtension.cs" />
     <Compile Include="Framework\Attributes\ColumnBindingAttribute.cs" />
     <Compile Include="Framework\Attributes\CommentAttribute.cs" />
+    <Compile Include="Framework\Attributes\MethodBindingAttribute.cs" />
     <Compile Include="Framework\Attributes\MultiColumnBindingAttribute.cs" />
     <Compile Include="Framework\Attributes\OrderAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />

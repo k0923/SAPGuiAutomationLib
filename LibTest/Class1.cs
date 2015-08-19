@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 using SAPTestRunTime;
-using Young.Data;
 using System.Data.SqlClient;
 using System.Data;
 using SAPAutomation.Framework;
 using SAPAutomation.Framework.Attributes;
+using System.Diagnostics;
 
 namespace LibTest
 {
@@ -21,27 +21,29 @@ namespace LibTest
 
         static void Main()
         {
-            DelegateTest();
+            Process.Start(@"C:\Users\Young\Documents\GitHub\SAPGuiAutomationLib\SAPGuiAutomationLib.Console\bin\u26\SAPGuiAutomationLib.Console.exe");
+            Process.Start(@"C:\Users\Young\Documents\GitHub\SAPGuiAutomationLib\SAPGuiAutomationLib.Console\bin\Debug\SAPGuiAutomationLib.Console.exe");
+            //DelegateTest();
 
-            SqlConnectionStringBuilder ssb = new SqlConnectionStringBuilder();
+            //SqlConnectionStringBuilder ssb = new SqlConnectionStringBuilder();
             
-            ssb.DataSource = "yanzhou17.asiapacific.hpqcorp.net";
-            ssb.IntegratedSecurity = true;
-            ssb.InitialCatalog = "SAPTestCenter";
-            SqlConnection sqlCn = new SqlConnection(ssb.ConnectionString);
-            Young.Data.DBConnection.DBAccess da = new Young.Data.DBConnection.DBAccess(sqlCn, new SqlCommand());
+            //ssb.DataSource = "yanzhou17.asiapacific.hpqcorp.net";
+            //ssb.IntegratedSecurity = true;
+            //ssb.InitialCatalog = "SAPTestCenter";
+            //SqlConnection sqlCn = new SqlConnection(ssb.ConnectionString);
+            //Young.Data.DBConnection.DBAccess da = new Young.Data.DBConnection.DBAccess(sqlCn, new SqlCommand());
             
-            DataSet ds = da.GetData(new SqlDataAdapter(), "select * from Accounts", CommandType.Text);
-            Global.DataSet = ds;
-            ds.Tables[0].TableName = "Accounts";
-            Console.WriteLine(Global.DataSet.Tables[0].TableName);
-            Global.CurrentId = 62;
-            Screen_102 sc102 = new Screen_102();
-            foreach(var p in sc102.Rows)
-            {
-                Console.WriteLine(p.UserName + ":" + p.Password);
-            }
-            Console.ReadLine();
+            //DataSet ds = da.GetData(new SqlDataAdapter(), "select * from Accounts", CommandType.Text);
+            //Global.DataSet = ds;
+            //ds.Tables[0].TableName = "Accounts";
+            //Console.WriteLine(Global.DataSet.Tables[0].TableName);
+            //Global.CurrentId = 62;
+            //Screen_102 sc102 = new Screen_102();
+            //foreach(var p in sc102.Rows)
+            //{
+            //    Console.WriteLine(p.UserName + ":" + p.Password);
+            //}
+            //Console.ReadLine();
         }
 
         static void SAPGuiSession_StartRequest(SAPFEWSELib.GuiSession Session)

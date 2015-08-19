@@ -8,7 +8,23 @@ namespace SAPAutomation.Framework
 {
     public class SAPGuiScreen:DataInitial
     {
-        public SAPGuiScreen() { }
+        public event OnRequestErrorHanlder OnRequestError;
+        public event OnRequestErrorHanlder OnRequestBlock;
+
+        public SAPGuiScreen() {
+            SAPTestHelper.Current.OnRequestBlock += (s, e) => { 
+                if(OnRequestError!=null)
+                {
+                    OnRequestBlock(this, e);
+                }
+            };
+            SAPTestHelper.Current.OnRequestError += (s, e) => {
+                if(OnRequestError!=null)
+                {
+                    OnRequestError(this, e);
+                }
+            };
+        }
         
         protected GuiMainWindow MainWindow
         {
@@ -63,6 +79,11 @@ namespace SAPAutomation.Framework
         {
             MainWindow.SendVKey((int)Key);
         }
+
+
+       
+
+       
     }
 
     

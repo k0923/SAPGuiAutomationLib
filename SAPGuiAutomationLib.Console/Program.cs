@@ -49,25 +49,55 @@ namespace SAPGuiAutomationLib.Con
         static void Main(string[] args)
         {
             SAPTestHelper.Current.SetSession();
-            SAPTestHelper.Current.OnRequestBlock += Current_OnRequestBlock;
-            SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
-            SAPTestHelper.Current.SAPGuiSession.StartTransaction("se16");
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "TCURR";
-            SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
-            SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text = "M";
-            
-            Run("USD", "USD");
-            
+            var fields = SAPTestHelper.Current.SAPGuiSession.FindDescendantsByProperty<GuiCTextField>(c => true);
+            Console.WriteLine(fields.Count());
+            //GetCurrency gc = new GetCurrency();
+            //Type t = gc.GetType();
+            //MethodInfo mi = t.GetMethod("GetCurrencyRate");
+            //object obj = mi.Invoke(gc, null);
+            Global.DataSet = Young.Data.ExcelHelper.Current.Open(@"E:\test.xlsx").ReadAll();
+            Global.CurrentId = 1;
 
-            int count = SAPTestHelper.count;
-            int sc = SAPTestHelper.sCount;
+            //SAPTestHelper.Current.SetSession();
+            //SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
+            GetCurrency gc = new GetCurrency();
+            gc.DataBinding();
+
+            SC_230 sc230 = new SC_230();
+            sc230.StartTransaction("SE16");
+            sc230.TableName = "TCURR";
+            sc230.SendKeys(SAPKeys.Enter);
+
+            SC_1000 sc1000 = new SC_1000();
+            sc1000.RateType = "M";
+            sc1000.FromCurrency = "USD";
+            sc1000.ToCurrency = "USD";
+            sc1000.Execute();
+            var datas = SAPTestHelper.Current.ScreenDatas;
 
             SAPTestHelper.Current.End();
-            System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(List<ScreenData>));
-            using (FileStream fs = new FileStream("1.xml",FileMode.Create))
-            {
-                xs.Serialize(fs, SAPTestHelper.Current.ScreenDatas);
-            }
+
+            
+            //SAPTestHelper.Current.SetSession();
+            //SAPTestHelper.Current.OnRequestBlock += Current_OnRequestBlock;
+            //SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
+            //SAPTestHelper.Current.SAPGuiSession.StartTransaction("se16");
+            //SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = "TCURR";
+            //SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
+            //SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text = "M";
+            
+            //Run("USD", "USD");
+            
+
+            //int count = SAPTestHelper.count;
+            //int sc = SAPTestHelper.sCount;
+
+            //SAPTestHelper.Current.End();
+            //System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(List<ScreenData>));
+            //using (FileStream fs = new FileStream("1.xml",FileMode.Create))
+            //{
+            //    xs.Serialize(fs, SAPTestHelper.Current.ScreenDatas);
+            //}
 
 
         }
@@ -375,6 +405,11 @@ namespace SAPGuiAutomationLib.Con
             if (DataA == other.DataA && DataB == other.DataB)
                 return true;
             return false;
+        }
+
+        public void test()
+        {
+
         }
     }
 

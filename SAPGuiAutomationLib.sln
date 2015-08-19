@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib", "SAPGuiAutomationLib\SAPGuiAutomationLib.csproj", "{ABD06D1D-77F8-43C3-AE67-BB3FD71807B4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib.Test", "SAPGuiAutomationLib.Test\SAPGuiAutomationLib.Test.csproj", "{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib.Console", "SAPGuiAutomationLib.Console\SAPGuiAutomationLib.Console.csproj", "{3EE86427-725B-4F36-B855-560AF157910F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLibTest", "SAPGuiAutomationLib.Console\SAPGuiAutomationLibTest.csproj", "{3EE86427-725B-4F36-B855-560AF157910F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPTestRunTime", "SAPTestForRunTime\SAPTestRunTime.csproj", "{5631060E-3925-4E06-BDBC-A6B39EA54117}"
 EndProject

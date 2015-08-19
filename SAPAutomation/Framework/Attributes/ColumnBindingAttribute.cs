@@ -10,10 +10,14 @@ namespace SAPAutomation.Framework.Attributes
     {
         public string ColName { get; set; }
 
-        public ColumnBindingAttribute(string ColName)
+        public ColumnBindingAttribute()
+        {
+            this.Directory = DataDirectory.Input;
+        }
+
+        public ColumnBindingAttribute(string ColName):this()
         {
             this.ColName = ColName;
-            this.Directory = DataDirectory.Input;
         }
 
         public DataDirectory Directory { get; set; }
