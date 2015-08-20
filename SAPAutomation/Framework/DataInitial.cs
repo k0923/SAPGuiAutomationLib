@@ -105,12 +105,19 @@ namespace SAPAutomation.Framework
                                     }
                                     if (isAllColContains)
                                     {
-                                        var method = Delegate.CreateDelegate(typeof(ConvertMethod), this, mulColAt.MethodName) as ConvertMethod;
+                                        
 
                                         DataRow[] drs = dt.Select(tableAt.IdColumnName + "=" + Global.CurrentId);
                                         if (drs != null)
                                         {
-                                            property.SetValue(this, method(drs), null);
+                                            if (property.PropertyType == typeof(DataRow[]))
+                                                property.SetValue(this, drs, null);
+                                            else
+                                            {
+                                                var method = Delegate.CreateDelegate(typeof(ConvertMethod), this, mulColAt.MethodName) as ConvertMethod;
+                                                property.SetValue(this, method(drs), null);
+                                            }
+                                            
                                         }
                                     }
                                 }

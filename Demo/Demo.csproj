@@ -36,19 +36,6 @@
       <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Interop.SAPFEWSELib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SAPAutomation.1.1.0.1\lib\Interop.SAPFEWSELib.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Interop.SapROTWr, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SAPAutomation.1.1.0.1\lib\Interop.SapROTWr.dll</HintPath>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SAPAutoLogon">
-      <HintPath>..\..\..\..\..\..\Code\SAPTestManageSite\SAPAutoLogon\bin\Debug\SAPAutoLogon.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -56,11 +43,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Young.Data">
+      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GetCurrency.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SC_102.cs" />
+    <Compile Include="SC_4001.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -70,6 +61,26 @@
       <Project>{932a714b-d806-4986-8b3b-ae2432f92992}</Project>
       <Name>SAPAutomation</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="SAPFEWSELib">
+      <Guid>{5EA428A0-F2B8-45E7-99FA-0E994E82B5BC}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

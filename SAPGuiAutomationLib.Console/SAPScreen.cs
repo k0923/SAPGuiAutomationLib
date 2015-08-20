@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SAPGuiAutomationLib
 {
-    [TableBinding("SC_230","Id")]
+    [TableBinding]
     public class GetCurrency : DataInitial
     {
         public GetCurrency()
@@ -43,23 +43,25 @@ namespace SAPGuiAutomationLib
     {
         [ColumnBinding("TableName", Order = 0)]
         public string TableName
-        { get;set;
-            //get
-            //{
-            //    return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text;
-            //}
-            //set
-            //{
-            //    SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = value;
-            //}
+        { 
+            //get;set;
+            get
+            {
+                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text;
+            }
+            set
+            {
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("DATABROWSE-TABLENAME").Text = value;
+            }
         }
 
         [Order(1)]
         public SC_1000 Process()
         {
-            Console.WriteLine("Process");
+            //Console.WriteLine("Process");
+            SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
             return new SC_1000();
-            //SAPTestHelper.Current.MainWindow.SendKey(SAPKeys.Enter);
+            
         }
     }
 
@@ -69,51 +71,52 @@ namespace SAPGuiAutomationLib
         [ColumnBinding("RateType")]
         public string RateType
         {
-            get;
-            set;
-            //get
-            //{
-            //    return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text;
-            //}
-            //set
-            //{
-            //    SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text = value;
-            //}
+            //get;
+            //set;
+            get
+            {
+                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text;
+            }
+            set
+            {
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I1-LOW").Text = value;
+            }
         }
 
         [ColumnBinding("CurFrom")]
         public string FromCurrency
         {
-            get;
-            set;
-            //get
-            //{
-            //    return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I2-LOW").Text;
-            //}
-            //set
-            //{
-            //    SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I2-LOW").Text = value;
-            //}
+            //get;
+            //set;
+            get
+            {
+                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I2-LOW").Text;
+            }
+            set
+            {
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I2-LOW").Text = value;
+            }
         }
 
         [ColumnBinding("CurTo")]
         public string ToCurrency
-        { get;set;
-            //get
-            //{
-            //    return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I3-LOW").Text;
-            //}
-            //set
-            //{
-            //    SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I3-LOW").Text = value;
-            //}
+        { 
+            //get;set;
+            get
+            {
+                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I3-LOW").Text;
+            }
+            set
+            {
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("I3-LOW").Text = value;
+            }
         }
 
         [Order(1)]
         public void Execute()
         {
-            Console.WriteLine("Execute");
-            //SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+            //Console.WriteLine("Execute");
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
         }
     }
 }
