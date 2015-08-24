@@ -118,7 +118,7 @@ namespace SAPGuiAutomationLib
             try
             {
                 string name = Component.Name;
-                string type = Component.Type;
+                string type = Component.GetDetailType();
 
                 while(!(Component.Parent is GuiSession))
                 {
@@ -158,7 +158,10 @@ namespace SAPGuiAutomationLib
             }
             else if (comp is GuiShell)
             {
-                return "Gui" + (comp as GuiShell).SubType;
+                string type = "Gui" + (comp as GuiShell).SubType;
+                if (type == "GuiTextEdit")
+                    type = "GuiTextedit";
+                return type;
             }
             else
             {

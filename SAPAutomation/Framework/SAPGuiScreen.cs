@@ -3,28 +3,50 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Young.Data;
+using Young.Data.Attributes;
 
 namespace SAPAutomation.Framework
 {
-    public class SAPGuiScreen:DataInitial
+    [DataBinding]
+    public class SAPGuiScreen:DataDriven
     {
         public event OnRequestErrorHanlder OnRequestError;
         public event OnRequestErrorHanlder OnRequestBlock;
 
-        public SAPGuiScreen() {
-            SAPTestHelper.Current.OnRequestBlock += (s, e) => { 
-                if(OnRequestError!=null)
-                {
-                    OnRequestBlock(this, e);
-                }
-            };
-            SAPTestHelper.Current.OnRequestError += (s, e) => {
-                if(OnRequestError!=null)
-                {
-                    OnRequestError(this, e);
-                }
-            };
+        //public SAPGuiScreen() {
+        //    SAPTestHelper.Current.OnRequestBlock += (s, e) => { 
+        //        if(OnRequestError!=null)
+        //        {
+        //            OnRequestBlock(this, e);
+        //        }
+        //    };
+        //    SAPTestHelper.Current.OnRequestError += (s, e) => {
+        //        if(OnRequestError!=null)
+        //        {
+        //            OnRequestError(this, e);
+        //        }
+        //    };
+        //}
+
+        protected SAPGuiScreen():this(true)
+        {
+
         }
+
+        protected SAPGuiScreen(bool isShareDataBinding):base(isShareDataBinding)
+        {
+            
+        }
+
+        
+
+        public static SAPGuiScreen Create<T>() where T:SAPGuiScreen,new()
+        {
+            return new T();
+        }
+
+
         
         protected GuiMainWindow MainWindow
         {
@@ -84,6 +106,14 @@ namespace SAPAutomation.Framework
        
 
        
+    }
+
+    public class Test:SAPGuiScreen
+    {
+        public Test()
+        {
+            Test t = new Test();
+        }
     }
 
     

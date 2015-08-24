@@ -17,7 +17,8 @@ namespace SAPAutomation
     public sealed class SAPTestHelper
     {
         public event OnRequestErrorHanlder OnRequestError;
-        public event OnRequestErrorHanlder OnRequestBlock;
+        public event OnRequestErrorHanlder OnRequestSuccess;
+        public event OnRequestErrorHanlder OnRequestWarning;
 
         private static object _lockObj = new object();
 
@@ -445,14 +446,18 @@ namespace SAPAutomation
                 {
                     case "E":
                         _currentScreen.Status = ScreenStatus.Fail;
-
                         if (OnRequestError != null)
                             OnRequestError(this,new SAPRequestInfoArgs(status.Text));
                         break;
                     case "S":
+                        _currentScreen.Status = ScreenStatus.Success;
+                        if (OnRequestSuccess != null)
+                            OnRequestSuccess(this, new SAPRequestInfoArgs(status.Text));
+                        break;
+                    case "W":
                         _currentScreen.Status = ScreenStatus.Warning;
-                        if (OnRequestBlock != null)
-                            OnRequestBlock(this, new SAPRequestInfoArgs(status.Text));
+                        if (OnRequestWarning != null)
+                            OnRequestWarning(this, new SAPRequestInfoArgs(status.Text));
                         break;
                     default:
                         _currentScreen.Status = ScreenStatus.Pass;
@@ -467,6 +472,15 @@ namespace SAPAutomation
         {
             autoScreenShot();
             ScreenDatas.Add(_currentScreen);
+        }
+
+        public void SaveLog(string fileName)
+        {
+            using (FileStream fs = new FileStream(fileName,FileMode.Create))
+            {
+                System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(List<ScreenData>));
+                xs.Serialize(fs, ScreenDatas);
+            }
         }
 
         void newScreen(Tuple<string, string, string, int, string> sessionInfo)

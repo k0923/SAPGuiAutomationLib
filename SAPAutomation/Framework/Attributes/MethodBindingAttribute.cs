@@ -5,11 +5,11 @@ using System.Text;
 
 namespace SAPAutomation.Framework.Attributes
 {
-    public class MethodBindingAttribute:OrderAttribute
-    {
-        public string[] ParameterNames { get; set; }
-        public MethodBindingAttribute() { }
+    //public class MethodBindingAttribute:OrderAttribute
+    //{
+    //    public string[] ParameterNames { get; set; }
+    //    public MethodBindingAttribute() { }
 
 
-    }
+    //}
 }

@@ -8,6 +8,7 @@ using System.Threading;
 using SAPFEWSELib;
 using SAPAutomation;
 using SAPAutomation.Framework;
+using Young.Data;
 
 namespace Demo
 {
@@ -16,20 +17,16 @@ namespace Demo
         
         static void Main(string[] args)
         {
-
-            Global.DataSet = Young.Data.ExcelHelper.Current.Open(@"C:\test.xlsx").ReadAll();
-            Global.CurrentId = 1;
-
             SAPTestHelper.Current.SetSession();
-            SC_102 sc = new SC_102();
-            sc.StartTransaction("VA02");
-
-            sc.DataBinding();
-            sc.Sales();
-
-            SC_4001_Sales scSales = new SC_4001_Sales();
-            scSales.DataBinding();
+            //SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
+            DataDriven.IsSampleMode = true;
+            //SC_101 sc = new SC_101();
+            //sc.DataBinding();
+            //SAPTestHelper.Current.SaveLog("1.xml");
             
+
+            SC_4002 s = new SC_4002();
+            s.DataBinding();
 
             //SAPTestHelper.Current.SetSession();
 

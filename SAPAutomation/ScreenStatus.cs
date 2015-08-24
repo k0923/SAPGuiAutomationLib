@@ -10,6 +10,7 @@ namespace SAPAutomation
         
         Pass = 0,
         Fail = 1,
-        Warning = 2
+        Warning = 2,
+        Success = 3
     }
 }

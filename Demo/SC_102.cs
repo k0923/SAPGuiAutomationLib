@@ -6,10 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Young.Data.Attributes;
 
 namespace Demo
 {
-    [TableBinding("SC_102")]
+    [DataBinding("SC_102")]
     public class SC_102:SAPGuiScreen
     {
         [ColumnBinding("Order")]
