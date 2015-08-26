@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.CodeDom;
 using SAPGuiAutomationLib;
-using SAPFEWSELib;
 using System.Reflection;
 using System.CodeDom.Compiler;
 using System.IO;

@@ -29,8 +29,10 @@ namespace SAPGuiAutomationLib.Con
     
     class Program
     {
+        public string Name { get; set; } 
         public static bool test(out int a)
         {
+            
             a = 10;
             try
             {

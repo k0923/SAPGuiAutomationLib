@@ -48,8 +48,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Young.Data">
-      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+    <Reference Include="Young.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

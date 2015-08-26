@@ -122,7 +122,7 @@ namespace Demo
         private DataRow[] rows;
 
 
-        [MultiColumnBinding(new string[] { },"test")]
+        [ColumnBinding]
         [ComplexSampleData(Content = new string[] { "Material", "Target quantity" }, DataType = SampleDataType.Header)]
         [ComplexSampleData(Content = new string[] { "AF573A", "1" }, DataType = SampleDataType.Body)]
         public DataRow[] Rows

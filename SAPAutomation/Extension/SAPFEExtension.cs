@@ -37,11 +37,51 @@ namespace SAPAutomation
             foreach(var colName in GridView.SelectedColumns)
             {
                 if (index == col)
+                {
                     column = colName;
+                    break;
+                }
+                   
                 index++;
             }
-            
+            GridView.ClearSelection();
             return GridView.GetCellValue(row, column);  
+        }
+
+        public static string GetCellValueByDisplayColumn(this GuiGridView GridView, int row, string FriendlyColName)
+        {
+            string column = "";
+            GridView.SelectAll();
+            foreach (var colName in GridView.SelectedColumns)
+            {
+                string displayCol = GridView.GetDisplayedColumnTitle(colName);
+                if (displayCol.IndexOf(FriendlyColName) >= 0)
+                {
+                    column = colName;
+                    break;
+                }
+
+            }
+            GridView.ClearSelection();
+            return GridView.GetCellValue(row, column);
+        }
+
+        public static void DoubleClickCell(this GuiGridView GridView,int row,string FriendlyColumn)
+        {
+            string column = "";
+            GridView.SelectAll();
+            foreach (var colName in GridView.SelectedColumns)
+            {
+                string displayCol = GridView.GetDisplayedColumnTitle(colName);
+                if (displayCol.IndexOf(FriendlyColumn) >= 0)
+                {
+                    column = colName;
+                    break;
+                }
+
+            }
+            GridView.ClearSelection();
+            GridView.DoubleClick(row, column);
         }
 
         public static T GetCell<T>(this GuiTableControl Table,int row,int col) where T:class
@@ -73,6 +113,16 @@ namespace SAPAutomation
         public static void SendKey(this GuiModalWindow Window,SAPKeys key)
         {
             Window.SendVKey((int)key);
+        }
+
+        public static void FindByName(this GuiSimpleContainer Container,int Row,int Column)
+        {
+            string id = Container.Id;
+            //foreach(GuiComponent child in Container.Children)
+            //{
+            //    string tempId = child.Id.Replace(id, "");
+            //    if(tempId)
+            //}
         }
 
     }

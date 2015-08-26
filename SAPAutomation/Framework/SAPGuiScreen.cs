@@ -29,15 +29,12 @@ namespace SAPAutomation.Framework
         //    };
         //}
 
-        protected SAPGuiScreen():this(true)
+        public SAPGuiScreen()
         {
 
         }
 
-        protected SAPGuiScreen(bool isShareDataBinding):base(isShareDataBinding)
-        {
-            
-        }
+       
 
         
 
@@ -53,6 +50,22 @@ namespace SAPAutomation.Framework
             get
             {
                 return SAPTestHelper.Current.GetElementById<GuiMainWindow>("wnd[0]");
+            }
+        }
+
+        protected GuiStatusbar StatusBar
+        {
+            get
+            {
+                return SAPTestHelper.Current.GetElementById<GuiStatusbar>("wnd[0]/sbar");
+            }
+        }
+
+        public string StatusMessage
+        {
+            get
+            {
+                return StatusBar.Text;
             }
         }
 

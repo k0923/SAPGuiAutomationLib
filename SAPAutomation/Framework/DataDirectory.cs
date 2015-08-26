@@ -5,9 +5,9 @@ using System.Text;
 
 namespace SAPAutomation.Framework
 {
-    public enum DataDirectory
-    {
-        Input = 0,
-        Output = 1
-    }
+    //public enum DataDirectory
+    //{
+    //    Input = 0,
+    //    Output = 1
+    //}
 }

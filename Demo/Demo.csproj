@@ -48,12 +48,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DisplayDocument_Overview.cs" />
+    <Compile Include="DisplayMaterialDocument_Overview.cs" />
+    <Compile Include="DisplayMaterialDocument_Initial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SC_101.cs" />
     <Compile Include="SC_102.cs" />
+    <Compile Include="EnterGoodsIssue_Initial.cs" />
     <Compile Include="SC_4001.cs" />
     <Compile Include="SC_4002.cs" />
+    <Compile Include="EnterGoodsIssue_NewItem.cs" />
+    <Compile Include="EnterGoodsIssue_NewItems.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

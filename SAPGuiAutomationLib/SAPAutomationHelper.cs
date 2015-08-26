@@ -178,6 +178,15 @@ namespace SAPGuiAutomationLib
             _sapGuiApiAssembly = Assembly.Load(bs);
         }
 
+        public Type GetSAPTypeInfo(string typeName)
+        {
+            if (_sapGuiApiAssembly == null)
+                throw new ArgumentNullException("No SAP Library found, please mark sure you load the lib named Interop.SAPFEWSELib.dll");
+            Type t = _sapGuiApiAssembly.GetType(_prefix + typeName).GetInterfaces()[0];
+            return t;
+        }
+
+        [Obsolete]
         public T GetSAPTypeInfo<T>(string typeName, Func<Type, T> infoMethod) where T : class
         {
             if (_sapGuiApiAssembly == null)
@@ -186,6 +195,7 @@ namespace SAPGuiAutomationLib
             return infoMethod(t);
         }
 
+        [Obsolete]
         public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName, object obj, Func<Type, object, IEnumerable<T>> infoMethod) where T : class
         {
             if (_sapGuiApiAssembly == null)
@@ -195,6 +205,7 @@ namespace SAPGuiAutomationLib
             return infoMethod(t, obj);
         }
 
+        [Obsolete]
         public IEnumerable<T> GetSAPTypeInfoes<T>(string typeName, Func<Type, IEnumerable<T>> infoFunc) where T : class
         {
             if (_sapGuiApiAssembly == null)
@@ -205,6 +216,7 @@ namespace SAPGuiAutomationLib
 
         }
 
+        [Obsolete]
         public IEnumerable<T> GetSAPTypeInfoes<T>(GuiComponent Component, Func<Type, IEnumerable<T>> infoFunc) where T : class
         {
             return GetSAPTypeInfoes<T>(Component.Type, infoFunc);
@@ -415,7 +427,8 @@ namespace SAPGuiAutomationLib
 
                 if (step.Action == BindingFlags.InvokeMethod)
                 {
-                    MethodInfo method = SAPAutomationHelper.Current.GetSAPTypeInfo<MethodInfo>(step.CompInfo.Type, t => t.GetMethod(step.ActionName));
+                    MethodInfo method = GetSAPTypeInfo(step.CompInfo.Type).GetMethod(step.ActionName);
+                    //MethodInfo method = SAPAutomationHelper.Current.GetSAPTypeInfo<MethodInfo>(step.CompInfo.Type, t => t.GetMethod(step.ActionName));
                     int index = 2;
                     foreach (var pInfo in method.GetParameters())
                     {

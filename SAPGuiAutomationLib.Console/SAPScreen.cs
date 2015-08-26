@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Young.Data;
+using Young.Data.Attributes;
 
 namespace SAPGuiAutomationLib
 {
-    [TableBinding]
-    public class GetCurrency : DataInitial
+   
+    public class GetCurrency : DataDriven
     {
         public GetCurrency()
         {
@@ -38,7 +40,7 @@ namespace SAPGuiAutomationLib
 
     }
 
-    [TableBinding("SC_230", "Id")]
+   
     public class SC_230 : SAPGuiScreen
     {
         [ColumnBinding("TableName", Order = 0)]
@@ -65,7 +67,7 @@ namespace SAPGuiAutomationLib
         }
     }
 
-    [TableBinding("SC_1000", "Id")]
+   
     public class SC_1000 : SAPGuiScreen
     {
         [ColumnBinding("RateType")]

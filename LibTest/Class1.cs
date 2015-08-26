@@ -7,6 +7,7 @@ using System.Data;
 using SAPAutomation.Framework;
 using SAPAutomation.Framework.Attributes;
 using System.Diagnostics;
+using Young.Data.Attributes;
 
 namespace LibTest
 {
@@ -57,7 +58,7 @@ namespace LibTest
         }
     }
 
-    [TableBinding("Accounts","Id")]
+    
     public class Screen_101:DataInitial
     {
         public Screen_101()
@@ -83,7 +84,7 @@ namespace LibTest
             return profiles;
         }
 
-        [MultiColumnBinding(new string[] { "UserName", "Password" }, "Test")]
+       
         public List<Profile> Rows { get; set; }
     }
 

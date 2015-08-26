@@ -5,7 +5,13 @@ using System.Text;
 
 namespace SAPAutomation.Framework.Attributes
 {
-    
+    public class Test
+    {
+        public void Tes1()
+        {
+            
+        }
+    }
     //public class OrderAttribute:Attribute
     //{
     //    public int Order { get;set;}

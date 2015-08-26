@@ -161,6 +161,8 @@ namespace SAPGuiAutomationLib
                 string type = "Gui" + (comp as GuiShell).SubType;
                 if (type == "GuiTextEdit")
                     type = "GuiTextedit";
+                if (type == "GuiToolbar")
+                    type = "GuiToolbarControl";
                 return type;
             }
             else
