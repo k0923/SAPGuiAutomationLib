@@ -407,7 +407,24 @@ namespace SAPAutomation
 
         void _sapGuiSession_StartRequest(GuiSession Session)
         {
-
+            GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
+            if (status != null)
+            {
+                switch (status.MessageType)
+                {
+                    case "E":
+                        Thread.Sleep(2000);
+                        break;
+                    case "S":
+                        Thread.Sleep(2000);
+                        break;
+                    case "W":
+                        Thread.Sleep(2000);
+                        break;
+                    default:
+                        break;
+                }
+            }
             autoScreenShot();
         }
 

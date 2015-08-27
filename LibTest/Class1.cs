@@ -65,7 +65,7 @@ namespace LibTest
         {
 
         }
-        [ColumnBinding("UserName")]
+        
         public string UserName { get; set; }
     }
 

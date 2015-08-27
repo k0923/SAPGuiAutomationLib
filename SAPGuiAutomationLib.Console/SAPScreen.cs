@@ -20,7 +20,7 @@ namespace SAPGuiAutomationLib
             //SAPTestHelper.Current.SAPGuiSession.StartTransaction("SE16");
         }
 
-        [Order(0)]
+        
         public SC_230 SC230 { get; set; }
 
         
@@ -43,7 +43,7 @@ namespace SAPGuiAutomationLib
    
     public class SC_230 : SAPGuiScreen
     {
-        [ColumnBinding("TableName", Order = 0)]
+       
         public string TableName
         { 
             //get;set;
@@ -57,7 +57,7 @@ namespace SAPGuiAutomationLib
             }
         }
 
-        [Order(1)]
+        
         public SC_1000 Process()
         {
             //Console.WriteLine("Process");
@@ -70,7 +70,7 @@ namespace SAPGuiAutomationLib
    
     public class SC_1000 : SAPGuiScreen
     {
-        [ColumnBinding("RateType")]
+        
         public string RateType
         {
             //get;

@@ -5,13 +5,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Young.Data;
 using Young.Data.Attributes;
 
 namespace Demo
 {
+    
     public class EnterGoodsIssue_Initial:SAPGuiScreen
     {
+        public EnterGoodsIssue_Initial()
+        {
+            this.StartTransaction("MB1A");
+        }
+
         [ColumnBinding]
         [SingleSampleData("551")]
         public string MovementType
@@ -66,7 +73,7 @@ namespace Demo
         {
             get
             {
-                return StatusMessage;
+                return Regex.Replace(StatusMessage,@"\D+","");
             }
         }
     }

@@ -11,8 +11,13 @@ namespace Demo
 {
     public class DisplayMaterialDocument_Initial:SAPGuiScreen
     {
-        [ColumnBinding]
-        [SingleSampleData("38643062")]
+        public DisplayMaterialDocument_Initial()
+        {
+            this.StartTransaction("MB03");
+        }
+
+        [ColumnBinding("Document")]
+        [SingleSampleData("38643064")]
         public string MaterialDoc
         {
             get
@@ -40,9 +45,10 @@ namespace Demo
         }
 
         [MethodBinding]
-        public void Process()
+        public DisplayMaterialDocument_Overview Process()
         {
             this.SendKeys(SAPKeys.Enter);
+            return new DisplayMaterialDocument_Overview();
         }
     }
 }

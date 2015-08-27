@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Young.Data.Attributes;
 
 
@@ -12,27 +13,33 @@ namespace Demo
 {
     public class DisplayDocument_Overview:SAPGuiScreen
     {
-        [MethodBinding(Order = 0)]
-        public void AccountingDocuments()
+        [MethodBinding(Order =0)]
+        public void SelectRelationship()
         {
-            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[7]").Press();
+
+            var control = SAPTestHelper.Current.MainWindow.FindByName<GuiGOSShell>("shellcont[1]").FindByName<GuiToolbarControl>("shell");
+            control.PressContextButton("%GOS_TOOLBOX");
+            control.SelectContextMenuItem("%GOS_SRELATIONS");
         }
 
-        [MethodBinding(Order =1)]
-        public void SelectAccount()
+        [ColumnBinding(Order =1,Directory = Young.Data.DataDirectory.Output)]
+        public string IDoc
         {
-            var GridView = SAPTestHelper.Current.PopupWindow.FindByName<GuiGridView>("shell");
-            int row = 0;
-            for(int i = 0;i<GridView.RowCount;i++)
+            get
             {
-                if(GridView.GetCellValue(i,"Object type text").IndexOf("Accounting")>0)
+                var grid = SAPTestHelper.Current.PopupWindow.FindDescendantsByProperty<GuiGridView>(r => true).First();
+                for (int i = 0; i < grid.RowCount;i++)
                 {
-                    row = i;
+                    if(grid.GetCellValueByDisplayColumn(i,"Document").IndexOf("IDoc")>=0)
+                    {
+                        string allDoc = grid.GetCellValueByDisplayColumn(i, "Desc");
+                        string iDoc = Regex.Replace(allDoc, @"\D+", "");
+                        iDoc = Regex.Replace(iDoc, @"^[0]+","");
+                        return iDoc;
+                    }
                 }
+                return "";
             }
-            GridView.SelectedRows = row.ToString();
-            GridView.DoubleClickCurrentCell();
-            
         }
     }
 }

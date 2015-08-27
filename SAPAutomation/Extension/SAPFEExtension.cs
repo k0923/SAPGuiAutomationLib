@@ -125,5 +125,23 @@ namespace SAPAutomation
             //}
         }
 
+        public static GuiContextMenu Select(this GuiContextMenu ContextMenu,string Menu)
+        {
+            
+            if(ContextMenu.Children.Count > 0)
+            {
+                for(int i = 0;i<ContextMenu.Children.Count;i++)
+                {
+                    GuiContextMenu subMenu = ContextMenu.Children.ElementAt(i) as GuiContextMenu;
+                    if(subMenu.Text.IndexOf(Menu,StringComparison.OrdinalIgnoreCase)>=0)
+                    {
+                        subMenu.Select();
+                        return subMenu;
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }
