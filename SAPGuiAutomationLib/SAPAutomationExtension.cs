@@ -4,14 +4,32 @@ using SAPFEWSELib;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SAPAutomation;
 
 namespace SAPGuiAutomationLib
 {
     public static class SAPAutomationExtension
     {
+        private static bool isMatch(GuiFrameWindow window,GuiVComponent comp, int X1, int Y1, int X2, int Y2)
+        {
+            int x1 = comp.ScreenLeft - window.ScreenLeft;
+            int y1 = comp.ScreenTop - window.ScreenTop;
+            int x2 = x1 + comp.Width;
+            int y2 = y1 + comp.Height;
+            if (x1 >= X1 && y1 >= Y1 && x2 <= X2 && y2 <= Y2)
+                return true;
+            return false;
+        }
+
+        public static IEnumerable<GuiVComponent> FindByRegion(this GuiFrameWindow Window,int X1,int Y1,int X2,int Y2)
+        {
+            return Window.FindDescendantsByProperty<GuiVComponent>(c => isMatch(Window,c, X1,Y1,X2,Y2));
+        }
+
         public static CodeExpression FindByIdCode(this GuiComponent Component)
         {
             return getFindByIdCode(Component);

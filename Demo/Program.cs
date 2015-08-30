@@ -33,6 +33,8 @@ namespace Demo
         
         static void Main(string[] args)
         {
+
+
             DataDriven.Data = ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll();
             ExcelHelper.Current.Close();
             //DataDriven.GlobalBindingModeType.IsUsingSampleData = true;
@@ -42,6 +44,9 @@ namespace Demo
             //DataDriven.GlobalBindingModeType.SettingMode = SettingType.PropertyOnly;
 
             SAPTestHelper.Current.SetSession();
+            var comp = SAPTestHelper.Current.MainWindow.FindByName<GuiOkCodeField>("okcd");
+            var NewComp = comp as GuiComponent;
+
             SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
             Script s = new Script();
             s.DataBinding();
