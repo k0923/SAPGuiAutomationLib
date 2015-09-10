@@ -19,7 +19,7 @@ namespace SAPAutomation.Framework
         }
 
        
-        public abstract string TCode { get;  }
+      
         
 
         public static SAPGuiScreen Create<T>() where T:SAPGuiScreen,new()

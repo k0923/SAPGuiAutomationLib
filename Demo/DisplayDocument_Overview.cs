@@ -13,13 +13,7 @@ namespace Demo
 {
     public class DisplayDocument_Overview:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+        
 
         [MethodBinding(Order =0)]
         public void SelectRelationship()

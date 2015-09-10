@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAPAutomation.Framework.Report;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,8 +8,6 @@ using Young.Data;
 
 namespace SAPAutomation.Framework
 {
-    public delegate void OnFlowInitialHander(WorkFlow sender, WorkFlowEventArgs e);
-
     public abstract class WorkFlow
     {
         private List<Type> _screenTypes;
@@ -20,17 +19,18 @@ namespace SAPAutomation.Framework
             _screenTypes.Add(typeof(T));
         }
 
-        //public static event OnFlowInitialHander OnFlowInitial;
-
         public abstract string FlowName { get; }
 
         public abstract string BoxName { get; }
 
         private DataEngine _dataEngine;
 
-        public void SetDataEngine(DataEngine dataEngine)
+        private TestStep _step;
+
+        public void SetBasicInfo(DataEngine dataEngine,TestStep step)
         {
             _dataEngine = dataEngine;
+            _step = step;
         }
 
         protected WorkFlow()
@@ -45,14 +45,15 @@ namespace SAPAutomation.Framework
             T screen = _dataEngine.Create<T>();
             return screen;
         }
+
+        protected void addCheckpoint(CheckPoint cp)
+        {
+            _step.CheckPoints.Add(cp);
+        }
         
     }
 
-    public class WorkFlowEventArgs:EventArgs
-    {
-
-    }
-
+   
    
 
     

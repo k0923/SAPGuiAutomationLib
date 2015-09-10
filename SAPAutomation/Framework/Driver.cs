@@ -102,7 +102,7 @@ namespace SAPAutomation.Framework
                 BoxName = _currentWorkFlow.BoxName,
             };
             _report.Detail.Add(_currentStep);
-            _currentWorkFlow.SetDataEngine(_dataEngine);
+            _currentWorkFlow.SetBasicInfo(_dataEngine, _currentStep);
             return _currentWorkFlow as T; 
         }
 
@@ -118,7 +118,7 @@ namespace SAPAutomation.Framework
                     BoxName = _currentWorkFlow.BoxName,
                 };
                 _report.Detail.Add(_currentStep);
-                _currentWorkFlow.SetDataEngine(_dataEngine);
+                _currentWorkFlow.SetBasicInfo(_dataEngine, _currentStep);
                 return _currentWorkFlow;
             }
             return null;

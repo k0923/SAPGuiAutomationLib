@@ -14,13 +14,7 @@ namespace MB1A
     
     public class EnterGoodsIssue_Initial:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+       
 
         public EnterGoodsIssue_Initial()
         {

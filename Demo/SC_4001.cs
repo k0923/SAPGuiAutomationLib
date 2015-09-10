@@ -14,14 +14,7 @@ namespace Demo
     
     public class SC_4001:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
-
+       
         [ColumnBinding]
         [SingleSampleData(Value = "110077584")]
         public string SoldToParty

@@ -9,15 +9,21 @@ using Young.Data.Attributes;
 
 namespace Demo
 {
+    [DataBinding("Users")]
+    public class UserInfo
+    {
+        [ColumnBinding("UserName")]
+        public string Username { get; set; }
+
+        [ColumnBinding]
+        public string Password { get; set; }
+
+        public int Age { get; set; }
+    }
+
     public class SC_101:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+        
 
         private string _order;
 

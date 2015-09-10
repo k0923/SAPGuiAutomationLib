@@ -12,13 +12,7 @@ namespace Demo
 {
     public class DisplayMaterialDocument_Overview:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+       
         [MethodBinding(Order = 0)]
         public void AccountingDocuments()
         {

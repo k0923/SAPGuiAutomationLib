@@ -11,13 +11,7 @@ namespace Demo
 {
     public class DisplayMaterialDocument_Initial:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+        
 
         public DisplayMaterialDocument_Initial()
         {

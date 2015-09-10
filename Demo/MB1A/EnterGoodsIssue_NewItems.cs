@@ -12,13 +12,7 @@ namespace MB1A
 {
     public class EnterGoodsIssue_NewItems:SAPGuiScreen
     {
-        public override string TCode
-        {
-            get
-            {
-                return "MB1A";
-            }
-        }
+       
 
         [ColumnBinding]
         [SingleSampleData("3556999999")]

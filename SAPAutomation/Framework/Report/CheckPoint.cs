@@ -8,7 +8,7 @@ namespace SAPAutomation.Framework.Report
 {
     public class CheckPoint
     {
-        public string CSPN { get; set; } = "ABC";
+        public string CSPN { get; set; }
 
         public string CPStepName { get; set; }
 

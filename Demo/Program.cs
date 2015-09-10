@@ -34,6 +34,10 @@ namespace Demo
         
         static void Main(string[] args)
         {
+
+            
+
+
             SAPTestHelper.Current.SetSession();
             SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
             DataEngine de = new DataEngine();
