@@ -10,6 +10,7 @@ using SAPAutomation.Framework;
 using Young.Data;
 using System.Text.RegularExpressions;
 using Young.Data.Attributes;
+using MB1A;
 
 namespace Demo
 {
@@ -33,19 +34,45 @@ namespace Demo
         
         static void Main(string[] args)
         {
-
-
-            DataDriven.Data = ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll();
+            SAPTestHelper.Current.SetSession();
+            SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
+            DataEngine de = new DataEngine();
+            DataEngine.GlobalBindingMode = new BindingMode()
+            {
+                RecusionMode = RecusionType.NoRecursion
+            };
+            de.SetData(ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll());
             ExcelHelper.Current.Close();
-            //DataDriven.GlobalBindingModeType.IsUsingSampleData = true;
-            DataDriven.GlobalBindingModeType.RecusionMode = RecusionType.Recusion;
-            DataDriven.NonSharedTables = new List<string>();
+            de.CurrentId = 1;
+
+            Driver.Current.SetDataEngine(de);
+            WorkFlow flow = Driver.Current.GetWorkFlow(typeof(CreateMaterial));
+            flow.Execute();
+            Driver.Current.Finish();
+
+
+            var script = de.Create<Script>();
+
+
+            ExcelHelper.Current.Open(@"C:\Demo\1.xlsx", true);
+            foreach (DataTable dataTable in de.Data.Tables)
+            {
+                ExcelHelper.Current.Write(dataTable);
+            }
+            ExcelHelper.Current.Close();
+
+
+            var objs = de.Objects;
+
+            DataDriven.SetData(ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll());
+            ExcelHelper.Current.Close();
+            
+
             DataDriven.CurrentId = 1;
             //DataDriven.GlobalBindingModeType.SettingMode = SettingType.PropertyOnly;
 
             SAPTestHelper.Current.SetSession();
-            var comp = SAPTestHelper.Current.MainWindow.FindByName<GuiOkCodeField>("okcd");
-            var NewComp = comp as GuiComponent;
+           
 
             SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
             Script s = new Script();
@@ -82,9 +109,10 @@ namespace Demo
 
         static void Script1()
         {
-            SAPGuiScreen sc = new SAPGuiScreen();
-            sc.StartTransaction("MB1A");
+            SAPGuiScreen sc = null;
+            
             sc = new EnterGoodsIssue_Initial();
+            sc.StartTransaction("MB1A");
             sc.DataBinding();
             sc.SendKeys(SAPKeys.Enter);
             sc = new EnterGoodsIssue_NewItems();
@@ -103,5 +131,36 @@ namespace Demo
         
 
      
+    }
+
+    public class CreateMaterial : WorkFlow
+    {
+        public override string BoxName
+        {
+            get
+            {
+                return "C50_HPE";
+            }
+        }
+
+        public override string FlowName
+        {
+            get
+            {
+                return "CreateMaterial";
+            }
+        }
+
+       
+
+        public override void Execute()
+        {
+            
+            var screen1 = getScreenComponent<EnterGoodsIssue_Initial>();
+            
+            var screen2 = getScreenComponent<EnterGoodsIssue_NewItems>();
+
+            var screen3 = getScreenComponent<EnterGoodsIssue_NewItem>();
+        }
     }
 }

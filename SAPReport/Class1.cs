@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace SAPAutomation.Framework
+namespace SAPReport
 {
-    public interface ISubmit
+    public class Class1
     {
-        void Submit();
     }
 }

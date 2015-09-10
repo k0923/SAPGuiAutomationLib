@@ -13,6 +13,14 @@ namespace Demo
 {
     public class DisplayDocument_Overview:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [MethodBinding(Order =0)]
         public void SelectRelationship()
         {
@@ -21,6 +29,8 @@ namespace Demo
             control.PressContextButton("%GOS_TOOLBOX");
             control.SelectContextMenuItem("%GOS_SRELATIONS");
         }
+
+       
 
         [ColumnBinding(Order =1,Directory = Young.Data.DataDirectory.Output)]
         public string IDoc

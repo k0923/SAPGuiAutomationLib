@@ -7,10 +7,18 @@ using System.Linq;
 using System.Text;
 using Young.Data.Attributes;
 
-namespace Demo
+namespace MB1A
 {
     public class EnterGoodsIssue_NewItem:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [ColumnBinding]
         [SingleSampleData("30")]
         public string ReasonForMvmt

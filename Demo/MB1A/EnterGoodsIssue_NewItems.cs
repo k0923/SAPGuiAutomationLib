@@ -8,10 +8,18 @@ using System.Linq;
 using System.Text;
 using Young.Data.Attributes;
 
-namespace Demo
+namespace MB1A
 {
     public class EnterGoodsIssue_NewItems:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [ColumnBinding]
         [SingleSampleData("3556999999")]
         public string GLAccount
@@ -84,6 +92,7 @@ namespace Demo
         [MethodBinding(Order =5)]
         public void Save()
         {
+            
             this.SendKeys(SAPKeys.Ctrl_S);
         }
     }

@@ -11,6 +11,14 @@ namespace Demo
 {
     public class SC_4002:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [MethodBinding]
         public SC_4002_Sales Sales()
         {
@@ -38,6 +46,14 @@ namespace Demo
 
     public class SC_4002_Sales:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [ColumnBinding]
         [SingleSampleData("C02")]
         public string OrderReason
@@ -55,6 +71,14 @@ namespace Demo
 
     public class SC_4002_Additional_DataB : SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [ColumnBinding]
         [SingleSampleData("X")]
         public string ConfigCheck
@@ -86,6 +110,14 @@ namespace Demo
 
     public class SC_4002_Texts : SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         private GuiTree _tree;
 
         public SC_4002_Texts()

@@ -11,6 +11,14 @@ namespace Demo
 {
     public class SC_101:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         private string _order;
 
         [ColumnBinding]

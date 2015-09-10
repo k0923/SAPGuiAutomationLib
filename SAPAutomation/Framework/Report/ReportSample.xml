@@ -1,0 +1,898 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type='text/xsl' href='../NewReportTemplate2.xsl'?>
+<ReportRoot>
+  <Summary>
+    <TestName>HPE_02016_FusionEMEA_GoodsMovement_LH_AP_AR_IC_noXII</TestName>
+    <OverallStatus>Pass</OverallStatus>
+    <CompanyCode>PR85</CompanyCode>
+    <Asset>FusionEMEA</Asset>
+    <BoxNameList> U26 LH4</BoxNameList>
+    <TotalSteps>9</TotalSteps>
+    <Runtime>2</Runtime>
+    <RunMode>Run</RunMode>
+    <TestMachine>C2W08603</TestMachine>
+    <SAPVersion>SAPGUI 730</SAPVersion>
+    <TimeZone>UCT+8</TimeZone>
+    <TestStartTime>7/20/2015 8:12:09 AM</TestStartTime>
+    <TestEndTime>7/20/2015 8:27:25 AM</TestEndTime>
+    <Duration>12:15:16 AM</Duration>
+    <Executor>xieyid</Executor>
+    <FrameworkLogs>
+      <FrameworkLog CurrentTime="8:12:25 AM" EventName="DataEngine.DataValue(MB1A_MovementType)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_MovementType) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:12:36 AM" EventName="DataEngine.DataValue(MB1A_Plant)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_Plant) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:12:46 AM" EventName="DataEngine.DataValue(MB1A_StorageLocation)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_StorageLocation) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:12:55 AM" EventName="DataEngine.DataValue(MB1A_SpecialStock)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_SpecialStock) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:12:55 AM" EventName="DataEngine.DataValue(MB1A_DocumentDate)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_DocumentDate) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:12:55 AM" EventName="DataEngine.DataValue(MB1A_DocumentDate)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_DocumentDate) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:13:06 AM" EventName="DataEngine.DataValue(MB1A_PostingDate)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_PostingDate) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:13:07 AM" EventName="DataEngine.DataValue(MB1A_PostingDate)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_PostingDate) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:13:22 AM" EventName="DataEngine.DataValue(MB1A_G/L_Account)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_G/L_Account) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:13:36 AM" EventName="DataEngine.DataValue(MB1A_BusinessArea)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_BusinessArea) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:13:50 AM" EventName="DataEngine.DataValue(MB1A_CostCenter)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_CostCenter) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:14:09 AM" EventName="DataEngine.DataValue(MB1A_Recipient)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_Recipient) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:16:22 AM" EventName="DataEngine.DataValue(MB1A_Material)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_Material) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:16:32 AM" EventName="DataEngine.DataValue(MB1A_Quantity)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_Quantity) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:16:41 AM" EventName="DataEngine.DataValue(MB1A_SLoc)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_SLoc) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:04 AM" EventName="DataEngine.DataValue(MB1A_ReasonforMvmt)" Status="Pass">Customize Information: DataEngine.DataValue(MB1A_ReasonforMvmt) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:21 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:21 AM" EventName="DataEngine.DataValue(Goods_Issue_Doc)" Status="Pass">Customize Information: DataEngine.DataValue(Goods_Issue_Doc) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:27 AM" EventName="DataEngine.DataValue(FiscalYear)" Status="Pass">Customize Information: DataEngine.DataValue(FiscalYear) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:27 AM" EventName="DataEngine.DataValue(MaterialDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(MaterialDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:35 AM" EventName="DataEngine.DataValue(AccountingRowNo)" Status="Fail">Customize Information: DataEngine.DataValue(AccountingRowNo) loaded successfully	System Error: Wrong number of arguments or invalid property assignment: 'SAPBasis.ScreenComponentExit'</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:36 AM" EventName="DataEngine.DataValue(MB03_AccountingDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(MB03_AccountingDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:37 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:17:38 AM" EventName="DataEngine.DataValue(FB03_LineLayout)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_LineLayout) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:01 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:09 AM" EventName="DataEngine.DataValue(CompanyCode)" Status="Pass">Customize Information: DataEngine.DataValue(CompanyCode) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:28 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:28 AM" EventName="DataEngine.DataValue(AccountingDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(AccountingDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:28 AM" EventName="DataEngine.DataValue(FiscalYear)" Status="Pass">Customize Information: DataEngine.DataValue(FiscalYear) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:28 AM" EventName="DataEngine.DataValue(ReferenceKey)" Status="Pass">Customize Information: DataEngine.DataValue(ReferenceKey) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:28 AM" EventName="DataEngine.DataValue(ReferenceNo)" Status="Pass">Customize Information: DataEngine.DataValue(ReferenceNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:31 AM" EventName="DataEngine.DataValue(FB03_DocDisplay)" Status="Fail">Customize Information: DataEngine.DataValue(FB03_DocDisplay) loaded successfully	System Error: Wrong number of arguments or invalid property assignment: 'SAPBasis.ScreenComponentExit'</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:34 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:37 AM" EventName="DataEngine.DataValue(FB03_DisplayLayout)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayLayout) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:37 AM" EventName="DataEngine.DataValue(FB03_DisplayColumnName)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayColumnName) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:18:45 AM" EventName="DataEngine.DataValue(FB03_DisplayDocument)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayDocument) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:29 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:33 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:35 AM" EventName="DataEngine.DataValue(FB03_DisplayDocHeader)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayDocHeader) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:37 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:38 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:39 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:40 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:42 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:43 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:45 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:46 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:48 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:49 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:51 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:54 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:20:55 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:14 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:14 AM" EventName="DataEngine.DataValue(FB03_IDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_IDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:30 AM" EventName="DataEngine.DataValue(BD87_ChangedOn_ColumnName)" Status="Pass">Customize Information: DataEngine.DataValue(BD87_ChangedOn_ColumnName) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:30 AM" EventName="DataEngine.DataValue(IDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(IDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:44 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:21:44 AM" EventName="DataEngine.DataValue(BD87_IDocStatus)" Status="Pass">Customize Information: DataEngine.DataValue(BD87_IDocStatus) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:12 AM" EventName="DataEngine.DataValue(WE09_CreateAt_ColumnName)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_CreateAt_ColumnName) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:12 AM" EventName="DataEngine.DataValue(WE09_CreateOn_ColumnName)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_CreateOn_ColumnName) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:12 AM" EventName="DataEngine.DataValue(WE09_Intial_SearchInField)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_SearchInField) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:12 AM" EventName="DataEngine.DataValue(ScenarioType)" Status="Pass">Customize Information: DataEngine.DataValue(ScenarioType) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:12 AM" EventName="DataEngine.DataValue(AccountingDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(AccountingDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:13 AM" EventName="DataEngine.DataValue(FB03_CompanyCode)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_CompanyCode) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:13 AM" EventName="DataEngine.DataValue(FiscalYear)" Status="Pass">Customize Information: DataEngine.DataValue(FiscalYear) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:14 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:14 AM" EventName="DataEngine.DataValue(WE09_Intial_BasicType)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_BasicType) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:14 AM" EventName="DataEngine.DataValue(WE09_Intial_LogicalMessage)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_LogicalMessage) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:14 AM" EventName="DataEngine.DataValue(WE09_Intial_Direction)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Direction) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue(WE09_Intial_PortOfReceiver)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_PortOfReceiver) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue(WE09_Intial_Search_in_Field)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Search_in_Field) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue(WE09_ForValue_Column_Name)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_ForValue_Column_Name) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue(WE09_Intial_Partner_Number_of_Receiver)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Partner_Number_of_Receiver) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue(WE09_Intial_Search_in_Segment)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Search_in_Segment) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:15 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue(WE09_Intial_Port_Of_Sender)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Port_Of_Sender) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue(WE09_Intial_Partner_Type_of_Sender)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Partner_Type_of_Sender) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue(WE09_Direction)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Direction) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue(WE09_Intial_Partner_Number_of_Sender)" Status="Pass">Customize Information: DataEngine.DataValue(WE09_Intial_Partner_Number_of_Sender) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:16 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:25 AM" EventName="DataEngine.DataValue(WE09_TimeOut)" Status="Fail">Customize Information: DataEngine.DataValue(WE09_TimeOut) loaded successfully	System Error: Wrong number of arguments or invalid property assignment: 'SAPBasis.ScreenComponentExit'</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:34 AM" EventName="DataEngine.DataValue(LH_WE09_IDocDisplay)" Status="Pass">Customize Information: DataEngine.DataValue(LH_WE09_IDocDisplay) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:44 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:46 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:47 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:49 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:51 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:53 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:22:53 AM" EventName="DataEngine.DataValue(LH_WE09_IDocStatus)" Status="Pass">Customize Information: DataEngine.DataValue(LH_WE09_IDocStatus) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:21 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:38 AM" EventName="DataEngine.DataValue(BD87_ChangedOn_ColumnName)" Status="Fail">Customize Information: DataEngine.DataValue(BD87_ChangedOn_ColumnName) loaded successfully	System Error: </FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:38 AM" EventName="DataEngine.DataValue(LH_IDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(LH_IDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:49 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:50 AM" EventName="DataEngine.DataValue(LH_BD87_IDocStatus)" Status="Pass">Customize Information: DataEngine.DataValue(LH_BD87_IDocStatus) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:23:58 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:16 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:24 AM" EventName="DataEngine.DataValue(LH_CompanyCode)" Status="Pass">Customize Information: DataEngine.DataValue(LH_CompanyCode) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:47 AM" EventName="DataEngine.DataValue()" Status="Fail">Customize Information: DataEngine.DataValue() loaded unsuccessfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:47 AM" EventName="DataEngine.DataValue(LH_AccountingDocNo)" Status="Pass">Customize Information: DataEngine.DataValue(LH_AccountingDocNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:47 AM" EventName="DataEngine.DataValue(LH_FiscalYear)" Status="Pass">Customize Information: DataEngine.DataValue(LH_FiscalYear) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:47 AM" EventName="DataEngine.DataValue(LH_ReferenceKey)" Status="Pass">Customize Information: DataEngine.DataValue(LH_ReferenceKey) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:47 AM" EventName="DataEngine.DataValue(LH_ReferenceNo)" Status="Pass">Customize Information: DataEngine.DataValue(LH_ReferenceNo) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:50 AM" EventName="DataEngine.DataValue(LH_FB03_DocDisplay)" Status="Fail">Customize Information: DataEngine.DataValue(LH_FB03_DocDisplay) loaded successfully	System Error: Wrong number of arguments or invalid property assignment: 'SAPBasis.ScreenComponentExit'</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:52 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:54 AM" EventName="DataEngine.DataValue(FB03_DisplayLayout)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayLayout) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:24:54 AM" EventName="DataEngine.DataValue(FB03_DisplayColumnName)" Status="Pass">Customize Information: DataEngine.DataValue(FB03_DisplayColumnName) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:25:03 AM" EventName="DataEngine.DataValue(LH_FB03_DisplayDocument)" Status="Pass">Customize Information: DataEngine.DataValue(LH_FB03_DisplayDocument) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:45 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:50 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:51 AM" EventName="DataEngine.DataValue(LH_FB03_DisplayDocHeader)" Status="Pass">Customize Information: DataEngine.DataValue(LH_FB03_DisplayDocHeader) loaded successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:53 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:54 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:55 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:57 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:26:58 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:01 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:02 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:04 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:06 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:08 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:10 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:13 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+      <FrameworkLog CurrentTime="8:27:14 AM" EventName="Output Excel" Status="Pass">Customize Information: Output Excel has been updated successfully</FrameworkLog>
+    </FrameworkLogs>
+  </Summary>
+  <Detail>
+    <TestStep Name="MB1A_CreateGoodsIssueDoc">
+      <CaseName>MB1A_CreateGoodsIssueDoc</CaseName>
+      <Number>1</Number>
+      <BoxName>U26</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>MB1A_MovementType</FieldName>
+          <FieldValue>201</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_Plant</FieldName>
+          <FieldValue>8O00</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_StorageLocation</FieldName>
+          <FieldValue>0001</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_DocumentDate</FieldName>
+          <FieldValue>07/20/2015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_PostingDate</FieldName>
+          <FieldValue>07/20/2015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_G/L_Account</FieldName>
+          <FieldValue>3421059999</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_BusinessArea</FieldName>
+          <FieldValue>I600</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_CostCenter</FieldName>
+          <FieldValue>8O00000000</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_Recipient</FieldName>
+          <FieldValue>wpc</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_Material</FieldName>
+          <FieldValue>142263-001</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MB1A_Quantity</FieldName>
+          <FieldValue>1</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>MaterialDocNo</FieldName>
+          <FieldValue>2090443</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>1</CPSN>
+          <CPStepName>MB1A.CreateGoodsIssueDoc</CPStepName>
+          <CPName>Goods_Issue_Doc</CPName>
+          <CPTime>8:17:21 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>Document .* posted</CPExpected>
+          <CPActual>Document 2090443 posted</CPActual>
+          <CPCompareMode>REGEXP</CPCompareMode>
+          <CPSnapshot>snapshot/NO1_Goods_Issue_Doc.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="MB03_DisplayMaterialDocument">
+      <CaseName>MB03_DisplayMaterialDocument</CaseName>
+      <Number>2</Number>
+      <BoxName>U26</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>FiscalYear</FieldName>
+          <FieldValue>2015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>MaterialDocNo</FieldName>
+          <FieldValue>2090443</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>AccountingDocNo</FieldName>
+          <FieldValue>4400201550</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints/>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="FB03_DisplayDocument">
+      <CaseName>FB03_DisplayDocument</CaseName>
+      <Number>3</Number>
+      <BoxName>U26</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>FB03_LineLayout</FieldName>
+          <FieldValue>AA</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>CompanyCode</FieldName>
+          <FieldValue>PR85</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>AccountingDocNo</FieldName>
+          <FieldValue>4400201550</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FiscalYear</FieldName>
+          <FieldValue>2015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FB03_DisplayLayout</FieldName>
+          <FieldValue>FusionEMEA</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FB03_DisplayColumnName</FieldName>
+          <FieldValue>Line item,Posting Key,Account,Amount,Amount in LC,G/L Account,Business Area,Profit Center,Terms of Payment,VAT Registration No.,Baseline Payment Dte,Assignment,Payment reference,Reference Key 2,Tax code,Tax Jurisdiction,Text</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>Scenario</FieldName>
+          <FieldValue>GI</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>AccountingDocNo</FieldName>
+          <FieldValue>4400201550</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList>
+        <ColumnNames>
+          <ColumnName>Line item</ColumnName>
+          <ColumnName>Posting Key</ColumnName>
+          <ColumnName>Account</ColumnName>
+          <ColumnName>Amount</ColumnName>
+          <ColumnName>Amount in LC</ColumnName>
+          <ColumnName>G/L Account</ColumnName>
+          <ColumnName>Business Area</ColumnName>
+          <ColumnName>Profit Center</ColumnName>
+          <ColumnName>Terms of Payment</ColumnName>
+          <ColumnName>VAT Registration No</ColumnName>
+          <ColumnName>Baseline Payment Dte</ColumnName>
+          <ColumnName>Assignment</ColumnName>
+          <ColumnName>Payment reference</ColumnName>
+          <ColumnName>Reference Key 2</ColumnName>
+          <ColumnName>Tax Code</ColumnName>
+          <ColumnName>Tax Jurisdiction</ColumnName>
+          <ColumnName>Text</ColumnName>
+        </ColumnNames>
+        <ColumnValues>
+          <ColumnValue>1</ColumnValue>
+          <ColumnValue>99</ColumnValue>
+          <ColumnValue>1312009999</ColumnValue>
+          <ColumnValue>1.21-</ColumnValue>
+          <ColumnValue>1.21-</ColumnValue>
+          <ColumnValue>1312009999</ColumnValue>
+          <ColumnValue>I600</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+        </ColumnValues>
+        <ColumnValues>
+          <ColumnValue>2</ColumnValue>
+          <ColumnValue>81</ColumnValue>
+          <ColumnValue>3421059999</ColumnValue>
+          <ColumnValue>1.21</ColumnValue>
+          <ColumnValue>1.21</ColumnValue>
+          <ColumnValue>3421059999</ColumnValue>
+          <ColumnValue>I600</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue>20150720</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+        </ColumnValues>
+      </ItemList>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>2</CPSN>
+          <CPStepName>FB03.DisplayDocumentforGridView</CPStepName>
+          <CPName>FB03_DocDisplay</CPName>
+          <CPTime>8:18:31 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>1 items displayed</CPExpected>
+          <CPActual>1 items displayed</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO2_FB03_DocDisplay.jpg</CPSnapshot>
+        </CheckPoint>
+        <CheckPoint>
+          <CPSN>3</CPSN>
+          <CPStepName>FB03.DisplayDocumentforGridView</CPStepName>
+          <CPName>FB03_DisplayDocument</CPName>
+          <CPTime>8:18:45 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>Display Document:.*</CPExpected>
+          <CPActual>Display Document: Overview</CPActual>
+          <CPCompareMode>REGEXP</CPCompareMode>
+          <CPSnapshot>snapshot/NO3_FB03_DisplayDocument.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="FB03_OutputHeaderInfo">
+      <CaseName>FB03_OutputHeaderInfo</CaseName>
+      <Number>4</Number>
+      <BoxName>U26</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas/>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>Scenario</FieldName>
+          <FieldValue>GI</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_CompanyCode</FieldName>
+          <FieldValue>PR85</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_DocumentType</FieldName>
+          <FieldValue>WA</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_DocHeaderText</FieldName>
+          <FieldValue></FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_Reference</FieldName>
+          <FieldValue></FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_Currency</FieldName>
+          <FieldValue>USD</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_DocumentDate</FieldName>
+          <FieldValue>07/20/2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_PostingDate</FieldName>
+          <FieldValue>07/20/2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_LogSystem</FieldName>
+          <FieldValue>606TU26010</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_ReferenceKey</FieldName>
+          <FieldValue>00020904432015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_EntryDate</FieldName>
+          <FieldValue>07/20/2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_EntryTime</FieldName>
+          <FieldValue>08:17:06</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_FiscalYear</FieldName>
+          <FieldValue>2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_PostingPeriod</FieldName>
+          <FieldValue>09</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>FB03_EnteredBy</FieldName>
+          <FieldValue>21754379</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>IDocNo</FieldName>
+          <FieldValue>0000000822542993</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>4</CPSN>
+          <CPStepName>FB03.OutputHeaderInfo</CPStepName>
+          <CPName>FB03_DisplayDocHeader</CPName>
+          <CPTime>8:20:35 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>Document Header:.*</CPExpected>
+          <CPActual>Document Header: PR85 Company Code</CPActual>
+          <CPCompareMode>REGEXP</CPCompareMode>
+          <CPSnapshot>snapshot/NO4_FB03_DisplayDocHeader.jpg</CPSnapshot>
+        </CheckPoint>
+        <CheckPoint>
+          <CPSN>5</CPSN>
+          <CPStepName>FB03.OutputIDocNumber</CPStepName>
+          <CPName>FB03_IDocNo</CPName>
+          <CPTime>8:21:14 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>IDocNo is generated</CPExpected>
+          <CPActual>IDocNo is generated</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO5_FB03_IDocNo.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="BD87_CheckIDocStatus">
+      <CaseName>BD87_CheckIDocStatus</CaseName>
+      <Number>5</Number>
+      <BoxName>U26</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>IDocNo</FieldName>
+          <FieldValue>0000000822542993</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>IDocStatus</FieldName>
+          <FieldValue>03</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>6</CPSN>
+          <CPStepName>BD87.CheckIDocStatus</CPStepName>
+          <CPName>BD87_IDocStatus</CPName>
+          <CPTime>8:21:44 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>03</CPExpected>
+          <CPActual>03</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO6_BD87_IDocStatus.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="WE09_SearchforIDocsbyContent">
+      <CaseName>WE09_SearchforIDocsbyContent</CaseName>
+      <Number>6</Number>
+      <BoxName>LH4</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>WE09_Intial_SearchInField</FieldName>
+          <FieldValue>OBJ_KEY</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>ScenarioType</FieldName>
+          <FieldValue>Fusion_AMS</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>AccountingDocNo</FieldName>
+          <FieldValue>4400201550</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FB03_CompanyCode</FieldName>
+          <FieldValue>PR85</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FiscalYear</FieldName>
+          <FieldValue>2015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>WE09_Intial_Direction</FieldName>
+          <FieldValue>2</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>WE09_TimeOut</FieldName>
+          <FieldValue>180</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>LH_ReferenceKey</FieldName>
+          <FieldValue>4400201550PR852015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocCount</FieldName>
+          <FieldValue>1</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocNo</FieldName>
+          <FieldValue>0000000544562114</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocDate</FieldName>
+          <FieldValue>20.07.2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocTime</FieldName>
+          <FieldValue>08:17:22</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_PartnerNO</FieldName>
+          <FieldValue>FUSION</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocStatus</FieldName>
+          <FieldValue>53</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDoc_E1BPACEXTC_Field2</FieldName>
+          <FieldValue>13120099998O00000000  I600PR85;34210599998O00000000  I600PR85</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>7</CPSN>
+          <CPStepName>WE09.SearchforIDocs</CPStepName>
+          <CPName>LH_WE09_IDocDisplay</CPName>
+          <CPTime>8:22:34 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>1 IDocs were found</CPExpected>
+          <CPActual>1 IDocs were found</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO7_LH_WE09_IDocDisplay.jpg</CPSnapshot>
+        </CheckPoint>
+        <CheckPoint>
+          <CPSN>8</CPSN>
+          <CPStepName>WE09.SearchforIDocs</CPStepName>
+          <CPName>LH_WE09_IDocStatus</CPName>
+          <CPTime>8:22:53 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>53 Or 64</CPExpected>
+          <CPActual>53</CPActual>
+          <CPCompareMode>OR</CPCompareMode>
+          <CPSnapshot>snapshot/NO8_LH_WE09_IDocStatus.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="BD87_CheckIDocStatus">
+      <CaseName>BD87_CheckIDocStatus</CaseName>
+      <Number>7</Number>
+      <BoxName>LH4</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>LH_IDocNo</FieldName>
+          <FieldValue>0000000544562114</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>LH_IDocStatus</FieldName>
+          <FieldValue>53</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_IDocTimeChanged</FieldName>
+          <FieldValue>08:17:23</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>9</CPSN>
+          <CPStepName>BD87.CheckIDocStatus</CPStepName>
+          <CPName>LH_BD87_IDocStatus</CPName>
+          <CPTime>8:23:50 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>53</CPExpected>
+          <CPActual>53</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO9_LH_BD87_IDocStatus.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="FB03_DisplayDocument">
+      <CaseName>FB03_DisplayDocument</CaseName>
+      <Number>8</Number>
+      <BoxName>LH4</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas>
+        <InputData>
+          <FieldName>LH_CompanyCode</FieldName>
+          <FieldValue>*</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>LH_ReferenceKey</FieldName>
+          <FieldValue>4400201550PR852015</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FB03_DisplayLayout</FieldName>
+          <FieldValue>FusionEMEA</FieldValue>
+        </InputData>
+        <InputData>
+          <FieldName>FB03_DisplayColumnName</FieldName>
+          <FieldValue>Line item,Posting Key,Account,Amount,Amount in LC,G/L Account,Business Area,Profit Center,Terms of Payment,VAT Registration No.,Baseline Payment Dte,Assignment,Payment reference,Reference Key 2,Tax code,Tax Jurisdiction,Text</FieldValue>
+        </InputData>
+      </InputDatas>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>Scenario</FieldName>
+          <FieldValue>GI</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_AccountingDocNo</FieldName>
+          <FieldValue>4200000080</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList>
+        <ColumnNames>
+          <ColumnName>Line item</ColumnName>
+          <ColumnName>Posting Key</ColumnName>
+          <ColumnName>Account</ColumnName>
+          <ColumnName>Amount</ColumnName>
+          <ColumnName>Amount in LC</ColumnName>
+          <ColumnName>G/L Account</ColumnName>
+          <ColumnName>Business Area</ColumnName>
+          <ColumnName>Profit Center</ColumnName>
+          <ColumnName>Terms of Payment</ColumnName>
+          <ColumnName>VAT Registration No</ColumnName>
+          <ColumnName>Baseline Payment Dte</ColumnName>
+          <ColumnName>Assignment</ColumnName>
+          <ColumnName>Payment reference</ColumnName>
+          <ColumnName>Reference Key 2</ColumnName>
+          <ColumnName>Tax code</ColumnName>
+          <ColumnName>Tax Jurisdiction</ColumnName>
+          <ColumnName>Text</ColumnName>
+        </ColumnNames>
+        <ColumnValues>
+          <ColumnValue>1</ColumnValue>
+          <ColumnValue>50</ColumnValue>
+          <ColumnValue>13120000</ColumnValue>
+          <ColumnValue>1.21-</ColumnValue>
+          <ColumnValue>1.21-</ColumnValue>
+          <ColumnValue>13120000</ColumnValue>
+          <ColumnValue>I600</ColumnValue>
+          <ColumnValue>P2054</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue>20151120</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+        </ColumnValues>
+        <ColumnValues>
+          <ColumnValue>2</ColumnValue>
+          <ColumnValue>40</ColumnValue>
+          <ColumnValue>34210500</ColumnValue>
+          <ColumnValue>1.21</ColumnValue>
+          <ColumnValue>1.21</ColumnValue>
+          <ColumnValue>34210500</ColumnValue>
+          <ColumnValue>I600</ColumnValue>
+          <ColumnValue>P2054</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue>20150720</ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+          <ColumnValue></ColumnValue>
+        </ColumnValues>
+      </ItemList>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>10</CPSN>
+          <CPStepName>FB03.DisplayDocumentforGridView</CPStepName>
+          <CPName>LH_FB03_DocDisplay</CPName>
+          <CPTime>8:24:50 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>1 items displayed</CPExpected>
+          <CPActual>1 items displayed</CPActual>
+          <CPCompareMode>EQUAL</CPCompareMode>
+          <CPSnapshot>snapshot/NO10_LH_FB03_DocDisplay.jpg</CPSnapshot>
+        </CheckPoint>
+        <CheckPoint>
+          <CPSN>11</CPSN>
+          <CPStepName>FB03.DisplayDocumentforGridView</CPStepName>
+          <CPName>LH_FB03_DisplayDocument</CPName>
+          <CPTime>8:25:03 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>Display Document:.*</CPExpected>
+          <CPActual>Display Document: Data Entry View</CPActual>
+          <CPCompareMode>REGEXP</CPCompareMode>
+          <CPSnapshot>snapshot/NO11_LH_FB03_DisplayDocument.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+    <TestStep Name="FB03_OutputHeaderInfo">
+      <CaseName>FB03_OutputHeaderInfo</CaseName>
+      <Number>9</Number>
+      <BoxName>LH4</BoxName>
+      <ErrorLog></ErrorLog>
+      <SAPMessage></SAPMessage>
+      <CaseStatus>Pass</CaseStatus>
+      <ErrorSnapshot></ErrorSnapshot>
+      <InputDatas/>
+      <OutputDatas>
+        <OutputData>
+          <FieldName>Scenario</FieldName>
+          <FieldValue>GI</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_CompanyCode</FieldName>
+          <FieldValue>PR85</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_DocumentType</FieldName>
+          <FieldValue>BE</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_DocHeaderText</FieldName>
+          <FieldValue></FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_Reference</FieldName>
+          <FieldValue></FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_Currency</FieldName>
+          <FieldValue>USD</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_DocumentDate</FieldName>
+          <FieldValue>20.07.2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_PostingDate</FieldName>
+          <FieldValue>20.11.2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_LogSystem</FieldName>
+          <FieldValue>606TU26010</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_ReferenceKey</FieldName>
+          <FieldValue>4400201550PR852015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_EntryDate</FieldName>
+          <FieldValue>20.07.2015</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_EntryTime</FieldName>
+          <FieldValue>08:17:22</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_FiscalYear</FieldName>
+          <FieldValue>2016</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_PostingPeriod</FieldName>
+          <FieldValue>01</FieldValue>
+        </OutputData>
+        <OutputData>
+          <FieldName>LH_FB03_EnteredBy</FieldName>
+          <FieldValue>21754379</FieldValue>
+        </OutputData>
+      </OutputDatas>
+      <ItemList/>
+      <CheckPoints>
+        <CheckPoint>
+          <CPSN>12</CPSN>
+          <CPStepName>FB03.OutputHeaderInfo</CPStepName>
+          <CPName>LH_FB03_DisplayDocHeader</CPName>
+          <CPTime>8:26:51 AM</CPTime>
+          <CPStatus>Pass</CPStatus>
+          <CPOriginalValue>		</CPOriginalValue>
+          <CPExpected>Document Header:.*</CPExpected>
+          <CPActual>Document Header: PR85 Company Code</CPActual>
+          <CPCompareMode>REGEXP</CPCompareMode>
+          <CPSnapshot>snapshot/NO12_LH_FB03_DisplayDocHeader.jpg</CPSnapshot>
+        </CheckPoint>
+      </CheckPoints>
+      <TestLog/>
+    </TestStep>
+  </Detail>
+</ReportRoot>

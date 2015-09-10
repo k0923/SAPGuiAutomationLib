@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SAPAutomation</RootNamespace>
     <AssemblyName>SAPAutomation</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -38,7 +38,8 @@
     <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Young.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -50,8 +51,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
-    <Reference Include="Young.Data">
-      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+    <Reference Include="Young.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -74,14 +76,17 @@
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
     <Compile Include="Framework\Attributes\TableBindingAttribute.cs" />
-    <Compile Include="Framework\CycleType.cs" />
-    <Compile Include="Framework\DataDirectory.cs" />
-    <Compile Include="Framework\DataInitial.cs" />
-    <Compile Include="Framework\Global.cs" />
-    <Compile Include="Framework\IRequestErrror.cs" />
-    <Compile Include="Framework\ISubmit.cs" />
+    <Compile Include="Framework\FlowControl.cs" />
+    <Compile Include="Framework\Report\CheckPoint.cs" />
+    <Compile Include="Framework\Report\EventList.cs" />
+    <Compile Include="Framework\Report\SAPReport.cs" />
+    <Compile Include="Framework\Report\Summary.cs" />
+    <Compile Include="Framework\Report\TestData.cs" />
+    <Compile Include="Framework\Report\TestStep.cs" />
     <Compile Include="Framework\SAPKeys.cs" />
     <Compile Include="Framework\SAPGuiScreen.cs" />
+    <Compile Include="Framework\Driver.cs" />
+    <Compile Include="Framework\WorkFlow.cs" />
     <Compile Include="Interfaces\IRun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Report\CheckPoint.cs" />
@@ -126,11 +131,9 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Framework\SAPException\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Young.pfx" />
+    <Content Include="Framework\Report\ReportSample.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

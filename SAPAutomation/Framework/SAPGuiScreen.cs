@@ -9,25 +9,9 @@ using Young.Data.Attributes;
 namespace SAPAutomation.Framework
 {
     [DataBinding]
-    public class SAPGuiScreen:DataDriven
+    public abstract class SAPGuiScreen:DataDriven
     {
-        public event OnRequestErrorHanlder OnRequestError;
-        public event OnRequestErrorHanlder OnRequestBlock;
-
-        //public SAPGuiScreen() {
-        //    SAPTestHelper.Current.OnRequestBlock += (s, e) => { 
-        //        if(OnRequestError!=null)
-        //        {
-        //            OnRequestBlock(this, e);
-        //        }
-        //    };
-        //    SAPTestHelper.Current.OnRequestError += (s, e) => {
-        //        if(OnRequestError!=null)
-        //        {
-        //            OnRequestError(this, e);
-        //        }
-        //    };
-        //}
+        
 
         public SAPGuiScreen()
         {
@@ -35,7 +19,7 @@ namespace SAPAutomation.Framework
         }
 
        
-
+        public abstract string TCode { get;  }
         
 
         public static SAPGuiScreen Create<T>() where T:SAPGuiScreen,new()
@@ -121,13 +105,13 @@ namespace SAPAutomation.Framework
        
     }
 
-    public class Test:SAPGuiScreen
-    {
-        public Test()
-        {
-            Test t = new Test();
-        }
-    }
+    //public class Test:SAPGuiScreen
+    //{
+    //    public Test()
+    //    {
+    //        Test t = new Test();
+    //    }
+    //}
 
     
 

@@ -9,11 +9,19 @@ using System.Text.RegularExpressions;
 using Young.Data;
 using Young.Data.Attributes;
 
-namespace Demo
+namespace MB1A
 {
     
     public class EnterGoodsIssue_Initial:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         public EnterGoodsIssue_Initial()
         {
             this.StartTransaction("MB1A");

@@ -13,6 +13,14 @@ namespace Demo
     [DataBinding("SC_102")]
     public class SC_102:SAPGuiScreen
     {
+        public override string TCode
+        {
+            get
+            {
+                return "MB1A";
+            }
+        }
+
         [ColumnBinding("Order")]
         public string Order
         {
