@@ -46,17 +46,36 @@ namespace SAPAutomation.Framework
             return screen;
         }
 
+        protected void updateScreenComponent<T>(T item) where T : SAPGuiScreen
+        {
+            _dataEngine.Update(item);
+        }
+
         protected void addCheckpoint(CheckPoint cp)
         {
             _step.CheckPoints.Add(cp);
         }
         
+        protected void addOutputValue(TestData output)
+        {
+            setTestData(_step.OutputDatas, output);
+        }
+
+        protected void addInputValue(TestData input)
+        {
+            setTestData(_step.InputDatas, input);
+        }
+
+        private void setTestData(List<TestData> datas, TestData data)
+        {
+            var myData = datas.Where(c => c.FieldName == data.FieldName).FirstOrDefault();
+            if (myData != null)
+                myData.FieldValue = data.FieldValue;
+            else
+            {
+                datas.Add(data);
+            }
+            
+        }
     }
-
-   
-   
-
-    
-
-    
 }

@@ -8,19 +8,22 @@ using System.Text;
 using Young.Data.Attributes;
 
 
-namespace Demo
+namespace Demo.MB03
 {
-    public class DisplayMaterialDocument_Overview:SAPGuiScreen
+    public class DisplayMaterialDocument_Overview:SAPGuiScreen,IFillData
     {
-       
-        [MethodBinding(Order = 0)]
         public void AccountingDocuments()
         {
             SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[7]").Press();
         }
 
-        [MethodBinding(Order =1)]
-        public DisplayDocument_Overview SelectAccount()
+        public void FillData()
+        {
+            
+        }
+
+        
+        public void SelectAccount()
         {
             var GridView = SAPTestHelper.Current.PopupWindow.FindByName<GuiGridView>("shell");
             int row = 0;
@@ -33,7 +36,6 @@ namespace Demo
                 }
             }
             GridView.DoubleClickCell(row, "Doc");
-            return new DisplayDocument_Overview();
         }
     }
 }

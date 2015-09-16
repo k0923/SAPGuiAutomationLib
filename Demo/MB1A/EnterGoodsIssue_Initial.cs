@@ -12,71 +12,37 @@ using Young.Data.Attributes;
 namespace MB1A
 {
     
-    public class EnterGoodsIssue_Initial:SAPGuiScreen
+    public class EnterGoodsIssue_Initial:SAPGuiScreen,IFillData
     {
        
-
-        public EnterGoodsIssue_Initial()
-        {
-            this.StartTransaction("MB1A");
-        }
-
         [ColumnBinding]
         [SingleSampleData("551")]
-        public string MovementType
-        {
-            get
-            {
-                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-BWARTWA").Text;
-            }
-            set
-            {
-                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-BWARTWA").Text = value;
-            }
-        }
+        public string MovementType { get; set; }
 
         [ColumnBinding]
         [SingleSampleData("5206")]
-        public string Plant
-        {
-            get
-            {
-                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-WERKS").Text;
-            }
-            set
-            {
-                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-WERKS").Text = value;
-            }
-        }
+        public string Plant { get; set; }
 
         [ColumnBinding]
         [SingleSampleData("MVTF")]
-        public string StorageLocation
-        {
-            get
-            {
-                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-LGORT").Text;
-            }
-            set
-            {
-                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-LGORT").Text = value;
-            }
-        }
+        public string StorageLocation { get; set; }
 
-        [MethodBinding(Order=5)]
-        public EnterGoodsIssue_NewItems Process()
-        {
-            this.SendKeys(SAPKeys.Enter);
-            return new EnterGoodsIssue_NewItems();
-        }
 
         [ColumnBinding(Order =10,Directory =DataDirectory.Output)]
-        public string Document
+        public string Document()
         {
-            get
-            {
-                return Regex.Replace(StatusMessage,@"\D+","");
-            }
+            var doc = Regex.Replace(StatusMessage, @"\D+", "");
+            return doc;
+        }
+
+        public void FillData()
+        {
+            if (!string.IsNullOrEmpty(MovementType))
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-BWARTWA").Text = MovementType;
+            if (!string.IsNullOrEmpty(Plant))
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-WERKS").Text = Plant;
+            if (!string.IsNullOrEmpty(StorageLocation))
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-LGORT").Text = StorageLocation;
         }
     }
 }

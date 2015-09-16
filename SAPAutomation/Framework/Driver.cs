@@ -22,7 +22,9 @@ namespace SAPAutomation.Framework
         private Driver()
         {
             _report = new SAPReport();
-           
+            _report.Summary.Start = DateTime.Now;
+            _report.Summary.Machine = Environment.MachineName;
+            _report.Summary.Executor = Environment.UserName;
         }
 
         private DataEngine _dataEngine;
@@ -38,8 +40,10 @@ namespace SAPAutomation.Framework
         {
             if(_currentStep != null)
             {
-                _currentStep.OutputDatas.AddRange(getTestData(e));
-               
+                foreach(var d in getTestData(e))
+                {
+                    setTestData(_currentStep.OutputDatas, d);
+                }
             }
         }
 
@@ -47,8 +51,23 @@ namespace SAPAutomation.Framework
         {
             if(_currentStep != null)
             {
-                _currentStep.InputDatas.AddRange(getTestData(e));
+                foreach(var d in getTestData(e))
+                {
+                    setTestData(_currentStep.InputDatas, d);
+                }
             }
+        }
+
+        private void setTestData(List<TestData> datas, TestData data)
+        {
+            var myData = datas.Where(c => c.FieldName == data.FieldName).FirstOrDefault();
+            if (myData != null)
+                myData.FieldValue = data.FieldValue;
+            else
+            {
+                datas.Add(data);
+            }
+
         }
 
         private IEnumerable<TestData> getTestData(SetPropertyArgs e)
@@ -124,9 +143,16 @@ namespace SAPAutomation.Framework
             return null;
         }
 
-        public void Finish()
+        public void SaveReport()
         {
             _report.Save("Report.xml");
+        }
+
+        public void Finish()
+        {
+            _report.Summary.End = DateTime.Now;
+            SaveReport();
+            _instance = null;
         }
         
     }

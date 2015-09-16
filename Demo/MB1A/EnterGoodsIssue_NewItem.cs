@@ -9,28 +9,16 @@ using Young.Data.Attributes;
 
 namespace MB1A
 {
-    public class EnterGoodsIssue_NewItem:SAPGuiScreen
+    public class EnterGoodsIssue_NewItem:SAPGuiScreen,IFillData
     {
-        
-
         [ColumnBinding]
         [SingleSampleData("30")]
-        public string ReasonForMvmt
-        {
-            get
-            {
-                return SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("MSEG-GRUND").Text;
-            }
-            set
-            {
-                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("MSEG-GRUND").Text = value;
-            }
-        }
+        public string ReasonForMvmt { get; set; }
 
-        [MethodBinding(Order=99)]
-        public void Process()
+        public void FillData()
         {
-            this.SendKeys(SAPKeys.Enter);
+            if (!string.IsNullOrEmpty(ReasonForMvmt))
+                SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("MSEG-GRUND").Text = ReasonForMvmt;
         }
     }
 }

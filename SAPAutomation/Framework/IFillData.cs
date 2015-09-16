@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace SAPAutomation.Framework
 {
-    public class FlowControl
+    public interface IFillData
     {
-
+        void FillData();
     }
-
-    
 }

@@ -37,6 +37,7 @@ namespace SAPAutomation.Framework.Report
         private void _steps_OnAdd(object sender, TestStep item)
         {
             item.Number = _steps.Count + 1;
+            _summary.TotalSteps += 1;
             if(_isAutoSave)
                 this.Save(_reportPath);
         }
