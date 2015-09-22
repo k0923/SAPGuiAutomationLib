@@ -76,7 +76,7 @@
     <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
     <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
     <Compile Include="Framework\Attributes\TableBindingAttribute.cs" />
-    <Compile Include="Framework\FlowControl.cs" />
+    <Compile Include="Framework\IFillData.cs" />
     <Compile Include="Framework\Report\CheckPoint.cs" />
     <Compile Include="Framework\Report\EventList.cs" />
     <Compile Include="Framework\Report\SAPReport.cs" />
@@ -135,6 +135,7 @@
     <Folder Include="Introduction\SAPGuiTools\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Framework\Report\NewReportTemplate2.xsl" />
     <Content Include="Framework\Report\ReportSample.xml" />
     <Content Include="Introduction\SAPGuiApi\Codes\codeStyle.css" />
     <Content Include="Introduction\SAPGuiApi\Codes\GetElementByCondition.html" />

@@ -11,85 +11,37 @@ using Young.Data;
 using System.Text.RegularExpressions;
 using Young.Data.Attributes;
 using MB1A;
+using Demo.WorkFlows;
 
 namespace Demo
 {
-    public class Script:DataDriven
-    {
-        [MethodBinding(Order = 1)]
-        public EnterGoodsIssue_Initial EnterGoodsIssue()
-        {
-            return new EnterGoodsIssue_Initial();
-        }
-
-        [MethodBinding(Order =2)]
-        public DisplayMaterialDocument_Initial DisplayMaterialDoc()
-        {
-            return new DisplayMaterialDocument_Initial();
-        }
-    }
+    
 
     class Program
     {
         
         static void Main(string[] args)
         {
-
-            
-
-
             SAPTestHelper.Current.SetSession();
             SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
             DataEngine de = new DataEngine();
-            DataEngine.GlobalBindingMode = new BindingMode()
-            {
-                RecusionMode = RecusionType.NoRecursion
-            };
+            //DataEngine.GlobalBindingMode = new BindingMode()
+            //{
+            //    RecusionMode = RecusionType.NoRecursion
+            //};
             de.SetData(ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll());
             ExcelHelper.Current.Close();
             de.CurrentId = 1;
 
             Driver.Current.SetDataEngine(de);
-            WorkFlow flow = Driver.Current.GetWorkFlow(typeof(CreateMaterial));
+            WorkFlow flow = Driver.Current.GetWorkFlow(typeof(MB1A_CreateGoodsIssueDoc));
+            flow.Execute();
+            flow = Driver.Current.GetWorkFlow(typeof(MB03_DisplayMaterialDocument));
             flow.Execute();
             Driver.Current.Finish();
 
 
-            var script = de.Create<Script>();
-
-
-            ExcelHelper.Current.Open(@"C:\Demo\1.xlsx", true);
-            foreach (DataTable dataTable in de.Data.Tables)
-            {
-                ExcelHelper.Current.Write(dataTable);
-            }
-            ExcelHelper.Current.Close();
-
-
-            var objs = de.Objects;
-
-            DataDriven.SetData(ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll());
-            ExcelHelper.Current.Close();
-            
-
-            DataDriven.CurrentId = 1;
-            //DataDriven.GlobalBindingModeType.SettingMode = SettingType.PropertyOnly;
-
-            SAPTestHelper.Current.SetSession();
            
-
-            SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
-            Script s = new Script();
-            s.DataBinding();
-
-            SAPTestHelper.Current.SaveLog(@"1.xml");
-
-            ExcelHelper.Current.Create(@"c:\Demo\2.xlsx");
-            foreach(DataTable dataTable in DataDriven.Data.Tables)
-            {
-                ExcelHelper.Current.Write(dataTable);
-            }
-            ExcelHelper.Current.Close();
         }
 
 
@@ -162,9 +114,9 @@ namespace Demo
             
             var screen1 = getScreenComponent<EnterGoodsIssue_Initial>();
             
-            var screen2 = getScreenComponent<EnterGoodsIssue_NewItems>();
+            //var screen2 = getScreenComponent<EnterGoodsIssue_NewItems>();
 
-            var screen3 = getScreenComponent<EnterGoodsIssue_NewItem>();
+            //var screen3 = getScreenComponent<EnterGoodsIssue_NewItem>();
         }
     }
 }

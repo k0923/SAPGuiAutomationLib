@@ -48,13 +48,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="Young.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+      <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayDocument_Overview.cs" />
-    <Compile Include="DisplayMaterialDocument_Overview.cs" />
-    <Compile Include="DisplayMaterialDocument_Initial.cs" />
+    <Compile Include="MB03\DisplayDocument_Overview.cs" />
+    <Compile Include="MB03\DisplayMaterialDocument_Overview.cs" />
+    <Compile Include="MB03\DisplayMaterialDocument_Initial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SC_101.cs" />
@@ -64,6 +64,8 @@
     <Compile Include="SC_4002.cs" />
     <Compile Include="MB1A\EnterGoodsIssue_NewItem.cs" />
     <Compile Include="MB1A\EnterGoodsIssue_NewItems.cs" />
+    <Compile Include="WorkFlows\MB03_DisplayMaterialDocument.cs" />
+    <Compile Include="WorkFlows\MB1A_CreateGoodsIssueDoc.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
