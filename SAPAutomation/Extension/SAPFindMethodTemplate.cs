@@ -99,6 +99,8 @@ namespace SAPAutomation
 
         private static T findChildByPropertyTemplate<T>(GuiComponentCollection Components, Func<T, bool> Property) where T : class
         {
+            if (Property == null)
+                Property = new Func<T, bool>(t => true);
             for (int i = 0; i < Components.Count; i++)
             {
                 var component = Components.ElementAt(i) as T;
@@ -112,6 +114,8 @@ namespace SAPAutomation
 
         private static IEnumerable<T> findChildrenByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T:class
         {
+            if (Property == null)
+                Property = new Func<T, bool>(t => true);
             for(int i=0;i<Components.Count;i++)
             {
                 var component = Components.ElementAt(i) as T;
@@ -128,6 +132,8 @@ namespace SAPAutomation
         private static IEnumerable<T> findDescendantsByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T:class
         {
             List<T> itemList = new List<T>();
+            if (Property == null)
+                Property = new Func<T, bool>(t => true);
             findDescendants<T>(Components, itemList, Property);
             return itemList;
             

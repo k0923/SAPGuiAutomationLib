@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>SAP Gui API For .NET</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+    <script src="http://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container bs-docs-container">
+        <div class="row">
+          
+            <div class="col-md-12" role="main">
+                <h1 id="doc-start">SAP Automation Script Api For .Net</h1>
+                <h3>Prerequisites</h3>
+                <p class="text-danger">Make sure SAP GUI have already installed in your PC and 
+                    <a href="enablescriptapi.html">Enable Script Api</a></p>
+                
+                <h3>Tools and Environment</h3>
+                <p>We use <a href="https://www.visualstudio.com/products/visual-studio-community-vs">Visual Studio 2015 Community</a> to <a href="environment.html">set development environment</a> and create SAP Automation Scripts</p>
+
+                <h2 id="doc-preview">A simple script</h2>
+                <iframe src="Codes/quickScript.html" width="100%" height="500"></iframe>
+
+                <h2 id="doc-logon">How to connect to SAP Gui</h2>
+                <iframe src="Codes/SAPLogon.html" width="100%" height="300"></iframe>
+
+                <h2 id="doc-get-element">How to get SAP GUI element</h2>
+                <ul>
+                    <li>
+                        <h3>By Id <small>Recommend</small></h3>
+                        <p>Using Id is the fast and simplest way to get SAP Element</p>
+                        <iframe src="Codes/GetElementById.html" width="100%"></iframe>
+                        
+                    </li>
+                    <li>
+                        <h3>By Name</h3>
+                        <p>Another way to identity a sap element is to use name,two parameters are needed, one is name the other is the sap element type</p>
+                        <iframe src="Codes/GetElementByName.html" width="100%" height="100"></iframe>
+                    </li>
+                    <li>
+                        <h3>By Condition</h3>
+                        <p>Sometime the id or name will change cause of new version or code change, but we can sure some property that won't change(may be height or width or other properties),and under this situation we can use one or more condition to identify the sap element</p>
+                        <iframe src="Codes/GetElementByCondition.html" width="100%"></iframe>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

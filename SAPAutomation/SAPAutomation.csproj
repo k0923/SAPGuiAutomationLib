@@ -131,9 +131,26 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Introduction\SAPGuiTools\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="Framework\Report\ReportSample.xml" />
+    <Content Include="Introduction\SAPGuiApi\Codes\codeStyle.css" />
+    <Content Include="Introduction\SAPGuiApi\Codes\GetElementByCondition.html" />
+    <Content Include="Introduction\SAPGuiApi\Codes\GetElementById.html" />
+    <Content Include="Introduction\SAPGuiApi\Codes\GetElementByName.html" />
+    <Content Include="Introduction\SAPGuiApi\Codes\quickScript.html" />
+    <Content Include="Introduction\SAPGuiApi\Codes\SAPLogon.html" />
+    <Content Include="Introduction\SAPGuiApi\EnableScriptApi.html" />
+    <Content Include="Introduction\SAPGuiApi\Environment.html" />
+    <Content Include="Introduction\SAPGuiApi\Images\Environment1.JPG" />
+    <Content Include="Introduction\SAPGuiApi\Images\Environment2.JPG" />
+    <Content Include="Introduction\SAPGuiApi\Images\Environment3.JPG" />
+    <Content Include="Introduction\SAPGuiApi\Images\Environment4.JPG" />
+    <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi1.jpg" />
+    <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi2.jpg" />
+    <Content Include="Introduction\SAPGuiApi\index.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
