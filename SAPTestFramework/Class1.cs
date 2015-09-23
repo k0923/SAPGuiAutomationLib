@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SAPAutomation.Framework
+namespace SAPTestFramework
 {
-    public interface IFillData
+    public class Class1
     {
-        void FillData();
     }
 }

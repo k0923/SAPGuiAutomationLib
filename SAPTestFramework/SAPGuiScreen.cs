@@ -1,4 +1,5 @@
-﻿using SAPFEWSELib;
+﻿using SAPAutomation;
+using SAPFEWSELib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,10 +7,10 @@ using System.Text;
 using Young.Data;
 using Young.Data.Attributes;
 
-namespace SAPAutomation.Framework
+namespace SAPTestFramework
 {
     [DataBinding]
-    public abstract class SAPGuiScreen:DataDriven
+    public abstract class SAPGuiScreen
     {
         
 

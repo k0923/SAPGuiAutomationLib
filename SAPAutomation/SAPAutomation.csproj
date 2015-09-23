@@ -50,11 +50,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="Young.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extension\SAPFEExtension.cs" />
@@ -68,33 +63,8 @@
     <Compile Include="Extension\SAPFindDescendantsByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Extension\TypeExtension.cs" />
-    <Compile Include="Framework\Attributes\ColumnBindingAttribute.cs" />
-    <Compile Include="Framework\Attributes\CommentAttribute.cs" />
-    <Compile Include="Framework\Attributes\MethodBindingAttribute.cs" />
-    <Compile Include="Framework\Attributes\MultiColumnBindingAttribute.cs" />
-    <Compile Include="Framework\Attributes\OrderAttribute.cs" />
-    <Compile Include="Framework\Attributes\SAPModuleAttribute.cs" />
-    <Compile Include="Framework\Attributes\SAPScreenAttribute.cs" />
-    <Compile Include="Framework\Attributes\TableBindingAttribute.cs" />
-    <Compile Include="Framework\IFillData.cs" />
-    <Compile Include="Framework\Report\CheckPoint.cs" />
-    <Compile Include="Framework\Report\EventList.cs" />
-    <Compile Include="Framework\Report\SAPReport.cs" />
-    <Compile Include="Framework\Report\Summary.cs" />
-    <Compile Include="Framework\Report\TestData.cs" />
-    <Compile Include="Framework\Report\TestStep.cs" />
-    <Compile Include="Framework\SAPKeys.cs" />
-    <Compile Include="Framework\SAPGuiScreen.cs" />
-    <Compile Include="Framework\Driver.cs" />
-    <Compile Include="Framework\WorkFlow.cs" />
-    <Compile Include="Interfaces\IRun.cs" />
+    <Compile Include="SAPKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Report\CheckPoint.cs" />
-    <Compile Include="Report\EventList.cs" />
-    <Compile Include="Report\SAPReport.cs" />
-    <Compile Include="Report\Summary.cs" />
-    <Compile Include="Report\TestData.cs" />
-    <Compile Include="Report\TestStep.cs" />
     <Compile Include="SAPGuiElement.cs" />
     <Compile Include="SAPLogon.cs" />
     <Compile Include="SAPTestHelper.cs" />
@@ -135,8 +105,6 @@
     <Folder Include="Introduction\SAPGuiTools\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Framework\Report\NewReportTemplate2.xsl" />
-    <Content Include="Framework\Report\ReportSample.xml" />
     <Content Include="Introduction\SAPGuiApi\Codes\codeStyle.css" />
     <Content Include="Introduction\SAPGuiApi\Codes\GetElementByCondition.html" />
     <Content Include="Introduction\SAPGuiApi\Codes\GetElementById.html" />

@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SAPGuiAutomationLib;
 using SAPFEWSELib;
 using System.Reflection;
-using SAPTestRunTime;
 
 namespace SAPGuiAutomationLib.Test
 {

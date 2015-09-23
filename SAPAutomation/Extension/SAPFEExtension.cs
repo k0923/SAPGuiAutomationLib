@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using SAPFEWSELib;
 using System.IO;
-using SAPAutomation.Framework;
 
 namespace SAPAutomation
 {

@@ -1,6 +1,4 @@
-﻿using SAPAutomation.Framework;
-using SAPAutomation.Framework.Attributes;
-using SAPFEWSELib;
+﻿using SAPFEWSELib;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
@@ -226,31 +224,31 @@ namespace SAPGuiAutomationLib
             return targetClass;
         }
 
-        public static CodeTypeDeclaration GetDataClass(string className, IEnumerable<SAPDataParameter> paras,SAPModuleAttribute attribute)
-        {
-            if (paras == null || paras.Count() == 0)
-                return null;
-            CodeTypeDeclaration dataClass = new CodeTypeDeclaration(className);
-            dataClass.IsClass = true;
-            dataClass.Attributes = MemberAttributes.Public;
-            CodeAttributeDeclaration declare = new CodeAttributeDeclaration() { };
-            declare.Name = "SAPModule";
-            foreach(var at in typeof(SAPModuleAttribute).GetProperties().Where(p=>p.CanWrite))
-            {
-                declare.Arguments.Add(new CodeAttributeArgument() { 
-                    Name = at.Name,
-                    Value = new CodePrimitiveExpression(at.GetValue(attribute))
-                });
-            }
-            dataClass.CustomAttributes.Add(declare);
+        //public static CodeTypeDeclaration GetDataClass(string className, IEnumerable<SAPDataParameter> paras,SAPModuleAttribute attribute)
+        //{
+        //    if (paras == null || paras.Count() == 0)
+        //        return null;
+        //    CodeTypeDeclaration dataClass = new CodeTypeDeclaration(className);
+        //    dataClass.IsClass = true;
+        //    dataClass.Attributes = MemberAttributes.Public;
+        //    CodeAttributeDeclaration declare = new CodeAttributeDeclaration() { };
+        //    declare.Name = "SAPModule";
+        //    foreach(var at in typeof(SAPModuleAttribute).GetProperties().Where(p=>p.CanWrite))
+        //    {
+        //        declare.Arguments.Add(new CodeAttributeArgument() { 
+        //            Name = at.Name,
+        //            Value = new CodePrimitiveExpression(at.GetValue(attribute))
+        //        });
+        //    }
+        //    dataClass.CustomAttributes.Add(declare);
 
             
-            foreach (var p in paras)
-            {
-                dataClass.Members.Add(p.CreatePropertyCode());
-            }
-            return dataClass;
-        }
+        //    foreach (var p in paras)
+        //    {
+        //        dataClass.Members.Add(p.CreatePropertyCode());
+        //    }
+        //    return dataClass;
+        //}
 
     }
 }

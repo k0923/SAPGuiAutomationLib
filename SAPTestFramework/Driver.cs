@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Young.Data;
 
-namespace SAPAutomation.Framework
+namespace SAPTestFramework
 {
     public class Driver
     {

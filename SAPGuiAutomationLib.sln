@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib", "SAPG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib.Test", "SAPGuiAutomationLib.Test\SAPGuiAutomationLib.Test.csproj", "{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPTestFramework", "SAPTestFramework\SAPTestFramework.csproj", "{CE6E5E7E-C22B-4D15-835B-571E3537A795}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

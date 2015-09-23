@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using Young.Data.Attributes;
 using MB1A;
 using Demo.WorkFlows;
+using SAPTestFramework;
 
 namespace Demo
 {
@@ -63,26 +64,26 @@ namespace Demo
             return GridView.GetCellValue(row, column);
         }
 
-        static void Script1()
-        {
-            SAPGuiScreen sc = null;
+        //static void Script1()
+        //{
+        //    SAPGuiScreen sc = null;
             
-            sc = new EnterGoodsIssue_Initial();
-            sc.StartTransaction("MB1A");
-            sc.DataBinding();
-            sc.SendKeys(SAPKeys.Enter);
-            sc = new EnterGoodsIssue_NewItems();
-            sc.DataBinding();
-            sc.SendKeys(SAPKeys.Enter);
-            sc = new EnterGoodsIssue_NewItem();
-            sc.DataBinding();
-            sc.SendKeys(SAPKeys.Enter);
-            sc.SendKeys(SAPKeys.Ctrl_S);
+        //    sc = new EnterGoodsIssue_Initial();
+        //    sc.StartTransaction("MB1A");
+        //    sc.DataBinding();
+        //    sc.SendKeys(SAPKeys.Enter);
+        //    sc = new EnterGoodsIssue_NewItems();
+        //    sc.DataBinding();
+        //    sc.SendKeys(SAPKeys.Enter);
+        //    sc = new EnterGoodsIssue_NewItem();
+        //    sc.DataBinding();
+        //    sc.SendKeys(SAPKeys.Enter);
+        //    sc.SendKeys(SAPKeys.Ctrl_S);
 
             
 
             
-        }
+        //}
 
         
 

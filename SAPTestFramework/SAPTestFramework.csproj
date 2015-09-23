@@ -1,20 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DDC44AB3-8EE1-41E2-9405-3DB0F7AC1FE9}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{CE6E5E7E-C22B-4D15-835B-571E3537A795}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Demo</RootNamespace>
-    <AssemblyName>Demo</AssemblyName>
+    <RootNamespace>SAPTestFramework</RootNamespace>
+    <AssemblyName>SAPTestFramework</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +24,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,50 +33,43 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\DocumentFormat.OpenXml.2.5\lib\DocumentFormat.OpenXml.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Young.Data, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Young.Data">
       <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MB03\DisplayDocument_Overview.cs" />
-    <Compile Include="MB03\DisplayMaterialDocument_Overview.cs" />
-    <Compile Include="MB03\DisplayMaterialDocument_Initial.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Attributes\CommentAttribute.cs" />
+    <Compile Include="Attributes\SAPModuleAttribute.cs" />
+    <Compile Include="Attributes\SAPScreenAttribute.cs" />
+    <Compile Include="Class1.cs" />
+    <Compile Include="Driver.cs" />
+    <Compile Include="IFillData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SC_101.cs" />
-    <Compile Include="SC_102.cs" />
-    <Compile Include="MB1A\EnterGoodsIssue_Initial.cs" />
-    <Compile Include="SC_4001.cs" />
-    <Compile Include="SC_4002.cs" />
-    <Compile Include="MB1A\EnterGoodsIssue_NewItem.cs" />
-    <Compile Include="MB1A\EnterGoodsIssue_NewItems.cs" />
-    <Compile Include="WorkFlows\MB03_DisplayMaterialDocument.cs" />
-    <Compile Include="WorkFlows\MB1A_CreateGoodsIssueDoc.cs" />
+    <Compile Include="Report\CheckPoint.cs" />
+    <Compile Include="Report\EventList.cs" />
+    <Compile Include="Report\SAPReport.cs" />
+    <Compile Include="Report\Summary.cs" />
+    <Compile Include="Report\TestData.cs" />
+    <Compile Include="Report\TestStep.cs" />
+    <Compile Include="SAPGuiScreen.cs" />
+    <Compile Include="WorkFlow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
+    <Content Include="Report\NewReportTemplate2.xsl" />
+    <Content Include="Report\ReportSample.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SAPAutomation\SAPAutomation.csproj">
       <Project>{932a714b-d806-4986-8b3b-ae2432f92992}</Project>
       <Name>SAPAutomation</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SAPTestFramework\SAPTestFramework.csproj">
-      <Project>{ce6e5e7e-c22b-4d15-835b-571e3537a795}</Project>
-      <Name>SAPTestFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
