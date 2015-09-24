@@ -117,6 +117,7 @@
     <Content Include="Introduction\SAPGuiApi\Images\Environment2.JPG" />
     <Content Include="Introduction\SAPGuiApi\Images\Environment3.JPG" />
     <Content Include="Introduction\SAPGuiApi\Images\Environment4.JPG" />
+    <Content Include="Introduction\SAPGuiApi\Images\Environment5.JPG" />
     <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi1.jpg" />
     <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi2.jpg" />
     <Content Include="Introduction\SAPGuiApi\index.html" />

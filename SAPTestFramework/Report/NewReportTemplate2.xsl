@@ -205,7 +205,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="InputData|OutputData">
+  <xsl:template match="TestData">
     <th>
       <xsl:value-of select="FieldName"/>
     </th>
@@ -228,12 +228,12 @@
         </thead>
         <tbody>
           <xsl:choose>
-            <xsl:when test="count(InputData) &gt; 0 ">
-              <xsl:for-each select="InputData">
+            <xsl:when test="count(TestData) &gt; 0 ">
+              <xsl:for-each select="TestData">
                 <xsl:if test="position() mod 2=1">
                   <tr>
                     <xsl:apply-templates select="."/>
-                    <xsl:apply-templates select="following-sibling::InputData[position()=1]"/>
+                    <xsl:apply-templates select="following-sibling::TestData[position()=1]"/>
                   </tr>
                 </xsl:if>
               </xsl:for-each>
@@ -268,12 +268,12 @@
         </thead>
         <tbody>
           <xsl:choose>
-            <xsl:when test="count(OutputData) &gt; 0">
-              <xsl:for-each select="OutputData">
+            <xsl:when test="count(TestData) &gt; 0">
+              <xsl:for-each select="TestData">
                 <xsl:if test="position() mod 2=1">
                   <tr>
                     <xsl:apply-templates select="."/>
-                    <xsl:apply-templates select="following-sibling::OutputData[position()=1]"/>
+                    <xsl:apply-templates select="following-sibling::TestData[position()=1]"/>
                   </tr>
                 </xsl:if>
               </xsl:for-each>

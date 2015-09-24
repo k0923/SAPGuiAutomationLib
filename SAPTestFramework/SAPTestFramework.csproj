@@ -42,7 +42,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Young.Data">
-      <HintPath>..\..\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
+      <HintPath>..\..\..\Visual Studio 2013\Projects\Young\Young.Data\bin\Debug\Young.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -63,7 +63,9 @@
     <Compile Include="WorkFlow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Report\NewReportTemplate2.xsl" />
+    <Content Include="Report\NewReportTemplate2.xsl">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Report\ReportSample.xml" />
   </ItemGroup>
   <ItemGroup>

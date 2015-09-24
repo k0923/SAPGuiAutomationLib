@@ -1,47 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
-using System.Threading;
-using SAPFEWSELib;
+﻿using SAPFEWSELib;
 using SAPAutomation;
-using SAPAutomation.Framework;
 using Young.Data;
-using System.Text.RegularExpressions;
-using Young.Data.Attributes;
 using MB1A;
 using Demo.WorkFlows;
 using SAPTestFramework;
+using System.Data;
+using SAPAutomation.Framework.Report;
 
 namespace Demo
 {
-    
+
 
     class Program
     {
         
         static void Main(string[] args)
         {
+            
+            
+
             SAPTestHelper.Current.SetSession();
             SAPTestHelper.Current.TurnScreenLog(ScreenLogLevel.All);
             DataEngine de = new DataEngine();
-            //DataEngine.GlobalBindingMode = new BindingMode()
-            //{
-            //    RecusionMode = RecusionType.NoRecursion
-            //};
-            de.SetData(ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll());
+            DataEngine.GlobalBindingMode = new BindingMode()
+            {
+                LoopMode = LoopType.Loop,
+                RecusionMode = RecusionType.NoRecursion
+            };
+            DataSet ds = ExcelHelper.Current.Open(@"C:\Demo\1.xlsx").ReadAll();
+            de.SetData(ds);
             ExcelHelper.Current.Close();
             de.CurrentId = 1;
 
             Driver.Current.SetDataEngine(de);
+
             WorkFlow flow = Driver.Current.GetWorkFlow(typeof(MB1A_CreateGoodsIssueDoc));
             flow.Execute();
+            
             flow = Driver.Current.GetWorkFlow(typeof(MB03_DisplayMaterialDocument));
             flow.Execute();
             Driver.Current.Finish();
 
-
+            SAPReport report = new SAPReport();
+            TestStep step1 = new TestStep();
+            report.Detail.Add(step1);
+            step1.InputDatas.Add(new TestData());
            
         }
 

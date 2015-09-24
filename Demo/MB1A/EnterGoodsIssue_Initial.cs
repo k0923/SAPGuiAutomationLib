@@ -44,5 +44,10 @@ namespace MB1A
             if (!string.IsNullOrEmpty(StorageLocation))
                 SAPTestHelper.Current.MainWindow.FindByName<GuiCTextField>("RM07M-LGORT").Text = StorageLocation;
         }
+
+        public void NewItem()
+        {
+            SAPTestHelper.Current.MainWindow.FindByName<GuiButton>("btn[8]").Press();
+        }
     }
 }
