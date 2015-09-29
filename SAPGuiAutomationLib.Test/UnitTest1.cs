@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SAPGuiAutomationLib;
 using SAPFEWSELib;
 using System.Reflection;
+using SAPAutomation;
 
 namespace SAPGuiAutomationLib.Test
 {
@@ -12,7 +13,10 @@ namespace SAPGuiAutomationLib.Test
         [TestMethod]
         public void TestMethod1()
         {
-           
+            SAPTestHelper.Current.SetSession();
+            var radio = SAPTestHelper.Current.MainWindow.FindByName<GuiTextField>("MKPF-BKTXT");
+            string tp = radio.AccLabelCollection.Count.ToString();
+
            
         }
 

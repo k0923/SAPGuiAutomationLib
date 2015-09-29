@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPLibTools", "SAPLibTools\SAPLibTools.csproj", "{DC3BA7EE-2D19-4ED5-ADF4-37318C58F396}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPGuiAutomationLib.Test", "SAPGuiAutomationLib.Test\SAPGuiAutomationLib.Test.csproj", "{0DD4D65B-7950-4146-A3D2-83DDB96C8D28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPTestFramework", "SAPTestFramework\SAPTestFramework.csproj", "{CE6E5E7E-C22B-4D15-835B-571E3537A795}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPAutomationTools", "SAPAutomationTools\SAPAutomationTools.csproj", "{44AED49E-B2D1-4947-B21D-556BED52A63A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPUserControl", "SAPUserControl\SAPUserControl.csproj", "{3DDB01A9-DC73-41D0-A4B2-858B6129A6D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CE6E5E7E-C22B-4D15-835B-571E3537A795}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44AED49E-B2D1-4947-B21D-556BED52A63A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44AED49E-B2D1-4947-B21D-556BED52A63A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44AED49E-B2D1-4947-B21D-556BED52A63A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44AED49E-B2D1-4947-B21D-556BED52A63A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDB01A9-DC73-41D0-A4B2-858B6129A6D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDB01A9-DC73-41D0-A4B2-858B6129A6D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDB01A9-DC73-41D0-A4B2-858B6129A6D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDB01A9-DC73-41D0-A4B2-858B6129A6D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

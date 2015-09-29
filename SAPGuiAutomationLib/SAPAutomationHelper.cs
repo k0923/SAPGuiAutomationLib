@@ -14,8 +14,14 @@ using System.Threading.Tasks;
 
 namespace SAPGuiAutomationLib
 {
+    public delegate void OnHandlerSessionHandler(object sender, GuiSession session);
+   
+
     public sealed class SAPAutomationHelper
     {
+        public event OnHandlerSessionHandler OnSetSession;
+        public event OnHandlerSessionHandler OnDestroySession;
+
         private static object _lockObj = new object();
         private static SAPAutomationHelper _instance;
         private bool _isFindById = true;
@@ -27,7 +33,7 @@ namespace SAPGuiAutomationLib
         private Action<RecordStep> _stepAction;
         private Action<dynamic> _hitAction;
         private Action<string> _failRequestAction;
-        private Action<dynamic> _sessionDestroy;
+        
 
 
         public GuiSession SAPGuiSession { get { return _sapGuiSession; } }
@@ -89,13 +95,15 @@ namespace SAPGuiAutomationLib
             return null;
         }
 
-        public void SetSession(GuiSession Session, Action<dynamic> SessionDestroy = null)
+        public void SetSession(GuiSession Session)
         {
             if (_sapGuiSession != null && _sapGuiSession.Record == true)
                 _sapGuiSession.Record = false;
             _sapGuiSession = Session;
+            if (OnSetSession != null)
+                OnSetSession(this, Session);
             hookSessionEvent();
-            _sessionDestroy = SessionDestroy;
+           
         }
 
         public static GuiApplication GetSAPGuiApp(int secondsOfTimeout = 10)
@@ -154,8 +162,8 @@ namespace SAPGuiAutomationLib
 
         void _sapGuiSession_Destroy(GuiSession Session)
         {
-            if (_sessionDestroy != null)
-                _sessionDestroy(Session);
+            if (OnDestroySession != null)
+                OnDestroySession(this, Session);
             _sapGuiSession = null;
         }
 

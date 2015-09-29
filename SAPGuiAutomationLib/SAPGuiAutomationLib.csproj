@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IWorking.cs" />
     <Compile Include="RecordStepExtension.cs" />
     <Compile Include="SapCompInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
