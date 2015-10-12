@@ -1,0 +1,57 @@
+﻿<Window x:Class="SAPUserControl.BatchSpyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SAPUserControl"
+        xmlns:cv="clr-namespace:SAPUserControl.Converters"
+        mc:Ignorable="d"
+        AllowsTransparency="True" WindowStyle="None"
+        
+        Topmost="True"
+        x:Name="this"
+        Opacity="0.6"
+        Background="Transparent"
+        Title="BatchSpyWindow" Height="300" Width="300">
+    <Window.Resources>
+        <cv:RectConverter x:Key="RectConverter"/>
+    </Window.Resources>
+    <Canvas
+        x:Name="cv"
+        
+        Width="{Binding ElementName=this,Path=ActualWidth}"
+            Height="{Binding ElementName=this,Path=ActualHeight}"
+        
+        MouseLeftButtonDown="Canvas_MouseLeftButtonDown"
+        MouseLeftButtonUp="cv_MouseLeftButtonUp"
+        MouseMove="Canvas_MouseMove">
+
+
+        <Path Fill="#FF40403E" Stroke="Blue">
+            <Path.Data>
+                <GeometryGroup>
+                    <RectangleGeometry x:Name="rectG_Screen">
+                        <RectangleGeometry.Rect>
+                            <MultiBinding Converter="{StaticResource RectConverter}">
+                                <Binding ElementName="this" Path="ActualWidth"/>
+                                <Binding ElementName="this" Path="ActualHeight"/>
+                            </MultiBinding>
+                        </RectangleGeometry.Rect>
+                    </RectangleGeometry>
+                    <RectangleGeometry x:Name="rectG_Area" Rect="0,0,0,0"></RectangleGeometry>
+                </GeometryGroup>
+            </Path.Data>
+        </Path>
+
+        <Rectangle 
+            Opacity="0.1" Fill="White"
+            x:Name="rect" Width="0" Height="0"  StrokeThickness="1"/>
+
+        <StackPanel Canvas.Right="10" Canvas.Bottom="10" Orientation="Horizontal" Opacity="0" x:Name="sp">
+            <Button Content="OK" x:Name="btn_OK" Click="btn_OK_Click"/>
+            <Button Margin="5,0,0,0" Content="Cancel" x:Name="btn_Cancel" Click="btn_Cancel_Click"/>
+        </StackPanel>
+        
+       
+    </Canvas>
+</Window>

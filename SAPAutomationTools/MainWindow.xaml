@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SAPAutomationTools"
         mc:Ignorable="d"
-        Title="MainWindow" Height="300" Width="300">
+        Title="MainWindow" Height="800" Width="1280">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
+        <!--<StackPanel>
             <Button Content="Screen" Click="Button_Click"/>
-        </StackPanel>
+        </StackPanel>-->
         <Frame Grid.Column="1" x:Name="frm_Main" Source="Pages/ScreenAnalysis.xaml"/>
     </Grid>
 </Window>

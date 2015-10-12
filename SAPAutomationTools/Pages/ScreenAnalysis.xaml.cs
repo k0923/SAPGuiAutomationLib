@@ -111,6 +111,7 @@ namespace SAPAutomationTools.Pages
         {
             _session = session;
             SAPAutomationHelper.Current.SetSession(_session);
+            
             if (OnSetSession != null)
             {
                 OnSetSession(_session);

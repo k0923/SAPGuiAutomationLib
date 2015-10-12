@@ -1,4 +1,5 @@
-﻿using SAPFEWSELib;
+﻿using SAPAutomation;
+using SAPFEWSELib;
 using SAPGuiAutomationLib;
 using SAPUserControl.ViewModel;
 using System;
@@ -411,20 +412,42 @@ namespace SAPUserControl
             }
         }
 
-        private void btn_ScreenShot_Click(object sender, RoutedEventArgs e)
-        {
-            //System.Windows.Forms.SaveFileDialog sfd = new System.Windows.Forms.SaveFileDialog();
-            //if (sfd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-            //{
-            //    string fileName = sfd.FileName;
-            //    SAPAutomationHelper.Current.TakeScreenShot(fileName);
-            //}
-        }
+      
 
         public void OnSetSession(object sender, GuiSession session)
         {
             throw new NotImplementedException();
         }
+
+
+        List<GuiVComponent> batchComponents;
+       
+        private void btn_BatchSpy_Click(object sender, RoutedEventArgs e)
+        { 
+            
+                batchComponents = new List<GuiVComponent>();
+                BatchSpyWindow win = new BatchSpyWindow(batchComponents);
+                win.ShowDialog();
+            
+            
+                xDoc = new XmlDocument();
+
+                XmlElement root = xDoc.CreateElement("Node");
+                root.SetAttribute("name", "root");
+                var firstComp = SAPAutomationHelper.Current.SAPGuiSession.ActiveWindow;
+
+                XmlElement temp = addNode(firstComp, root, batchComponents.Count);
+                foreach(var comp in batchComponents)
+                {
+                    addNode(comp, temp, 0);
+                }
+
+                
+                xDoc.AppendChild(root.FirstChild);
+            tv_Elements.DataContext = xDoc;
+
+        }
+        
     }
 
     public class SAPCompoentBasicInfo

@@ -50,8 +50,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchSpyWindow.xaml.cs">
+      <DependentUpon>BatchSpyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CodeHelper.cs" />
     <Compile Include="Converters\ParameterConverter.cs" />
+    <Compile Include="Converters\RectConverter.cs" />
     <Compile Include="Converters\VisiblityToBooleanConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -87,6 +91,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="BatchSpyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SAPComponents.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +129,10 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SAPAutomation\SAPAutomation.csproj">
+      <Project>{932a714b-d806-4986-8b3b-ae2432f92992}</Project>
+      <Name>SAPAutomation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SAPGuiAutomationLib\SAPGuiAutomationLib.csproj">
       <Project>{abd06d1d-77f8-43c3-ae67-bb3fd71807b4}</Project>
       <Name>SAPGuiAutomationLib</Name>

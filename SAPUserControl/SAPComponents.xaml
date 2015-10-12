@@ -32,8 +32,10 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btn_ShowAll" Click="btn_ShowAll_Click" Content="Get All Components" />
                 <Button x:Name="btn_Spy" Click="btn_Spy_Click" Content="Spy"/>
-                <Button x:Name="btn_ScreenShot" Click="btn_ScreenShot_Click" Content="Take Screenshot"/>
+                
+                <Button x:Name="btn_BatchSpy" Click="btn_BatchSpy_Click" Content="Spy By Region"/>
             </StackPanel>
+           
             <TreeView x:Name="tv_Elements"  ItemsSource="{Binding}"
                       MouseMove="tv_Elements_MouseMove" Grid.Row="1"
                   SelectedItemChanged="tv_Elements_SelectedItemChanged" ContextMenuOpening="tv_Elements_ContextMenuOpening" >

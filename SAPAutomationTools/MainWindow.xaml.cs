@@ -26,7 +26,7 @@ namespace SAPAutomationTools
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            frm_Main.Source = new Uri("ScreenAnalysis.xaml", UriKind.Relative);
+            frm_Main.Source = new Uri("Pages/ScreenAnalysis.xaml", UriKind.Relative);
         }
     }
 }
