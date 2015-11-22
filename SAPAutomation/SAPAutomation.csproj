@@ -60,6 +60,7 @@
     <Compile Include="Extension\SAPFindByNameEx.cs" />
     <Compile Include="Extension\SAPFindChildByProperty.cs" />
     <Compile Include="Extension\SAPFindChildrenByProperty.cs" />
+    <Compile Include="Extension\SAPFindDescendantByProperty.cs" />
     <Compile Include="Extension\SAPFindDescendantsByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Extension\TypeExtension.cs" />

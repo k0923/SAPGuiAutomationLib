@@ -55,7 +55,7 @@ namespace SAPUserControl
             _session.Destroy += _session_Destroy;
         }
 
-       
+
 
         void clearContent()
         {
@@ -412,7 +412,7 @@ namespace SAPUserControl
             }
         }
 
-      
+
 
         public void OnSetSession(object sender, GuiSession session)
         {
@@ -421,33 +421,36 @@ namespace SAPUserControl
 
 
         List<GuiVComponent> batchComponents;
-       
+
         private void btn_BatchSpy_Click(object sender, RoutedEventArgs e)
-        { 
-            
-                batchComponents = new List<GuiVComponent>();
-                BatchSpyWindow win = new BatchSpyWindow(batchComponents);
-                win.ShowDialog();
-            
-            
-                xDoc = new XmlDocument();
+        {
+            if (BeforeSpy != null)
+                BeforeSpy(this, new EventArgs());
+            batchComponents = new List<GuiVComponent>();
+            BatchSpyWindow win = new BatchSpyWindow(batchComponents);
+            win.ShowDialog();
 
-                XmlElement root = xDoc.CreateElement("Node");
-                root.SetAttribute("name", "root");
-                var firstComp = SAPAutomationHelper.Current.SAPGuiSession.ActiveWindow;
 
-                XmlElement temp = addNode(firstComp, root, batchComponents.Count);
-                foreach(var comp in batchComponents)
-                {
-                    addNode(comp, temp, 0);
-                }
+            xDoc = new XmlDocument();
 
-                
-                xDoc.AppendChild(root.FirstChild);
+            XmlElement root = xDoc.CreateElement("Node");
+            root.SetAttribute("name", "root");
+            var firstComp = SAPAutomationHelper.Current.SAPGuiSession.ActiveWindow;
+
+            XmlElement temp = addNode(firstComp, root, batchComponents.Count);
+            foreach (var comp in batchComponents)
+            {
+                addNode(comp, temp, 0);
+            }
+
+
+            xDoc.AppendChild(root.FirstChild);
             tv_Elements.DataContext = xDoc;
+            if (AfterSpy != null)
+                AfterSpy(this, new EventArgs());
 
         }
-        
+
     }
 
     public class SAPCompoentBasicInfo

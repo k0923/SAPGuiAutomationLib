@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<CodeSnippets
+    xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>SAPLogon</Title>
+      <Shortcut>SAPL</Shortcut>
+    </Header>
+    <Snippet>
+      <Code Language="CSharp">
+        <![CDATA[SAPLogon l = new SAPLogon();
+              l.StartProcess();
+              l.OpenConnection($address$);
+              l.Login($username$, $password$, $client$, $language$);]]>
+      </Code>
+      <Declarations>
+        <Literal>
+          <ID>address</ID>
+          <ToolTip>SAP Server Address</ToolTip>
+          <Default>""</Default>
+        </Literal>
+        <Literal>
+          <ID>username</ID>
+          <Default>""</Default>
+        </Literal>
+        <Literal>
+          <ID>password</ID>
+          <Default>""</Default>
+        </Literal>
+        <Literal>
+          <ID>client</ID>
+          <Default>"100"</Default>
+        </Literal>
+        <Literal>
+          <ID>language</ID>
+          <Default>"EN"</Default>
+        </Literal>
+      </Declarations>
+      <Imports>
+        <Import>
+          <Namespace>SAPAutomation</Namespace>
+        </Import>
+      </Imports>
+      
+    </Snippet>
+    
+  </CodeSnippet>
+</CodeSnippets>

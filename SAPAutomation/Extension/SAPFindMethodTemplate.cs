@@ -144,10 +144,10 @@ namespace SAPAutomation
             for (int i = 0; i < Components.Count; i++)
             {
                 var component = Components.ElementAt(i);
-                var tCompoent = component as T;
-                if (tCompoent != null && Property(tCompoent))
+                var tComponent = component as T;
+                if (tComponent != null && Property(tComponent))
                 {
-                    ItemList.Add(tCompoent);
+                    ItemList.Add(tComponent);
                 }
                 else if (component is GuiContainer)
                 {
@@ -159,6 +159,49 @@ namespace SAPAutomation
                 }
             }
         }
+
+        private static void findDescendant<T>(GuiComponentCollection Components, Func<T, bool> Property) where T : class
+        {
+            
+
+            for (int i = 0; i < Components.Count; i++)
+            {
+                if (item != null)
+                    return;
+                var component = Components.ElementAt(i);
+                Console.WriteLine(component.Type);
+                count++;
+                var tComponent = component as T;
+                if (tComponent != null && Property(tComponent))
+                {
+                    item = tComponent;
+                }
+                else if (component is GuiContainer)
+                {
+                    findDescendant<T>(((GuiContainer)component).Children,  Property);
+                }
+                else if (component is GuiVContainer)
+                {
+                    findDescendant<T>(((GuiVContainer)component).Children,  Property);
+                }
+            }
+
+        }
+
+        static object item;
+        static int count = 0;
+
+        private static T findDescendantByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T :class
+        {
+            item = null;
+            findDescendant<T>(Components, Property);
+            Console.WriteLine(count);
+            return item as T;
+        }
+
+       
+
+        
 
     }
 }
