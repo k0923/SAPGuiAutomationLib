@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SAPGuiDemo.SAPDemo;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -52,6 +53,17 @@ namespace SAPGuiDemo.DataEngineDemo
             Console.WriteLine($"{p.Name}:{p.Age} has scores below\nMath:{p.Math}\nEnglish:{p.English}\nHistory:{p.History}\nTotal:{p.TotalScole()}");
             
             
+        }
+
+        public static void Recursion()
+        {
+            var ds = ExcelHelper.Current.Open("SAPDemo.xlsx").ReadAll();
+            ExcelHelper.Current.Close();
+
+            DataEngine de = new DataEngine();
+            de.SetData(ds);
+            de.CurrentId = 1;
+            de.Create<MainPage>();
         }
 
 

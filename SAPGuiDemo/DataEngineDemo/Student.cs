@@ -8,7 +8,7 @@ using Young.Data;
 
 namespace SAPGuiDemo.DataEngineDemo
 {
-    [DataBinding("Students", DataMode =DataType.FromPrivateTable)]
+    [DataBinding]
     public class Student:People
     {
         [ColumnBinding]
@@ -27,10 +27,12 @@ namespace SAPGuiDemo.DataEngineDemo
         [SingleSampleData(55)]
         public int History { get; set; }
 
+        
+
         // The function should be execute after set the score data so the order = 1
         [ColumnBinding("Total",Directory = DataDirectory.Output,Order =1)]
         public int TotalScole() => English + Math + History;
 
-       
+        
     }
 }

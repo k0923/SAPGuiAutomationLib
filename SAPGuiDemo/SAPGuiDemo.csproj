@@ -47,8 +47,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataEngineDemo\ClassRoom.cs" />
     <Compile Include="DataEngineDemo\DataDemo.cs" />
+    <Compile Include="DataEngineDemo\Laptop.cs" />
     <Compile Include="DataEngineDemo\LegacyData.cs" />
     <Compile Include="DataEngineDemo\People.cs" />
     <Compile Include="DataEngineDemo\Student.cs" />
@@ -56,6 +56,7 @@
     <Compile Include="Logon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SAPDemo\MainPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -88,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Demo.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="SAPDemo.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="SAPLogon.snippet" />

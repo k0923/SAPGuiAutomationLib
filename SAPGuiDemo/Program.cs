@@ -13,7 +13,12 @@ namespace SAPGuiDemo
     {
         static void Main(string[] args)
         {
-            DataDemo.GetStudent();
+            //SAPTestHelper.Current.SetSession();
+            //SAPTestHelper.Current.MainWindow.FindDescendantByProperty<GuiOkCodeField>().Text = "SE16";
+            //DataDemo.GetStudent();
+            //SAPTestHelper.Current.SetSession();
+            
+            DataDemo.Recursion();
             Console.ReadLine();
         }
 

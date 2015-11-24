@@ -169,7 +169,7 @@ namespace SAPAutomation
                 if (item != null)
                     return;
                 var component = Components.ElementAt(i);
-                Console.WriteLine(component.Type);
+                //Console.WriteLine(component.Type);
                 count++;
                 var tComponent = component as T;
                 if (tComponent != null && Property(tComponent))

@@ -8,10 +8,13 @@ using Young.Data.Attributes;
 namespace SAPGuiDemo.DataEngineDemo
 {
     [DataBinding]
-    public class ClassRoom
+    public class Laptop
     {
-        public string RoomName { get; set; }
+        [ColumnBinding]
+        public string Model { get; set; }
 
-        
+        [ColumnBinding]
+        public string Brand { get; set; }
+
     }
 }
