@@ -53,7 +53,8 @@ namespace SAPAutomationTools.Pages
 
         void c_AfterWorking(object sender, EventArgs e)
         {
-            this.Dispatcher.BeginInvoke(new Action(() => {
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
                 this.IsEnabled = true;
                 if (pb.IsIndeterminate)
                     pb.IsIndeterminate = false;
@@ -66,12 +67,14 @@ namespace SAPAutomationTools.Pages
         {
 
 
-            this.Dispatcher.BeginInvoke(new Action(() => {
+            this.Dispatcher.BeginInvoke(new Action(() =>
+            {
                 if (this.IsEnabled)
                     this.IsEnabled = false;
             }));
 
-            pb.Dispatcher.BeginInvoke(new Action(() => {
+            pb.Dispatcher.BeginInvoke(new Action(() =>
+            {
                 if (!e.IsProcessKnow && pb.IsIndeterminate == false)
                 {
                     pb.IsIndeterminate = true; ;
@@ -111,7 +114,7 @@ namespace SAPAutomationTools.Pages
         {
             _session = session;
             SAPAutomationHelper.Current.SetSession(_session);
-            
+
             if (OnSetSession != null)
             {
                 OnSetSession(_session);
@@ -148,12 +151,13 @@ namespace SAPAutomationTools.Pages
                     for (int j = 0; j < cn.Children.Count; j++)
                     {
                         GuiSession s = cn.Children.ElementAt(j) as GuiSession;
-                        sessions.Add(new SAPSessionVM()
-                        {
-                            Id = s.Id,
-                            System = s.Info.SystemName,
-                            Transaction = s.Info.Transaction
-                        });
+                        if (!s.Busy)
+                            sessions.Add(new SAPSessionVM()
+                            {
+                                Id = s.Id,
+                                System = s.Info.SystemName,
+                                Transaction = s.Info.Transaction
+                            });
                     }
                 }
                 lv_Sessions.ItemsSource = sessions;
@@ -168,7 +172,7 @@ namespace SAPAutomationTools.Pages
 
 
 
-       
+
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -176,9 +180,9 @@ namespace SAPAutomationTools.Pages
             var win = Window.GetWindow(this);
             uc_SAPComponents.BeforeSpy += (s, e1) => { win.WindowState = WindowState.Minimized; };
             uc_SAPComponents.AfterSpy += (s, e1) => { win.WindowState = WindowState.Normal; };
-            
+
         }
 
-        
+
     }
 }

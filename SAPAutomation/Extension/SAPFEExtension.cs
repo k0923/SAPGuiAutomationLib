@@ -88,6 +88,51 @@ namespace SAPAutomation
             return Table.GetCell(row, col) as T;
         }
 
+        public static void SetBatchValues(this GuiTableControl table,List<List<Tuple<int,string>>> Values) 
+        {
+            var id = table.Id;
+            var pageSize = table.VerticalScrollbar.PageSize;
+            int row = 0;
+            int range = pageSize - 1;
+
+            for (int i = 0; i < Values.Count; i++)
+            {
+
+                if (row != 0 && row % range == 0)
+                {
+                    table.VerticalScrollbar.Position += pageSize;
+                    table = SAPTestHelper.Current.SAPGuiSession.FindById<GuiTableControl>(id);
+
+                    //table = SAPTestHelper.Current.PopupWindow.FindByName<GuiTableControl>("SAPLALDBSINGLE");
+                }
+
+                if (i < range)
+                {
+                    for(int j=0;j<Values[i].Count;j++)
+                    {
+                        var rowData = Values[i];
+                        table.GetCell(row, rowData[j].Item1).Text = rowData[j].Item2;
+                    }
+                }
+                    
+                else
+                {
+                    for (int j = 0; j < Values[i].Count; j++)
+                    {
+                        var rowData = Values[i];
+                        table.GetCell(row % range + 1, rowData[j].Item1).Text = rowData[j].Item2;
+                    }
+                   
+                }
+
+
+                row++;
+
+
+
+            }
+        }
+
         /// <summary>
         /// If use property of Entries in GuiComboBox , it will throw an error
         /// </summary>
