@@ -88,7 +88,7 @@ namespace SAPAutomation
             return Table.GetCell(row, col) as T;
         }
 
-        public static void SetBatchValues(this GuiTableControl table,List<List<Tuple<int,string>>> Values) 
+        public static void SetBatchValues(this GuiTableControl table,List<List<Tuple<int,string>>> Values,Action<int> process=null) 
         {
             var id = table.Id;
             var pageSize = table.VerticalScrollbar.PageSize;
@@ -128,7 +128,8 @@ namespace SAPAutomation
 
                 row++;
 
-
+                if (process != null)
+                    process(i+1);
 
             }
         }
