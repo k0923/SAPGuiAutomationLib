@@ -28,46 +28,60 @@ namespace SAPGuiHelper
         {
 
             bool isPress = false;
+            int i = 0;
             while (!isPress)
             {
-                var e = TreeWalker.ControlViewWalker.GetFirstChild(AutomationElement.RootElement);
-
-                while (e != null)
+                try
                 {
-                    if (e.Current.Name == windowName)
-                        break;
-                    var tempE = TreeWalker.ControlViewWalker.GetNextSibling(e);
-                    e = tempE;
+                    var e = TreeWalker.ControlViewWalker.GetFirstChild(AutomationElement.RootElement);
 
-
-                }
-
-                if (e != null && e.Current.Name == windowName)
-                {
-                    var condition1 = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.CheckBox);
-                    var checkboxElement = e.FindFirst(TreeScope.Descendants, condition1);
-                    if (checkboxElement != null)
+                    while (e != null)
                     {
-                        var checkbox = checkboxElement.GetCurrentPattern(TogglePattern.Pattern) as TogglePattern;
-                        if (checkbox.Current.ToggleState == ToggleState.Off)
+                        if (e.Current.Name == windowName)
+                            break;
+                        var tempE = TreeWalker.ControlViewWalker.GetNextSibling(e);
+                        e = tempE;
+
+
+                    }
+
+                    if (e != null && e.Current.Name == windowName)
+                    {
+                        var condition1 = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.CheckBox);
+                        var checkboxElement = e.FindFirst(TreeScope.Descendants, condition1);
+                        if (checkboxElement != null)
                         {
-                            checkbox.Toggle();
+                            var checkbox = checkboxElement.GetCurrentPattern(TogglePattern.Pattern) as TogglePattern;
+                            if (checkbox.Current.ToggleState == ToggleState.Off)
+                            {
+                                checkbox.Toggle();
+                            }
+                        }
+
+
+                        condition1 = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Button);
+                        var condition2 = new PropertyCondition(AutomationElement.AccessKeyProperty, "Alt+A");
+                        var andCondition = new AndCondition(condition1, condition2);
+                        var btnElement = e.FindFirst(TreeScope.Descendants, andCondition);
+                        if (btnElement != null)
+                        {
+                            var btn = btnElement.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
+
+                            btn.Invoke();
+                            isPress = true;
                         }
                     }
-
-
-                    condition1 = new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Button);
-                    var condition2 = new PropertyCondition(AutomationElement.AccessKeyProperty, "Alt+A");
-                    var andCondition = new AndCondition(condition1, condition2);
-                    var btnElement = e.FindFirst(TreeScope.Descendants, andCondition);
-                    if (btnElement != null)
-                    {
-                        var btn = btnElement.GetCurrentPattern(InvokePattern.Pattern) as InvokePattern;
-
-                        btn.Invoke();
-                        isPress = true;
-                    }
+                   
                 }
+                catch(Exception ex)
+                {
+                    Task.Delay(1000).Wait();
+                    Console.Clear();
+                    Console.WriteLine(windowName);
+                    Console.Write(ex.Message);
+                    Console.WriteLine(i++);
+                }
+               
             }
 
         }
