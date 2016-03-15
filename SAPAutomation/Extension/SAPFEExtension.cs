@@ -88,6 +88,12 @@ namespace SAPAutomation
             return Table.GetCell(row, col) as T;
         }
 
+        public static void SetBatchValues(this GuiTableControl table, List<string> Values, Action<int> process = null)
+        {
+            List<List<Tuple<int, string>>> datas = Values.Select(s => new List<Tuple<int, string>>() { new Tuple<int, string>(1, s) }).ToList();
+            SAPFEExtension.SetBatchValues(table, datas, process);
+        }
+
         public static void SetBatchValues(this GuiTableControl table,List<List<Tuple<int,string>>> Values,Action<int> process=null) 
         {
             var id = table.Id;
@@ -186,6 +192,59 @@ namespace SAPAutomation
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Select Tree Node Path Name, split the path name by "->"
+        /// </summary>
+        /// <param name="tree"></param>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string ChooseNode(this GuiTree tree, string path)
+        {
+            var paths = path.Split(new string[] { "->" }, StringSplitOptions.None);
+            var initialLevel = 0;
+            var myKey = "";
+            foreach (var key in tree.GetAllNodeKeys())
+            {
+                var level = tree.GetHierarchyLevel(key);
+                if (level == initialLevel)
+                {
+                    var node = tree.GetNodeTextByKey(key);
+                    if (node.ToLower().Trim() == paths[initialLevel].ToLower().Trim())
+                    {
+                        initialLevel++;
+                        if (initialLevel == paths.Count())
+                        {
+                            myKey = key;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (myKey != "")
+            {
+                List<string> keyList = new List<string>();
+                var parentKey = tree.GetParent(myKey);
+                while (parentKey.Trim() != "")
+                {
+                    keyList.Add(parentKey);
+                    parentKey = tree.GetParent(parentKey);
+                }
+                var count = keyList.Count();
+                if (count > 0)
+                {
+                    for (int i = count - 1; i >= 0; i--)
+                    {
+                        tree.ExpandNode(keyList[i]);
+                    }
+
+                }
+                tree.SelectNode(myKey);
+            }
+
+            return myKey;
+
         }
 
     }

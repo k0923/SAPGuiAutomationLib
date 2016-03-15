@@ -38,7 +38,8 @@
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Young.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -125,9 +126,6 @@
     <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi1.jpg" />
     <Content Include="Introduction\SAPGuiApi\Images\TurnonScriptApi2.jpg" />
     <Content Include="Introduction\SAPGuiApi\index.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Young.pfx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
