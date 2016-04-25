@@ -335,6 +335,19 @@ namespace SAPAutomation
         }
         #endregion
 
+        public void CloseSession() {
+            _sapGuiConnection.CloseSession(SAPGuiSession.Id);
+        }
+
+        public void CloseAllConnections() {
+            var sessionCount = _sapGuiApplication.Connections.Count;
+            for (int i = 0; i < sessionCount; i++) {
+                var connection = _sapGuiApplication.Connections.ElementAt(0) as GuiConnection;
+                connection.CloseConnection();
+            }
+        }
+
+        [Obsolete]
         public void CloseConnection()
         {
             _sapGuiConnection.CloseSession(SAPGuiSession.Id);
