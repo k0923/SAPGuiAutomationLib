@@ -211,7 +211,7 @@ namespace SAPAutomation
                 if (level == initialLevel)
                 {
                     var node = tree.GetNodeTextByKey(key);
-                    if (node.ToLower().Trim() == paths[initialLevel].ToLower().Trim())
+                    if (node.ToLower().Trim().Contains(paths[initialLevel].ToLower().Trim()))
                     {
                         initialLevel++;
                         if (initialLevel == paths.Count())
