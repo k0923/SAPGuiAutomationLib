@@ -247,5 +247,29 @@ namespace SAPAutomation
 
         }
 
+        public static void ExpandAll(this GuiTree tree) {
+            var root = tree.TopNode;
+            var rootPath = tree.GetNodePathByKey(root);
+            expandNode(tree, rootPath);
+        }
+
+        private static void expandNode(GuiTree tree, string path) {
+            string key = tree.GetNodeKeyByPath(path);
+            
+            if (tree.IsFolderExpandable(key) && tree.IsFolderExpanded(key) == false) {
+                tree.ExpandNode(key);
+            }
+            var childCount = tree.GetNodeChildrenCount(key);
+
+            if (childCount > 0) {
+                var tempPath = path;
+                for (int i = 1; i <= childCount; i++) {
+                    path += @"\" + i.ToString();
+                    expandNode(tree, path);
+                    path = tempPath;
+                }
+            }
+        }
+
     }
 }
