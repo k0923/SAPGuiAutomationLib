@@ -12,7 +12,7 @@ using System.Threading;
 
 namespace SAPAutomation
 {
-    public delegate void OnRequestErrorHanlder(object sender,SAPRequestInfoArgs e);
+    public delegate void OnRequestErrorHanlder(object sender, SAPRequestInfoArgs e);
 
     public sealed class SAPTestHelper
     {
@@ -38,29 +38,21 @@ namespace SAPAutomation
         public GuiSession SAPGuiSession { get { return _sapGuiSession; } }
         public GuiConnection SAPGuiConnection { get { return _sapGuiConnection; } }
 
-        public static GuiApplication GetSAPGuiApp(int secondsOfTimeout = 10)
-        {
+        public static GuiApplication GetSAPGuiApp(int secondsOfTimeout = 10) {
             SapROTWr.CSapROTWrapper sapROTWrapper = new SapROTWr.CSapROTWrapper();
             return getSAPGuiApp(sapROTWrapper, secondsOfTimeout);
         }
 
-        private static GuiApplication getSAPGuiApp(CSapROTWrapper sapROTWrapper, int secondsOfTimeout)
-        {
+        private static GuiApplication getSAPGuiApp(CSapROTWrapper sapROTWrapper, int secondsOfTimeout) {
 
             object SapGuilRot = sapROTWrapper.GetROTEntry("SAPGUI");
-            if (secondsOfTimeout < 0)
-            {
+            if (secondsOfTimeout < 0) {
                 throw new TimeoutException(string.Format("Can get sap script engine in {0} seconds", secondsOfTimeout));
-            }
-            else
-            {
-                if (SapGuilRot == null)
-                {
+            } else {
+                if (SapGuilRot == null) {
                     Thread.Sleep(1000);
                     return getSAPGuiApp(sapROTWrapper, secondsOfTimeout - 1);
-                }
-                else
-                {
+                } else {
                     object engine = SapGuilRot.GetType().InvokeMember("GetSCriptingEngine", System.Reflection.BindingFlags.InvokeMethod, null, SapGuilRot, null);
                     if (engine == null)
                         throw new NullReferenceException("No SAP GUI application found");
@@ -69,21 +61,17 @@ namespace SAPAutomation
             }
         }
 
-        private SAPTestHelper()
-        {
+        private SAPTestHelper() {
             this.ScreenDatas = new List<ScreenData>();
             _screenLogLevel = ScreenLogLevel.ScreenOnly;
         }
 
-        public GuiMainWindow MainWindow
-        {
+        public GuiMainWindow MainWindow {
             get { return this.GetElementById<GuiMainWindow>("wnd[0]"); }
         }
 
-        public GuiFrameWindow PopupWindow
-        {
-            get
-            {
+        public GuiFrameWindow PopupWindow {
+            get {
                 if (!(this.SAPGuiSession.ActiveWindow is GuiMainWindow))
                     return this.SAPGuiSession.ActiveWindow;
                 else
@@ -91,30 +79,21 @@ namespace SAPAutomation
             }
         }
 
-        public void TurnScreenLog(ScreenLogLevel level)
-        {
+        public void TurnScreenLog(ScreenLogLevel level) {
             _screenLogLevel = level;
-            if (_sapGuiSession != null)
-            {
-                if (_screenLogLevel == ScreenLogLevel.ScreenAndDetails || _screenLogLevel == ScreenLogLevel.All)
-                {
+            if (_sapGuiSession != null) {
+                if (_screenLogLevel == ScreenLogLevel.ScreenAndDetails || _screenLogLevel == ScreenLogLevel.All) {
                     _sapGuiSession.Record = true;
-                }
-                else
-                {
+                } else {
                     _sapGuiSession.Record = false;
                 }
             }
         }
 
-        public static SAPTestHelper Current
-        {
-            get
-            {
-                if (_instance == null)
-                {
-                    lock (_lockObj)
-                    {
+        public static SAPTestHelper Current {
+            get {
+                if (_instance == null) {
+                    lock (_lockObj) {
                         if (_instance == null)
                             _instance = new SAPTestHelper();
                     }
@@ -124,13 +103,11 @@ namespace SAPAutomation
         }
 
         #region SetSession
-        public void SetSession(SAPLogon logon)
-        {
-            SetSession(logon.SapGuiApplication, logon.SapGuiConnection, logon.SapGuiSession);
+        public void SetSession(SAPLogon logon) {
+            SetSession(logon.Application, logon.Connection, logon.Session);
         }
 
-        public void SetSession(GuiApplication application, GuiConnection connection, GuiSession session)
-        {
+        public void SetSession(GuiApplication application, GuiConnection connection, GuiSession session) {
             this._sapGuiApplication = application;
             this._sapGuiConnection = connection;
             this._sapGuiSession = session;
@@ -138,63 +115,50 @@ namespace SAPAutomation
             hookSessionEvent();
         }
 
-        public void SetSession(string BoxName)
-        {
+        public void SetSession(string BoxName) {
             var application = SAPTestHelper.GetSAPGuiApp();
             GuiConnection connection = null;
             GuiSession session = null;
             int index = application.Connections.Count - 1;
-            if (index < 0)
-            {
+            if (index < 0) {
                 throw new Exception("No SAP GUI Connections found");
             }
-            for (int i = 0; i < application.Children.Count; i++)
-            {
+            for (int i = 0; i < application.Children.Count; i++) {
                 var con = application.Children.ElementAt(i) as GuiConnection;
                 index = con.Sessions.Count - 1;
-                if (index < 0)
-                {
+                if (index < 0) {
                     throw new Exception("No SAP GUI Session Found");
                 }
-                for (int j = 0; j < con.Sessions.Count; j++)
-                {
+                for (int j = 0; j < con.Sessions.Count; j++) {
                     var ses = con.Children.ElementAt(j) as GuiSession;
-                    if (ses.Info.SystemName.ToLower() == BoxName.ToLower())
-                    {
+                    if (ses.Info.SystemName.ToLower() == BoxName.ToLower()) {
                         session = ses;
                         break;
                     }
 
                 }
-                if (session != null)
-                {
+                if (session != null) {
                     connection = con;
                     break;
                 }
             }
-            if (session != null)
-            {
+            if (session != null) {
                 SetSession(application, connection, session);
-            }
-            else
-            {
+            } else {
                 throw new Exception("No SAP GUI Session Found");
             }
         }
 
-        public void SetSession()
-        {
+        public void SetSession() {
             var application = SAPTestHelper.GetSAPGuiApp();
             int index = application.Connections.Count - 1;
-            if (index < 0)
-            {
+            if (index < 0) {
                 throw new Exception("No SAP GUI Connections found");
             }
 
             var connection = application.Children.ElementAt(index) as GuiConnection;
             index = connection.Sessions.Count - 1;
-            if (index < 0)
-            {
+            if (index < 0) {
                 throw new Exception("No SAP GUI Session Found");
             }
             var session = connection.Children.ElementAt(index) as GuiSession;
@@ -202,8 +166,7 @@ namespace SAPAutomation
             SetSession(application, connection, session);
         }
 
-        private void hookSessionEvent()
-        {
+        private void hookSessionEvent() {
             _sapGuiSession.Destroy -= _sapGuiSession_Destroy;
             _sapGuiSession.Destroy += _sapGuiSession_Destroy;
             _sapGuiSession.EndRequest -= _sapGuiSession_EndRequest;
@@ -220,39 +183,31 @@ namespace SAPAutomation
         #endregion
 
         #region Get SAP GUI Component
-        public T GetElementById<T>(string id) where T : class
-        {
+        public T GetElementById<T>(string id) where T : class {
             var component = GetElementById(id);
             T element = component as T;
             return element;
         }
 
-        public GuiComponent GetElementById(string id)
-        {
+        public GuiComponent GetElementById(string id) {
             GuiComponent component = _sapGuiSession.FindById(id);
             return component;
         }
 
-        public GuiComponent TryGetElementById(string id)
-        {
-            try
-            {
+        public GuiComponent TryGetElementById(string id) {
+            try {
                 return GetElementById(id);
             }
-            catch
-            {
+            catch {
                 return null;
             }
         }
 
-        public T TryGetElementById<T>(string id) where T : class
-        {
-            try
-            {
+        public T TryGetElementById<T>(string id) where T : class {
+            try {
                 return GetElementById<T>(id);
             }
-            catch
-            {
+            catch {
                 return null;
             }
         }
@@ -266,24 +221,16 @@ namespace SAPAutomation
         /// <param name="secondsOfFrequence"></param>
         /// <param name="secondsOfTimeout"></param>
         /// <returns></returns>
-        public T GetElementUntil<T>(string id, int secondsOfFrequence, int secondsOfTimeout) where T : class
-        {
+        public T GetElementUntil<T>(string id, int secondsOfFrequence, int secondsOfTimeout) where T : class {
             T comp = TryGetElementById<T>(id);
-            if (comp == null)
-            {
+            if (comp == null) {
                 Thread.Sleep(secondsOfFrequence * 1000);
-                if (secondsOfTimeout < 0)
-                {
+                if (secondsOfTimeout < 0) {
                     return GetElementUntil<T>(id, secondsOfFrequence, secondsOfTimeout);
-                }
-                else
-                {
-                    if (secondsOfFrequence == 0)
-                    {
+                } else {
+                    if (secondsOfFrequence == 0) {
                         return null;
-                    }
-                    else
-                    {
+                    } else {
                         return GetElementUntil<T>(id, secondsOfFrequence, secondsOfTimeout - 1);
                     }
                 }
@@ -295,22 +242,18 @@ namespace SAPAutomation
         #endregion
 
         #region ScreenShot
-        private ImageCodecInfo getEncoder(ImageFormat format)
-        {
+        private ImageCodecInfo getEncoder(ImageFormat format) {
             ImageCodecInfo[] codecs = ImageCodecInfo.GetImageDecoders();
 
-            foreach (ImageCodecInfo codec in codecs)
-            {
-                if (codec.FormatID == format.Guid)
-                {
+            foreach (ImageCodecInfo codec in codecs) {
+                if (codec.FormatID == format.Guid) {
                     return codec;
                 }
             }
             return null;
         }
 
-        public void TakeScreenShot(string filePath)
-        {
+        public void TakeScreenShot(string filePath) {
             FileInfo f = new FileInfo(filePath);
             if (!f.Directory.Exists)
                 f.Directory.Create();
@@ -321,8 +264,7 @@ namespace SAPAutomation
             System.Drawing.Imaging.Encoder myEncoder = System.Drawing.Imaging.Encoder.Quality;
             ImageCodecInfo jpgEncoder = getEncoder(ImageFormat.Jpeg);
 
-            using (var ms = new MemoryStream(screenData))
-            {
+            using (var ms = new MemoryStream(screenData)) {
                 Bitmap bmp = new Bitmap(ms);
                 EncoderParameters paras = new EncoderParameters(1);
 
@@ -348,31 +290,25 @@ namespace SAPAutomation
         }
 
         [Obsolete]
-        public void CloseConnection()
-        {
+        public void CloseConnection() {
             _sapGuiConnection.CloseSession(SAPGuiSession.Id);
             _sapGuiConnection.CloseConnection();
         }
 
-        void _sapGuiSession_Destroy(GuiSession Session)
-        {
+        void _sapGuiSession_Destroy(GuiSession Session) {
             _sapGuiSession = null;
         }
 
-        void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray)
-        {
-            if (_currentScreen != null)
-            {
-                SAPGuiElement comp = new SAPGuiElement()
-                {
+        void _sapGuiSession_Change(GuiSession Session, GuiComponent Component, object CommandArray) {
+            if (_currentScreen != null) {
+                SAPGuiElement comp = new SAPGuiElement() {
                     Id = Component.Id,
                     Type = Component.Type,
                     Name = Component.Name,
                 };
 
                 GuiVComponent vC = Component as GuiVComponent;
-                if (vC != null)
-                {
+                if (vC != null) {
                     comp.Left = vC.Left;
                     comp.Top = vC.Top;
                     comp.Width = vC.Width;
@@ -383,8 +319,7 @@ namespace SAPAutomation
 
                 object[] objs = CommandArray as object[];
                 objs = objs[0] as object[];
-                switch (objs[0].ToString().ToLower())
-                {
+                switch (objs[0].ToString().ToLower()) {
                     case "m":
                         comp.Action = BindingFlags.InvokeMethod;
                         break;
@@ -398,11 +333,9 @@ namespace SAPAutomation
 
                 var count = objs.Count();
 
-                if (count > 2)
-                {
+                if (count > 2) {
                     comp.ActionValues = new object[count - 2];
-                    for (int i = 2; i < count; i++)
-                    {
+                    for (int i = 2; i < count; i++) {
                         comp.ActionValues[i - 2] = objs[i];
                     }
                 }
@@ -410,21 +343,16 @@ namespace SAPAutomation
             }
         }
 
-        private void upperFirstChar(ref string s)
-        {
-            if (!string.IsNullOrEmpty(s))
-            {
+        private void upperFirstChar(ref string s) {
+            if (!string.IsNullOrEmpty(s)) {
                 s = char.ToUpper(s[0]) + s.Substring(1);
             }
         }
 
-        void _sapGuiSession_StartRequest(GuiSession Session)
-        {
+        void _sapGuiSession_StartRequest(GuiSession Session) {
             GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
-            if (status != null)
-            {
-                switch (status.MessageType)
-                {
+            if (status != null) {
+                switch (status.MessageType) {
                     case "E":
                         Thread.Sleep(2000);
                         break;
@@ -441,10 +369,8 @@ namespace SAPAutomation
             autoScreenShot();
         }
 
-        private void autoScreenShot()
-        {
-            if (_screenLogLevel == ScreenLogLevel.All)
-            {
+        private void autoScreenShot() {
+            if (_screenLogLevel == ScreenLogLevel.All) {
                 string name = ScreenDatas.Count.ToString() + ".jpg";
                 TakeScreenShot(name);
                 _currentScreen.ScreenShot = name;
@@ -453,31 +379,26 @@ namespace SAPAutomation
 
         public static int count = 0;
         public static int sCount = 0;
-        void _sapGuiSession_EndRequest1(GuiSession Session)
-        {
+        void _sapGuiSession_EndRequest1(GuiSession Session) {
             count++;
         }
 
-        void _sapGuiSession_StartRequest1(GuiSession Session)
-        {
+        void _sapGuiSession_StartRequest1(GuiSession Session) {
             sCount++;
         }
 
-        void _sapGuiSession_EndRequest(GuiSession Session)
-        {
+        void _sapGuiSession_EndRequest(GuiSession Session) {
             ScreenDatas.Add(_currentScreen);
             Tuple<string, string, string, int, string> sessionInfo = new Tuple<string, string, string, int, string>(Session.Info.SystemName, Session.Info.Transaction, Session.Info.Program, Session.Info.ScreenNumber, Session.ActiveWindow.Text);
 
 
             GuiStatusbar status = _sapGuiSession.FindById<GuiStatusbar>("wnd[0]/sbar");
-            if (status != null)
-            {
-                switch (status.MessageType)
-                {
+            if (status != null) {
+                switch (status.MessageType) {
                     case "E":
                         _currentScreen.Status = ScreenStatus.Fail;
                         if (OnRequestError != null)
-                            OnRequestError(this,new SAPRequestInfoArgs(status.Text));
+                            OnRequestError(this, new SAPRequestInfoArgs(status.Text));
                         break;
                     case "S":
                         _currentScreen.Status = ScreenStatus.Success;
@@ -498,23 +419,19 @@ namespace SAPAutomation
             newScreen(sessionInfo);
         }
 
-        public void End()
-        {
+        public void End() {
             autoScreenShot();
             ScreenDatas.Add(_currentScreen);
         }
 
-        public void SaveLog(string fileName)
-        {
-            using (FileStream fs = new FileStream(fileName,FileMode.Create))
-            {
+        public void SaveLog(string fileName) {
+            using (FileStream fs = new FileStream(fileName, FileMode.Create)) {
                 System.Xml.Serialization.XmlSerializer xs = new System.Xml.Serialization.XmlSerializer(typeof(List<ScreenData>));
                 xs.Serialize(fs, ScreenDatas);
             }
         }
 
-        void newScreen(Tuple<string, string, string, int, string> sessionInfo)
-        {
+        void newScreen(Tuple<string, string, string, int, string> sessionInfo) {
 
             _currentScreen = new ScreenData(sessionInfo.Item1, sessionInfo.Item2, sessionInfo.Item3, sessionInfo.Item4, sessionInfo.Item5);
         }
@@ -522,14 +439,13 @@ namespace SAPAutomation
 
     }
 
-    public class SAPRequestInfoArgs:EventArgs
+    public class SAPRequestInfoArgs : EventArgs
     {
         public string Message { get; set; }
 
         public SAPRequestInfoArgs() { }
 
-        public SAPRequestInfoArgs(string Msg)
-        {
+        public SAPRequestInfoArgs(string Msg) {
             this.Message = Msg;
         }
     }

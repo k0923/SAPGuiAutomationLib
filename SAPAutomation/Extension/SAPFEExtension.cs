@@ -96,6 +96,11 @@ namespace SAPAutomation
 
         public static void SetBatchValues(this GuiTableControl table,List<List<Tuple<int,string>>> Values,Action<int> process=null) 
         {
+            var component = table as GuiComponent;
+            while((component is GuiSession) == false) {
+                component = component.Parent;
+            }
+            var session = component as GuiSession;
             var id = table.Id;
             var pageSize = table.VerticalScrollbar.PageSize;
             int row = 0;
@@ -107,7 +112,8 @@ namespace SAPAutomation
                 if (row != 0 && row % range == 0)
                 {
                     table.VerticalScrollbar.Position += pageSize;
-                    table = SAPTestHelper.Current.SAPGuiSession.FindById<GuiTableControl>(id);
+
+                    table = session.FindById<GuiTableControl>(id);
 
                     //table = SAPTestHelper.Current.PopupWindow.FindByName<GuiTableControl>("SAPLALDBSINGLE");
                 }

@@ -67,6 +67,7 @@
     <Compile Include="Extension\SAPFindDescendantsByProperty.cs" />
     <Compile Include="Extension\SAPFindMethodTemplate.cs" />
     <Compile Include="Extension\TypeExtension.cs" />
+    <Compile Include="SAPGuiSession.cs" />
     <Compile Include="SAPKeys.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SAPGuiElement.cs" />
