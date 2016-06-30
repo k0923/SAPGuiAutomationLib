@@ -170,7 +170,7 @@ namespace SAPAutomation
                     return;
                 var component = Components.ElementAt(i);
                 
-                count++;
+                
                 var tComponent = component as T;
                 if (tComponent != null && Property(tComponent))
                 {
@@ -189,13 +189,16 @@ namespace SAPAutomation
         }
 
         static object item;
-        static int count = 0;
+        static object _lockObj = new object();
 
         private static T findDescendantByPropertyTemplate<T>(GuiComponentCollection Components,Func<T,bool> Property) where T :class
         {
-            item = null;
-            findDescendant<T>(Components, Property);
-            return item as T;
+            lock (_lockObj) {
+                item = null;
+                findDescendant<T>(Components, Property);
+                return item as T;
+            }
+            
         }
 
        

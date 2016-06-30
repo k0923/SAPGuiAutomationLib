@@ -84,7 +84,9 @@ namespace SAPAutomation
         }
 
         public GuiMainWindow MainWindow {
-            get { return FindElementById<GuiMainWindow>("wnd[0]"); }
+            get {
+                return FindElementById<GuiMainWindow>("wnd[0]");
+            }
         }
 
         public GuiFrameWindow PopupWindow {
